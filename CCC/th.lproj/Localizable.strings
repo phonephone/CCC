@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  CCC
+
+  Created by Truk Karawawattana on 10/1/2565 BE.
+  
+*/
+
+// MARK: - Login
+"Email" = "อีเมล";
+"Password" = "รหัสผ่าน";
+"Login" = "เข้าสู่ระบบ";
+"Login with Line" = "เข้าสู่ระบบด้วย Line";
+"Forget your password?" = "ลืมรหัสผ่าน ?";
+"Don't have an account?" = "ยังไม่มีบัญชี ?";
+"Sign up" = "สมัครสมาชิก";
