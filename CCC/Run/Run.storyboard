@@ -321,9 +321,9 @@
                                             <action selector="back:" destination="auz-6q-vpc" eventType="touchUpInside" id="tAV-04-zDl"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ส่งคะแนนแคลอรี่" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1dI-RW-BVk">
-                                        <rect key="frame" x="153.5" y="17" width="107.5" height="23"/>
-                                        <fontDescription key="fontDescription" name="Prompt-SemiBold" family="Prompt" pointSize="15"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ส่งคะแนนแคลอรี" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1dI-RW-BVk">
+                                        <rect key="frame" x="150" y="16.5" width="114.5" height="24.5"/>
+                                        <fontDescription key="fontDescription" name="Prompt-SemiBold" family="Prompt" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -367,7 +367,7 @@
                                                     <constraint firstAttribute="height" constant="40" id="anQ-zf-Koi"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Prompt-Regular" family="Prompt" pointSize="36"/>
-                                                <color key="textColor" name="Text_Gray"/>
+                                                <color key="textColor" name="Text_Gray_2"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -622,8 +622,8 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="แชร์" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eY0-TT-Wsq">
-                                        <rect key="frame" x="194" y="17" width="26" height="23"/>
-                                        <fontDescription key="fontDescription" name="Prompt-SemiBold" family="Prompt" pointSize="15"/>
+                                        <rect key="frame" x="193" y="16.5" width="28" height="24.5"/>
+                                        <fontDescription key="fontDescription" name="Prompt-SemiBold" family="Prompt" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -635,6 +635,16 @@
                                             <action selector="stickerClick:" destination="BrA-fe-Dsj" eventType="touchUpInside" id="Q7e-uK-toY"/>
                                         </connections>
                                     </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O84-zU-X5x">
+                                        <rect key="frame" x="273.5" y="11.5" width="74" height="34"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Template">
+                                            <color key="titleColor" name="Text_White"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="templateClick:" destination="BrA-fe-Dsj" eventType="touchUpInside" id="3ee-JH-wYl"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" name="Bg_Theme_Light"/>
                                 <constraints>
@@ -642,9 +652,11 @@
                                     <constraint firstItem="GXN-Ho-euF" firstAttribute="leading" secondItem="8Qd-so-4hQ" secondAttribute="leading" constant="10" id="4dP-L7-qWH"/>
                                     <constraint firstAttribute="trailing" secondItem="y2i-qi-9T3" secondAttribute="trailing" constant="15" id="DSb-Z0-ee5"/>
                                     <constraint firstAttribute="height" constant="57" id="Y6f-fz-NUv"/>
+                                    <constraint firstItem="O84-zU-X5x" firstAttribute="centerY" secondItem="8Qd-so-4hQ" secondAttribute="centerY" id="a4p-Zk-x1F"/>
                                     <constraint firstItem="eY0-TT-Wsq" firstAttribute="centerY" secondItem="8Qd-so-4hQ" secondAttribute="centerY" id="eRI-Pe-x3m"/>
                                     <constraint firstItem="GXN-Ho-euF" firstAttribute="centerY" secondItem="8Qd-so-4hQ" secondAttribute="centerY" id="gcc-jm-aQP"/>
                                     <constraint firstItem="eY0-TT-Wsq" firstAttribute="centerX" secondItem="8Qd-so-4hQ" secondAttribute="centerX" id="jdO-7b-oq5"/>
+                                    <constraint firstItem="O84-zU-X5x" firstAttribute="centerX" secondItem="8Qd-so-4hQ" secondAttribute="centerX" multiplier="1.5" id="lNn-Pf-4xX"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B7D-ER-WYJ" userLabel="bottomView">
@@ -927,10 +939,10 @@
         <image name="share_logo" width="632" height="256"/>
         <image name="share_time" width="252" height="267"/>
         <namedColor name="Bg_Theme_Light">
-            <color red="0.23899999260902405" green="0.41499999165534973" blue="0.62699997425079346" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.23529411764705882" green="0.41176470588235292" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="Btn_Disable">
-            <color red="0.875" green="0.88200002908706665" blue="0.90600001811981201" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.87450980392156863" green="0.88235294117647056" blue="0.90588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Btn_Red">
             <color red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -939,10 +951,13 @@
             <color red="0.10199999809265137" green="0.125" blue="0.18400000035762787" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Text_Dark_Gray">
-            <color red="0.18400000035762787" green="0.21199999749660492" blue="0.25499999523162842" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.18431372549019609" green="0.21176470588235294" blue="0.25490196078431371" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Text_Gray">
-            <color red="0.60799998044967651" green="0.60799998044967651" blue="0.60799998044967651" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Text_Gray_2">
+            <color red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Text_White">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

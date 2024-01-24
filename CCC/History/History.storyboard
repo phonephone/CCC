@@ -55,7 +55,7 @@
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28 Dec 2021 18:42 - 19:23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L5u-X6-cnH">
                                                                             <rect key="frame" x="0.0" y="23" width="274" height="20"/>
                                                                             <fontDescription key="fontDescription" name="Prompt-Regular" family="Prompt" pointSize="13"/>
-                                                                            <color key="textColor" name="Text_Gray_2"/>
+                                                                            <color key="textColor" name="Text_Gray_1"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>
@@ -99,7 +99,7 @@
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration: 00:40:32" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zmr-Ib-ZUu">
                                                                             <rect key="frame" x="23" y="0.0" width="123" height="15"/>
                                                                             <fontDescription key="fontDescription" name="Prompt-Regular" family="Prompt" pointSize="14"/>
-                                                                            <color key="textColor" name="Text_Gray_2"/>
+                                                                            <color key="textColor" name="Text_Gray_1"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>
@@ -117,7 +117,7 @@
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calories Burned: 0 kCal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XV5-80-rgj">
                                                                             <rect key="frame" x="23" y="0.0" width="160.5" height="15"/>
                                                                             <fontDescription key="fontDescription" name="Prompt-Regular" family="Prompt" pointSize="14"/>
-                                                                            <color key="textColor" name="Text_Gray_2"/>
+                                                                            <color key="textColor" name="Text_Gray_1"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>
@@ -137,7 +137,7 @@
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance: 3.21 km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sgR-P7-nbR">
                                                                     <rect key="frame" x="22.5" y="0.0" width="144" height="15"/>
                                                                     <fontDescription key="fontDescription" name="Prompt-Regular" family="Prompt" pointSize="14"/>
-                                                                    <color key="textColor" name="Text_Gray_2"/>
+                                                                    <color key="textColor" name="Text_Gray_1"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
@@ -242,8 +242,8 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ประวัติการออกกำลังกาย" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dj3-4T-aMu">
-                                        <rect key="frame" x="130" y="17" width="154.5" height="23"/>
-                                        <fontDescription key="fontDescription" name="Prompt-SemiBold" family="Prompt" pointSize="15"/>
+                                        <rect key="frame" x="124.5" y="16.5" width="165" height="24.5"/>
+                                        <fontDescription key="fontDescription" name="Prompt-SemiBold" family="Prompt" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -321,7 +321,7 @@
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28 Dec 2021 18:42 - 19:23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="70t-Tv-Bfq">
                                                                             <rect key="frame" x="0.0" y="23" width="274" height="20"/>
                                                                             <fontDescription key="fontDescription" name="Prompt-Regular" family="Prompt" pointSize="13"/>
-                                                                            <color key="textColor" name="Text_Gray_2"/>
+                                                                            <color key="textColor" name="Text_Gray_1"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>
@@ -365,7 +365,7 @@
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Duration: 00:40:32" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HHV-NI-hz3">
                                                                             <rect key="frame" x="23" y="0.0" width="123" height="15"/>
                                                                             <fontDescription key="fontDescription" name="Prompt-Regular" family="Prompt" pointSize="14"/>
-                                                                            <color key="textColor" name="Text_Gray_2"/>
+                                                                            <color key="textColor" name="Text_Gray_1"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>
@@ -383,7 +383,7 @@
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calories Burned: 0 kCal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCI-eL-z3c">
                                                                             <rect key="frame" x="23" y="0.0" width="160.5" height="15"/>
                                                                             <fontDescription key="fontDescription" name="Prompt-Regular" family="Prompt" pointSize="14"/>
-                                                                            <color key="textColor" name="Text_Gray_2"/>
+                                                                            <color key="textColor" name="Text_Gray_1"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>
@@ -403,7 +403,7 @@
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance: 3.21 km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i7a-vm-Vdd">
                                                                     <rect key="frame" x="23" y="0.0" width="143.5" height="15"/>
                                                                     <fontDescription key="fontDescription" name="Prompt-Regular" family="Prompt" pointSize="14"/>
-                                                                    <color key="textColor" name="Text_Gray_2"/>
+                                                                    <color key="textColor" name="Text_Gray_1"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
@@ -497,8 +497,8 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ส่งผล Park Run Anywhere" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pFN-im-g6g">
-                                        <rect key="frame" x="112" y="17" width="190.5" height="23"/>
-                                        <fontDescription key="fontDescription" name="Prompt-SemiBold" family="Prompt" pointSize="15"/>
+                                        <rect key="frame" x="105.5" y="16.5" width="203" height="24.5"/>
+                                        <fontDescription key="fontDescription" name="Prompt-SemiBold" family="Prompt" pointSize="16"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -555,13 +555,13 @@
         <image name="history_distance" width="46" height="45"/>
         <image name="history_duration" width="36" height="39"/>
         <namedColor name="Bg_Theme_Light">
-            <color red="0.23899999260902405" green="0.41499999165534973" blue="0.62699997425079346" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.23529411764705882" green="0.41176470588235292" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="Main_Theme_1">
-            <color red="0.16470588235294117" green="0.33333333333333331" blue="0.54117647058823526" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.094117647058823528" green="0.33725490196078434" blue="0.5607843137254902" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
-        <namedColor name="Text_Gray_2">
-            <color red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="Text_Gray_1">
+            <color red="0.41960784313725491" green="0.41960784313725491" blue="0.41960784313725491" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Text_Red">
             <color red="1" green="0.059000000357627869" blue="0.17299999296665192" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

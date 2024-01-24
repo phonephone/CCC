@@ -71,8 +71,6 @@ class Ranking: UIViewController {
           pagingViewController.view.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor),
           pagingViewController.view.topAnchor.constraint(equalTo: bottomView.topAnchor)
         ])
-        
-        
     }
     
     @IBAction func back(_ sender: UIButton) {

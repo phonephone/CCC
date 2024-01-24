@@ -10,6 +10,7 @@ import Alamofire
 import SwiftyJSON
 import ProgressHUD
 import SwiftAlertView
+import SkeletonView
 
 class ChallengeDetail_2: UIViewController {
     
@@ -62,10 +63,12 @@ class ChallengeDetail_2: UIViewController {
         print("CHALLENGE DETAIL 2")
         print(inviteID)
         
+        self.view.showAnimatedGradientSkeleton()
+        
         myScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
-        descriptionView.isHidden = true
-        ruleView.isHidden = true
-        methodView.isHidden = true
+//        descriptionView.isHidden = true
+//        ruleView.isHidden = true
+//        methodView.isHidden = true
         passcodeView.isHidden = true
         inviteView.isHidden = true
         submitBtn.disableBtn()
@@ -180,6 +183,10 @@ class ChallengeDetail_2: UIViewController {
             challengeMode = .all
             submitBtn.setTitle("เข้าร่วมการแข่งขัน", for: .normal)
             inviteView.isHidden = false
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.00) {
+            self.view.hideSkeleton()
         }
     }
     

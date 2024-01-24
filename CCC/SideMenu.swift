@@ -57,7 +57,7 @@ class SideMenu: UIViewController {
         self.sideMenuTableView.reloadData()
         
         cccIDLabel.text = "CCC ID: \(SceneDelegate.GlobalVariables.userID)"
-        versionLabel.text = "Version (\(Bundle.main.appVersionLong))"//(\(Bundle.main.appBuild))"
+        versionLabel.text = "iOS Version \(Bundle.main.appVersionLong)"//(\(Bundle.main.appBuild))"
     }
     
     override func viewDidAppear(_ animated: Bool) {

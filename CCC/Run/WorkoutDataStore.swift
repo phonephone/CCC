@@ -104,6 +104,13 @@ class WorkoutDataStore {
                             workOutArray["channel"] = "CCC Sync"
                         }
                         
+                        let step = meta?["step"]
+                        if step != nil {
+                            workOutArray["step"] = String(describing: step!)
+                        } else {
+                            workOutArray["step"] = ""
+                        }
+                        
                         workOutArray["id"] = workoutID
                         workOutArray["source_name"] = sourceName
                         workOutArray["activity_type"] = type.name
@@ -302,6 +309,116 @@ class WorkoutDataStore {
         return samples
     }
     
+    // MARK: - STEP
+    class func loadSteps(startDate:Date, completion: @escaping (Any) -> Void) {
+        let now = Date()
+        
+        var interval = DateComponents()
+        interval.day = 1
+        
+        var anchorComponents = Calendar.current.dateComponents([.day, .month, .year], from: now)
+        anchorComponents.hour = 0
+        let anchorDate = Calendar.current.date(from: anchorComponents)!
+        
+        let query = HKStatisticsCollectionQuery(
+            quantityType: HKQuantityType.quantityType(forIdentifier: .stepCount)!,
+            quantitySamplePredicate: nil,
+            options: [.cumulativeSum],
+            anchorDate: anchorDate,
+            intervalComponents: interval
+        )
+        
+        var stepsArr = [Any]()
+        var stepAndDate:[String: String] = [:]
+        query.initialResultsHandler = { _, results, error in
+            guard let results = results else {
+                print("Error returned form resultHandler = \(String(describing: error?.localizedDescription))")
+                return
+            }
+            
+            results.enumerateStatistics(from: startDate, to: now) { statistics, _ in
+                if let sum = statistics.sumQuantity() {
+                    let steps = Int(sum.doubleValue(for: HKUnit.count()))
+                    let date = DateFormatter.serverWihtTimeFormatter.string(from: statistics.startDate)
+                    
+                    //print("Amount of steps: \(steps), date: \(statistics.startDate)")
+                    stepAndDate["step"] = "\(steps)"
+                    stepAndDate["date"] = "\(date)"
+                    stepsArr.append(stepAndDate)
+                }
+            }
+            //print(stepsArr)
+            completion(stepsArr)
+        }
+        
+        let healthStore = HKHealthStore()
+        healthStore.execute(query)
+    }
+    
+    class func syncSteps(startDate:Date,
+                         completion:@escaping (Bool) -> Void) {
+        
+        HealthKitSetupAssistant.authorizeHealthKit { (authorized, error) in
+            guard authorized else {
+                if let error = error {
+                    print("HealthKit Authorization Failed : \(error.localizedDescription)")
+                }
+                return
+            }
+            
+            print("HealthKit Successfully Authorized.")
+            
+            WorkoutDataStore.loadSteps(startDate: startDate, completion: { (steps) in
+                if (steps as AnyObject).count > 0
+                {
+                    var parameters: [String: Any] = ["id":SceneDelegate.GlobalVariables.userID]
+                    parameters["data"] = steps
+                    print(JSON(parameters))
+                    
+                    let fullURL = HTTPHeaders.baseURL_V2+"step_daily/sync"
+                    let headers = HTTPHeaders.headerWithAuthorize
+                    AF.request(fullURL,
+                               method: .post,
+                               parameters: parameters,
+                               encoding: JSONEncoding.default,
+                               headers: headers,
+                               requestModifier: { $0.timeoutInterval = 60 }
+                    ).responseJSON { response in
+                        
+                        //debugPrint(response)
+                        switch response.result {
+                        case .success(let data as AnyObject):
+                            let json = JSON(data)
+                            print("SUCCESS SYNC STEP \(json)")
+                            
+                            if json["message"] == "success" {
+                                print(json["data"][0]["message"].stringValue)
+                                //ProgressHUD.showSucceed(json["data"][0]["message"].stringValue)
+                            }
+                            else{
+                                print(json["message"].stringValue)
+                                //ProgressHUD.showError(json["message"].stringValue)
+                            }
+                            completion(true)
+                            
+                        case .failure(let error):
+                            print(error.localizedDescription)
+                            //ProgressHUD.showError(error.localizedDescription)
+                            completion(false)
+                            
+                        default:
+                            fatalError("received non-dictionary JSON response")
+                        }
+                    }
+                }
+                else{
+                    print("ไม่พบข้อมูลหรือไม่ได้รับอนุญาตให้เข้าถึงข้อมูลจาก Apple Health")
+                    //ProgressHUD.showError("ไม่พบข้อมูลหรือไม่ได้รับอนุญาตให้เข้าถึงข้อมูลจาก Apple Health")
+                }
+            })// end loadSteps
+        }//end authorizeHealthKit
+    }
+    
 }//end Class
 
 // MARK: - UIViewController
@@ -309,6 +426,13 @@ extension UIViewController {
     func syncHealth(startDateStr:String) {
         let startDate = self.dateFromServerString(dateStr:startDateStr)// "2022-01-01")
         WorkoutDataStore.syncWorkouts(startDate: startDate!, completion: { (success) in
+            if success {}
+        })
+    }
+    
+    func syncSteps(startDateStr:String) {
+        let startDate = self.dateFromServerString(dateStr:startDateStr)// "2022-01-01")
+        WorkoutDataStore.syncSteps(startDate: startDate!, completion: { (success) in
             if success {}
         })
     }
@@ -370,10 +494,12 @@ extension UIViewController {
             
             results.enumerateStatistics(from: startDate, to: now) { statistics, _ in
                 if let sum = statistics.sumQuantity() {
-                    let steps = sum.doubleValue(for: HKUnit.count())
+                    let steps = Int(sum.doubleValue(for: HKUnit.count()))
+                    let date = DateFormatter.serverWihtTimeFormatter.string(from: statistics.startDate)
+                    
                     print("Amount of steps: \(steps), date: \(statistics.startDate)")
                     stepAndDate["step"] = "\(steps)"
-                    stepAndDate["date"] = "\(statistics.startDate)"
+                    stepAndDate["date"] = "\(date)"
                     stepsArr.append(stepAndDate)
                 }
             }

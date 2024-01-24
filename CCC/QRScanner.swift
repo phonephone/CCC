@@ -39,7 +39,7 @@ class QRScanner: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.setStatusBar(backgroundColor: .themeBgColor)
+        self.navigationController?.setStatusBar(backgroundColor: .themeColor)
         
         guard let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
             print("Failed to get the camera device")

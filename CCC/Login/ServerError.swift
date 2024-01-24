@@ -17,7 +17,7 @@ class ServerError: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("SERVER ERROR")
-        self.navigationController?.setStatusBar(backgroundColor: .themeBgColor)
+        self.navigationController?.setStatusBar(backgroundColor: .themeColor)
         
         let url = URL(string: "https://ccc.mots.go.th/home/content/12")!
         myWebView.load(URLRequest(url: url))

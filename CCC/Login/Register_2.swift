@@ -34,7 +34,7 @@ class Register_2: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         print("REGISTER_2")
-        self.navigationController?.setStatusBar(backgroundColor: .themeBgColor)
+        self.navigationController?.setStatusBar(backgroundColor: .themeColor)
 
         setupField(field: provinceField)
         setupField(field: amphurField)

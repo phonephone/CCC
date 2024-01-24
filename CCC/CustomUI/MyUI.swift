@@ -279,5 +279,3 @@ extension MyLabel {
         get { return textInsets.bottom }
     }
 }
-
-

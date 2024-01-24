@@ -26,7 +26,7 @@ class Register_1: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         print("REGISTER_1")
-        self.navigationController?.setStatusBar(backgroundColor: .themeBgColor)
+        self.navigationController?.setStatusBar(backgroundColor: .themeColor)
 
         setupField(field: fullNameField)
         setupField(field: idNoField)

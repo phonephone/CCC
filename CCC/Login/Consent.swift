@@ -43,7 +43,7 @@ class Consent: UIViewController, UITextViewDelegate {
         super.viewDidLoad()
         
         print("CONSENT")
-        self.navigationController?.setStatusBar(backgroundColor: .themeBgColor)
+        self.navigationController?.setStatusBar(backgroundColor: .themeColor)
         
         //print(SceneDelegate.GlobalVariables.userID)
         

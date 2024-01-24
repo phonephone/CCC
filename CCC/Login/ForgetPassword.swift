@@ -21,7 +21,7 @@ class ForgetPassword: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         print("FORGET PASSWORD")
-        self.navigationController?.setStatusBar(backgroundColor: .themeBgColor)
+        self.navigationController?.setStatusBar(backgroundColor: .themeColor)
         
         emailField.addTarget(self, action: #selector(self.textFieldDidChange(_:)),
                                   for: .editingChanged)

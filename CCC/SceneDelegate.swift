@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     struct GlobalVariables {
         static var userID = ""
-        static var userLastSynced = "2023-01-01"
+        static var userLastSynced = "2024-01-01"
         static var userHeight:Float = 170
         static var userWeight:Float = 75
         static var userLat = ""
@@ -47,7 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //userID = "17479" //พี่แจ้0
         //userID = "17480" //พี่แจ้1*
         //userID = "17481" //พี่แจ้2
-//        userID = "17358" //ป้อม test parkrun
+        //userID = "17358" //ป้อม test parkrun
         //userID = "17364" //ป้อม
         //userID = "17517" //โฟน line (U6ab18b49434959efb295ca19164df5c5)
         //userID = "17530" //ป้อม Line
@@ -123,7 +123,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
         case "2":
             let menuViewController = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "SideMenu")
-            let contentViewController = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "TabBar")
+            let contentViewController = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "TabBar_2")
             let screenSize: CGRect = UIScreen.main.bounds
             SideMenuController.preferences.basic.menuWidth = screenSize.width*0.8
             SideMenuController.preferences.basic.position = .above
@@ -171,7 +171,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            //vc.profileMode = .register
 //            vc.profileMode = .edit
             
-            //let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "TabBar") as! TabBar
+//            let vc = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "TabBar_2") as! TabBar_2
+//            vc.selectedIndex = 2
             
             //let vc = UIStoryboard.runStoryBoard.instantiateViewController(withIdentifier: "Run") as! Run
             
@@ -181,13 +182,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             //let vc = UIStoryboard.manualStoryBoard.instantiateViewController(withIdentifier: "ManualComplete") as! ManualComplete
             
-            //let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "History") as! History
-            
-            //let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "MyCalorie") as! MyCalorie
+            //let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "MyCalorie_2") as! MyCalorie_2
             
             //let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "Ranking") as! Ranking
             
-            //let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "Challenge") as! Challenge
+            //let vc = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "Challenge_2") as! Challenge_2
             
 //            let vc = UIStoryboard.challengeStoryBoard.instantiateViewController(withIdentifier: "ChallengeDetail_2") as! ChallengeDetail_2
 //            vc.challengeID = "2590"//"2581"//"2511"//"40"
@@ -195,7 +194,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //            let vc = UIStoryboard.challengeStoryBoard.instantiateViewController(withIdentifier: "ChallengeJoin_2") as! ChallengeJoin_2
 //            vc.challengeID = "2599"//"2581"//"2511"
             
-            //let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "QRScanner") as! QRScanner
+            //let vc = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "QRScanner") as! QRScanner
             
             //let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "Knowledge") as! Knowledge
             
@@ -208,6 +207,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             //let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "ServerError") as! ServerError
             
             //let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "TestWatch") as! TestWatch
+            
+            //let vc = UIStoryboard.creditStoryBoard.instantiateViewController(withIdentifier: "CreditHistory") as! CreditHistory
+            
+            //let vc = UIStoryboard.creditStoryBoard.instantiateViewController(withIdentifier: "CreditList") as! CreditList
+            
+            //let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "Home") as! Home
+            
+            //let vc = UIStoryboard.historyStoryBoard.instantiateViewController(withIdentifier: "History") as! History
             
             //navigationController = UINavigationController.init(rootViewController: vc)
             //***อย่าลืม

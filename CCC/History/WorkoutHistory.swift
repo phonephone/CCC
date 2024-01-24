@@ -53,7 +53,7 @@ class WorkoutHistory: UIViewController {
         super.viewDidLoad()
         
         print("WORKOUT HISTORY")
-        self.navigationController?.setStatusBar(backgroundColor: .themeBgColor)
+        self.navigationController?.setStatusBar(backgroundColor: .themeColor)
         
         myTableView.delegate = self
         myTableView.dataSource = self
@@ -205,7 +205,7 @@ extension WorkoutHistory: UITableViewDataSource {
             let caloriesBurned = cellArray.totalEnergyBurned?.doubleValue(for: .kilocalorie())
             let kiloCalories: Measurement<UnitEnergy> = .init(value: caloriesBurned!, unit: .kilocalories)
             //let kiloCalories = calories.converted(to: .kilocalories)
-            let formattedCalories = String(format: "แคลอรี่: %@", kiloCalories.usFormatted)
+            let formattedCalories = String(format: "แคลอรี: %@", kiloCalories.usFormatted)
             cell.cellCalories.text = formattedCalories
             
             cell.cellImportBtn.isHidden = true
@@ -262,7 +262,7 @@ extension WorkoutHistory: UITableViewDataSource {
                 cell.cellDistance.text = String(format:"ระยะทาง: %.2f km", distance)
             }
             
-            let formattedCalories = String(format: "แคลอรี่: %@ kCal", cellArray["summary_cal"].stringValue)
+            let formattedCalories = String(format: "แคลอรี: %@ kCal", cellArray["summary_cal"].stringValue)
             cell.cellCalories.text = formattedCalories
             
             switch historyMode {

@@ -82,7 +82,8 @@ class ChallengeRank_2: UIViewController {
         userImage.sd_setImage(with: URL(string:challengeJSON!["myImageUrl"].stringValue), placeholderImage: UIImage(named: "icon_profile"))
         userNameLabel.text = challengeJSON!["myName"].stringValue
         userRankLabel.text = challengeJSON!["my_rank"].stringValue//ordinalFormatter.string(from: NSNumber(value: challengeJSON!["my_rank"].intValue))
-        userCalLabel.text = challengeJSON!["my_cal"].stringValue.replacingOccurrences(of: " kcal", with: "", options: NSString.CompareOptions.literal, range: nil)
+        userCalLabel.text = challengeJSON!["my_cal"].stringValue
+        //userCalLabel.text = challengeJSON!["my_cal"].stringValue.replacingOccurrences(of: " kcal", with: "", options: NSString.CompareOptions.literal, range: nil)
         
         rankingJSON = challengeJSON!["participant_rank"]
         myTableView.reloadData()
@@ -131,7 +132,8 @@ extension ChallengeRank_2: UITableViewDataSource {
         let ordinalStr = indexPath.item+1 //cellArray["ranking"].stringValue//ordinalFormatter.string(from: NSNumber(value: cellArray["ranking"].intValue))
         let name = cellArray["first_name"].stringValue
         cell.cellName.text = "\(ordinalStr). \(name)"
-        cell.cellCalories.text = cellArray["sum"].stringValue.replacingOccurrences(of: " kcal", with: "", options: NSString.CompareOptions.literal, range: nil)
+        cell.cellCalories.text = cellArray["sum"].stringValue
+        //cell.cellCalories.text = cellArray["sum"].stringValue.replacingOccurrences(of: " kcal", with: "", options: NSString.CompareOptions.literal, range: nil)
         
         return cell
     }

@@ -43,6 +43,11 @@ class ManualForm: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var distanceStack: UIStackView!
     @IBOutlet weak var distancefield: UITextField!
+    @IBOutlet weak var tiredLabel: UILabel!
+    
+    let tiredLevelLow = "เหนื่อยน้อย"
+    let tiredLevelMedium = "เหนื่อยปานกลาง"
+    let tiredLevelHigh = "เหนื่อยมาก"
     
     @IBOutlet weak var calLabel: UILabel!
     
@@ -69,6 +74,8 @@ class ManualForm: UIViewController, UITextFieldDelegate {
         distancefield.delegate = self
         distancefield.addTarget(self, action: #selector(self.textFieldDidChange(_:)),
                                   for: .editingChanged)
+        
+        tiredLabel.isHidden = true
         
         switch manualJSON!["act_id"].stringValue {
         case "4"://วิ่ง
@@ -98,10 +105,10 @@ class ManualForm: UIViewController, UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         if textField == timeField {
-            timeField.text = String(format: "%.0f", durationMinute)
+            //timeField.text = String(format: "%.0f", durationMinute)
         }
         else if textField == distancefield {
-            distancefield.text = String(format: "%.2f", distanceKiloMeter)
+            //distancefield.text = String(format: "%.2f", distanceKiloMeter)
         }
     }
     
@@ -119,7 +126,7 @@ class ManualForm: UIViewController, UITextFieldDelegate {
             else{
                 let minute:Float? = Float(timeField.text!)
                 durationMinute = minute!
-                timeField.text = String(format: "%.0f นาที", durationMinute)
+                //timeField.text = String(format: "%.0f นาที", durationMinute)
                 calculateSummaryCal()
             }
             updateBtn()
@@ -128,23 +135,25 @@ class ManualForm: UIViewController, UITextFieldDelegate {
             if textField == timeField {
                 if timeField.text == "" {
                     durationMinute = 0
+                    tiredLabel.isHidden = true
                 }
                 else {
                     let minute:Float? = Float(timeField.text!)
                     durationMinute = minute!
-                    timeField.text = String(format: "%.0f นาที", durationMinute)
+                    //timeField.text = String(format: "%.0f นาที", durationMinute)
                 }
             }
             else if textField == distancefield {
                 if distancefield.text == "" {
                     distanceKiloMeter = 0.00
                     distanceMeter = 0
+                    tiredLabel.isHidden = true
                 }
                 else {
                     let meter:Float? = Float(distancefield.text!)
                     distanceKiloMeter = meter!
                     distanceMeter = distanceKiloMeter*1000
-                    distancefield.text = String(format: "%.2f กิโลเมตร", distanceKiloMeter)
+                    //distancefield.text = String(format: "%.2f กิโลเมตร", distanceKiloMeter)
                 }
             }
             
@@ -176,44 +185,53 @@ class ManualForm: UIViewController, UITextFieldDelegate {
         
         if manualActivity != .other {
             let averageDistance = (distanceMeter/(durationMinute*60)) * 3600/1000
-            print (averageDistance)
             switch manualActivity {
-            case .run:
-                if averageDistance >= 9.7 {
-                    calPerMinute = 9.80
-                }
-                else if averageDistance >= 8 {
-                    calPerMinute = 8.30
-                }
-                else if averageDistance < 8 {
-                    calPerMinute = 7.00
-                }
-                
             case .walk:
                 if averageDistance >= 5.2 {
                     calPerMinute = 4.30
+                    tiredLabel.text = tiredLevelHigh
                 }
-                else if averageDistance >= 4.2 {
+                else if averageDistance > 3.0 {
                     calPerMinute = 3.50
+                    tiredLabel.text = tiredLevelMedium
                 }
-                else if averageDistance < 4.2 {
+                else if averageDistance <= 3.0 {
                     calPerMinute = 2.50
+                    tiredLabel.text = tiredLevelLow
+                }
+                
+            case .run:
+                if averageDistance >= 9.7 {
+                    calPerMinute = 9.80
+                    tiredLabel.text = tiredLevelHigh
+                }
+                else if averageDistance > 6.7 {
+                    calPerMinute = 8.30
+                    tiredLabel.text = tiredLevelMedium
+                }
+                else if averageDistance <= 6.7 {
+                    calPerMinute = 7.00
+                    tiredLabel.text = tiredLevelLow
                 }
                 
             case .cycling:
                 if averageDistance >= 19.3 {
                     calPerMinute = 8.00
+                    tiredLabel.text = tiredLevelHigh
                 }
-                else if averageDistance >= 15.1 {
+                else if averageDistance > 8.9 {
                     calPerMinute = 5.80
+                    tiredLabel.text = tiredLevelMedium
                 }
-                else if averageDistance < 15.1 {
+                else if averageDistance <= 8.9 {
                     calPerMinute = 3.50
+                    tiredLabel.text = tiredLevelLow
                 }
                 
             default:
                 break
             }
+            tiredLabel.isHidden = false
         }
         summaryCal = Float((durationMinute/60)*calPerMinute*weight)
         calLabel.text = String(format: "%.0f", summaryCal)
@@ -280,7 +298,7 @@ class ManualForm: UIViewController, UITextFieldDelegate {
     
     func confirmAsk() {
         SwiftAlertView.show(title: "ยืนยันการส่งผลแบบกรอกเอง",
-                            message: "1. จำนวนแคลอรี่ของแต่ละกิจกรรมใช้ตัวเลขเฉลี่ย เพื่อให้จดจำง่าย ซึ่งใกล้เคียงกับตัวเลขจริง\n2. แนบรูปหลักฐานการออกกำลังกายด้วยทุกครั้ง",
+                            message: "1. จำนวนแคลอรีของแต่ละกิจกรรมใช้ตัวเลขเฉลี่ย เพื่อให้จดจำง่าย ซึ่งใกล้เคียงกับตัวเลขจริง\n2. แนบรูปหลักฐานการออกกำลังกายด้วยทุกครั้ง",
                             buttonTitles: "ยกเลิก", "ยืนยัน") { alert in
             //alert.backgroundColor = .yellow
             alert.titleLabel.font = .Alert_Title

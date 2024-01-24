@@ -66,7 +66,7 @@ class Share: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         
         print("SHARE")
-        self.navigationController?.setStatusBar(backgroundColor: .themeBgColor)
+        self.navigationController?.setStatusBar(backgroundColor: .themeColor)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         sharePic.addGestureRecognizer(tapGestureRecognizer)
@@ -113,7 +113,13 @@ class Share: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func changeTemplate() {
+        print("Template Click")
+        let viewTemplate = ShareTemplate(frame: templateView.frame)
         
+        for view in templateView.subviews {
+            view.removeFromSuperview()
+        }
+        templateView.addSubview(viewTemplate)
     }
     
     func addStickers(image: UIImage) {

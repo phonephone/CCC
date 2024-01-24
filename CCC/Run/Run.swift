@@ -97,12 +97,24 @@ class Run: UIViewController {
         
         print("RUN")
         
+        NotificationCenter.default.addObserver(self, selector: #selector(beforeTerminate), name: UIApplication.willTerminateNotification, object: nil)
+        
 //        cacheStep = 200
 //        cacheDistance = 0.7
 //        cacheDuration = 750
         
         clearWorkout()
     }
+    
+    @objc func beforeTerminate(notification:NSNotification) {
+        // Save your data here
+        print("Save running data...")
+        writeToAppleHealth()
+    }
+    
+//    override func viewDidDisappear(_ animated: Bool) {
+//        NotificationCenter.default.removeObserver(self)
+//    }
     
     func startPedometer() {
         activityManager.startActivityUpdates(to: OperationQueue.main) { (activity: CMMotionActivity?) in
@@ -406,6 +418,7 @@ class Run: UIViewController {
 //        ]
         
         let meta:[String:Any] = ["channel": "CCC Workout",
+                                 "step":String(format: "%d", totalStep)
             ]
         
         let workout = HKWorkout(

@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-# platform :ios, '13.0'
+platform :ios, '13.0'
 
 target 'CCC' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -14,7 +14,6 @@ pod 'ProgressHUD'
 pod 'IQKeyboardManagerSwift'
 pod 'SideMenuSwift'
 pod 'OverlayContainer'
-#pod 'Charts'
 pod 'Parchment', '~> 3.0'
 pod 'Localize-Swift', '~> 3.2'
 pod 'LineSDKSwift'

@@ -76,11 +76,13 @@ extension UIFont {
 // MARK: - UIStoryboard
 extension UIStoryboard  {
     static let mainStoryBoard = UIStoryboard(name: "Main", bundle: nil)
+    static let mainStoryBoard_2 = UIStoryboard(name: "Main_2", bundle: nil)
     static let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
     static let runStoryBoard = UIStoryboard(name: "Run", bundle: nil)
     static let manualStoryBoard = UIStoryboard(name: "Manual", bundle: nil)
     static let historyStoryBoard = UIStoryboard(name: "History", bundle: nil)
     static let challengeStoryBoard = UIStoryboard(name: "Challenge", bundle: nil)
+    static let creditStoryBoard = UIStoryboard(name: "Credit", bundle: nil)
 }
 
 
@@ -100,6 +102,7 @@ extension Bundle {
 
 // MARK: - UINavigationController
 extension UINavigationController {
+    
     func setStatusBar(backgroundColor: UIColor) {
         var statusBarFrame: CGRect
         if #available(iOS 13.0, *) {
@@ -113,6 +116,12 @@ extension UINavigationController {
         let statusBarView = UIView(frame: statusBarFrame)
         statusBarView.backgroundColor = backgroundColor
         view.addSubview(statusBarView)
+    }
+    
+    func popToViewController(ofClass: AnyClass, animated: Bool = true) {
+        if let vc = viewControllers.last(where: { $0.isKind(of: ofClass) }) {
+            popToViewController(vc, animated: animated)
+        }
     }
     
     func removeAnyViewControllers(ofKind kind: AnyClass)
@@ -153,7 +162,7 @@ extension UIViewController {
         //self.navigationController!.setViewControllers([vc], animated: true)
         
         let menuViewController = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "SideMenu")
-        let contentViewController = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "TabBar")
+        let contentViewController = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "TabBar_2")
         
         let screenSize: CGRect = UIScreen.main.bounds
         
@@ -279,7 +288,7 @@ extension UIViewController {
                    requestModifier: { $0.timeoutInterval = 60 }
         ).responseJSON { response in
             
-            debugPrint(response)
+            //debugPrint(response)
             
             switch response.result {
             case .success(let data as AnyObject):
@@ -373,14 +382,19 @@ extension UIViewController {
     }
     
     func colorFromRGB(rgbString : String) -> UIColor{
-        let rgbArray = rgbString.components(separatedBy: ", ")
+        let rgbArray = rgbString.components(separatedBy: ",")
         
-        let red = Float(rgbArray[0])!
-        let green = Float(rgbArray[1])!
-        let blue = Float(rgbArray[2])!
-        
-        let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1.0)
-        return color
+        if rgbArray.count == 3 {
+            let red = Float(rgbArray[0])!
+            let green = Float(rgbArray[1])!
+            let blue = Float(rgbArray[2])!
+            
+            let color = UIColor(red: CGFloat(red/255), green: CGFloat(green/255), blue: CGFloat(blue/255), alpha: 1.0)
+            return color
+        }
+        else {
+            return .textGray1
+        }
     }
     
     func dateFromServerString(dateStr:String) -> Date? {
@@ -443,6 +457,24 @@ extension UIView {
         
         self.layer.mask = mask
     }
+    
+    func  addTapGesture(action : @escaping ()->Void ){
+        let tap = MyTapGestureRecognizer(target: self , action: #selector(self.handleTap(_:)))
+        tap.action = action
+        tap.numberOfTapsRequired = 1
+        
+        self.addGestureRecognizer(tap)
+        self.isUserInteractionEnabled = true
+        
+    }
+    
+    @objc func handleTap(_ sender: MyTapGestureRecognizer) {
+        sender.action!()
+    }
+}
+
+class MyTapGestureRecognizer: UITapGestureRecognizer {
+    var action : (()->Void)? = nil
 }
 
 // MARK: - UIImageView
@@ -490,6 +522,16 @@ extension UIButton {
     func enableBtn() {
         isEnabled = true
         backgroundColor = UIColor.buttonRed
+        setTitleColor(.white, for: .normal)
+    }
+    
+    func disableIconBtn() {
+        isEnabled = false
+        setTitleColor(.lightGray, for: .normal)
+    }
+    
+    func enableIconBtn() {
+        isEnabled = true
         setTitleColor(.white, for: .normal)
     }
 }
@@ -606,5 +648,22 @@ extension UIAlertAction {
     var titleTextColor: UIColor? {
         get { return self.value(forKey: "titleTextColor") as? UIColor }
         set { self.setValue(newValue, forKey: "titleTextColor") }
+    }
+}
+
+// MARK: - UICollectionViewCell
+extension UICollectionViewCell {
+    func setRoundAndShadow () {
+        contentView.layer.cornerRadius = 15.0
+        contentView.layer.borderWidth = 0.0
+        contentView.layer.borderColor = UIColor.clear.cgColor
+        contentView.layer.masksToBounds = true
+
+        layer.shadowColor = UIColor.lightGray.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 0.0)
+        layer.shadowRadius = 4.0
+        layer.shadowOpacity = 0.2
+        layer.masksToBounds = false
+        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: contentView.layer.cornerRadius).cgPath
     }
 }

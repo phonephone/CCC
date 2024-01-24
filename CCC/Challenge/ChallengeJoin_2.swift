@@ -61,6 +61,8 @@ class ChallengeJoin_2: UIViewController {
         
         print("CHALLENGE JOIN 2")
         
+        self.view.showAnimatedGradientSkeleton()
+        
         myScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
         coverImage.isHidden = true
         descriptionView.isHidden = true
@@ -136,6 +138,10 @@ class ChallengeJoin_2: UIViewController {
         
         //qrPic.image = generateQRCode(from: challengeJSON!["url_invite_code"].stringValue)
         qrPic.image = generateQRCode(from: "\(SceneDelegate.GlobalVariables.userID)-\(challengeID!)")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.00) {
+            self.view.hideSkeleton()
+        }
     }
     
     func generateQRCode(from string: String) -> UIImage? {

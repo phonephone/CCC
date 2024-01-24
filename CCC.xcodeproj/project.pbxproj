@@ -17,13 +17,16 @@
 		100682872AC3F974004D64F0 /* ChallengeJoin_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100682862AC3F974004D64F0 /* ChallengeJoin_2.swift */; };
 		100682892AC409E6004D64F0 /* ChallengeRank_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 100682882AC409E6004D64F0 /* ChallengeRank_2.swift */; };
 		1008732127B4129C001CDC57 /* Consent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1008732027B4129C001CDC57 /* Consent.swift */; };
+		100A573A2B2C343B00302815 /* FacebookBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 100A57392B2C343B00302815 /* FacebookBasics */; };
+		100A573C2B2C343B00302815 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 100A573B2B2C343B00302815 /* FacebookCore */; };
+		100A573E2B2C343B00302815 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 100A573D2B2C343B00302815 /* FacebookLogin */; };
+		100A57412B2C36E200302815 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 100A57402B2C36E200302815 /* SkeletonView */; };
 		10122210279AB88100751AAE /* ManualList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1012220F279AB88100751AAE /* ManualList.swift */; };
 		10122212279AC2B300751AAE /* ManualForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10122211279AC2B300751AAE /* ManualForm.swift */; };
 		101F60DC279E918F006B88D8 /* ForgetPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101F60DB279E918E006B88D8 /* ForgetPassword.swift */; };
 		101F60DE279EB7FD006B88D8 /* ChallengeCreate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101F60DD279EB7FD006B88D8 /* ChallengeCreate.swift */; };
 		101F9FFC27C8BA6F0008BDF7 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101F9FFB27C8BA6F0008BDF7 /* History.swift */; };
 		101FA00027C8D21B0008BDF7 /* Profile_Old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101F9FFF27C8D21B0008BDF7 /* Profile_Old.swift */; };
-		101FA00227C8D6A80008BDF7 /* MyDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 101FA00127C8D6A80008BDF7 /* MyDatePicker.swift */; };
 		102A765A27AD519100326B1E /* ManualComplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 102A765927AD519100326B1E /* ManualComplete.swift */; };
 		103292FD2AE79E22004E086E /* Register_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103292FC2AE79E22004E086E /* Register_1.swift */; };
 		103292FF2AE7AD9D004E086E /* Register_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103292FE2AE7AD9D004E086E /* Register_2.swift */; };
@@ -91,25 +94,32 @@
 		103E7E50292648680074CC76 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 103E7E4F292648680074CC76 /* Assets.xcassets */; };
 		104267E82A0110EF0085E71D /* Login_Old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 104267E72A0110EF0085E71D /* Login_Old.swift */; };
 		1048ACDC27F431C8001FFC59 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1048ACDB27F431C8001FFC59 /* Setting.swift */; };
-		104E9F912AFE500A00FFC294 /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 104E9F902AFE500A00FFC294 /* FacebookCore */; };
-		104E9F932AFE500A00FFC294 /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 104E9F922AFE500A00FFC294 /* FacebookLogin */; };
-		104E9F962AFE530100FFC294 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 104E9F952AFE530100FFC294 /* GoogleSignIn */; };
 		105E20722ACEACC700791DAB /* ChallengeList_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105E20712ACEACC700791DAB /* ChallengeList_2.swift */; };
 		105F8F1327704DD000B6AB11 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 105F8F1227704DD000B6AB11 /* HealthKit.framework */; };
 		105F8F1527704F7700B6AB11 /* HealthKitSetupAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105F8F1427704F7700B6AB11 /* HealthKitSetupAssistant.swift */; };
 		105F8F1B27706E7500B6AB11 /* WorkoutDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105F8F1A27706E7500B6AB11 /* WorkoutDataStore.swift */; };
 		105F8F1D27707B7F00B6AB11 /* WorkoutHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 105F8F1C27707B7F00B6AB11 /* WorkoutHistory.swift */; };
 		106E681F2941DF8A00EADCB5 /* TestWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106E681E2941DF8A00EADCB5 /* TestWatch.swift */; };
+		1073965A2B2B6D490025B2CD /* CreditHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107396592B2B6D490025B2CD /* CreditHistory.swift */; };
+		1073965C2B2B6D620025B2CD /* Credit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1073965B2B2B6D620025B2CD /* Credit.storyboard */; };
+		1073965E2B2B84C30025B2CD /* Challenge_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073965D2B2B84C30025B2CD /* Challenge_2.swift */; };
+		107396602B2B86970025B2CD /* Profile_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073965F2B2B86970025B2CD /* Profile_2.swift */; };
+		107396622B2BED4A0025B2CD /* CreditList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107396612B2BED4A0025B2CD /* CreditList.swift */; };
+		107396642B2BF4BE0025B2CD /* CreditDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 107396632B2BF4BE0025B2CD /* CreditDetail.swift */; };
 		1073CBA6278D626E000E4364 /* Ranking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073CBA5278D626E000E4364 /* Ranking.swift */; };
 		1073CBA8278D71EE000E4364 /* RankingAll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073CBA7278D71EE000E4364 /* RankingAll.swift */; };
 		1073CBAA278DA037000E4364 /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073CBA9278DA037000E4364 /* Challenge.swift */; };
 		1073CBAC278DA577000E4364 /* ChallengeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073CBAB278DA577000E4364 /* ChallengeList.swift */; };
 		1073CBAE278DB889000E4364 /* ChallengeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1073CBAD278DB889000E4364 /* ChallengeDetail.swift */; };
+		1074AF1C2B2B5FD7002518EF /* Main_2.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1074AF1B2B2B5FD7002518EF /* Main_2.storyboard */; };
 		1075FEDC294B853B0023D140 /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1075FEDB294B853B0023D140 /* WatchConnectivityManager.swift */; };
 		1075FEDD294B853B0023D140 /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1075FEDB294B853B0023D140 /* WatchConnectivityManager.swift */; };
+		108A3C932B2C252000ADF8C7 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 108A3C922B2C252000ADF8C7 /* GoogleSignIn */; };
+		108A3C9B2B2C264700ADF8C7 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 108A3C9A2B2C264700ADF8C7 /* Charts */; };
 		108F5A792776F2B600BBB5EB /* WorkoutModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108F5A782776F2B600BBB5EB /* WorkoutModel.swift */; };
 		108F5A7B2776F38000BBB5EB /* WorkoutSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108F5A7A2776F38000BBB5EB /* WorkoutSession.swift */; };
 		108F5A7D2777010E00BBB5EB /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108F5A7C2777010E00BBB5EB /* Run.swift */; };
+		10906D422B31807200EAB9D5 /* MyMonthYearPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10906D412B31807200EAB9D5 /* MyMonthYearPicker.swift */; };
 		10952158278AAD8B00E074BF /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10952157278AAD8B00E074BF /* Profile.swift */; };
 		1095215A278AC20600E074BF /* Run_Old.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10952159278AC20600E074BF /* Run_Old.swift */; };
 		1095215C278C2EFC00E074BF /* RunSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1095215B278C2EFC00E074BF /* RunSummary.swift */; };
@@ -117,6 +127,10 @@
 		10952169278C71B000E074BF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1095216B278C71B000E074BF /* Localizable.strings */; };
 		10A4B02727DE25920058C44D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A4B02427DE25920058C44D /* AppDelegate.swift */; };
 		10A4B02A27DE269F0058C44D /* MyModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 10A4B02827DE269F0058C44D /* MyModel.xcdatamodeld */; };
+		10A807A72B2B0FD2001A4305 /* Home_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A807A62B2B0FD2001A4305 /* Home_2.swift */; };
+		10A807A92B2B1B64001A4305 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A807A82B2B1B64001A4305 /* CircularProgressView.swift */; };
+		10A807AC2B2B2F88001A4305 /* MyCalorie_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A807AB2B2B2F88001A4305 /* MyCalorie_2.swift */; };
+		10A807AE2B2B3472001A4305 /* Credit_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10A807AD2B2B3472001A4305 /* Credit_2.swift */; };
 		10B247E32B21645900E6F2D8 /* QRScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B247E22B21645800E6F2D8 /* QRScanner.swift */; };
 		10B247E72B29BCA200E6F2D8 /* keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 10B247E62B29BCA200E6F2D8 /* keys.plist */; };
 		10B247E92B29C07100E6F2D8 /* PlistParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B247E82B29C07100E6F2D8 /* PlistParser.swift */; };
@@ -139,14 +153,9 @@
 		10DDA9212982F5F100C89772 /* Prompt-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 103B63222765F56C0098CD57 /* Prompt-SemiBoldItalic.ttf */; };
 		10DDA9222982F5F100C89772 /* Prompt-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 103B631A2765F56C0098CD57 /* Prompt-Light.ttf */; };
 		10DDA9232982F5F100C89772 /* Prompt-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 103B631C2765F56C0098CD57 /* Prompt-Thin.ttf */; };
-		10FACF4A2A03F06100CC0D20 /* Algorithms in Frameworks */ = {isa = PBXBuildFile; productRef = 10FACF492A03F06100CC0D20 /* Algorithms */; };
-		10FACF4D2A03F0C500CC0D20 /* ComplexModule in Frameworks */ = {isa = PBXBuildFile; productRef = 10FACF4C2A03F0C500CC0D20 /* ComplexModule */; };
-		10FACF4F2A03F0C500CC0D20 /* Numerics in Frameworks */ = {isa = PBXBuildFile; productRef = 10FACF4E2A03F0C500CC0D20 /* Numerics */; };
-		10FACF512A03F0C500CC0D20 /* RealModule in Frameworks */ = {isa = PBXBuildFile; productRef = 10FACF502A03F0C500CC0D20 /* RealModule */; };
-		10FACF592A03F19800CC0D20 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 10FACF582A03F19800CC0D20 /* Charts */; };
 		10FC6E3528DD5DCB0010526E /* ServerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FC6E3428DD5DCB0010526E /* ServerError.swift */; };
 		10FFFC2B280B0D710078E443 /* CheckUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FFFC2A280B0D710078E443 /* CheckUpdate.swift */; };
-		3C2696E3A914FA86022C5CE2 /* Pods_CCC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 27EE989E5AFF7C07B1C42AB7 /* Pods_CCC.framework */; };
+		142953AED6A00E840FEB4402 /* Pods_CCC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF34F93DD86C19A83BF69D1F /* Pods_CCC.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -179,7 +188,6 @@
 		101F60DD279EB7FD006B88D8 /* ChallengeCreate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeCreate.swift; sourceTree = "<group>"; };
 		101F9FFB27C8BA6F0008BDF7 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		101F9FFF27C8D21B0008BDF7 /* Profile_Old.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile_Old.swift; sourceTree = "<group>"; };
-		101FA00127C8D6A80008BDF7 /* MyDatePicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyDatePicker.swift; sourceTree = "<group>"; };
 		102A765927AD519100326B1E /* ManualComplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualComplete.swift; sourceTree = "<group>"; };
 		103292FC2AE79E22004E086E /* Register_1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register_1.swift; sourceTree = "<group>"; };
 		103292FE2AE7AD9D004E086E /* Register_2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register_2.swift; sourceTree = "<group>"; };
@@ -259,15 +267,23 @@
 		105F8F1A27706E7500B6AB11 /* WorkoutDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutDataStore.swift; sourceTree = "<group>"; };
 		105F8F1C27707B7F00B6AB11 /* WorkoutHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutHistory.swift; sourceTree = "<group>"; };
 		106E681E2941DF8A00EADCB5 /* TestWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestWatch.swift; sourceTree = "<group>"; };
+		107396592B2B6D490025B2CD /* CreditHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditHistory.swift; sourceTree = "<group>"; };
+		1073965B2B2B6D620025B2CD /* Credit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Credit.storyboard; sourceTree = "<group>"; };
+		1073965D2B2B84C30025B2CD /* Challenge_2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge_2.swift; sourceTree = "<group>"; };
+		1073965F2B2B86970025B2CD /* Profile_2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile_2.swift; sourceTree = "<group>"; };
+		107396612B2BED4A0025B2CD /* CreditList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditList.swift; sourceTree = "<group>"; };
+		107396632B2BF4BE0025B2CD /* CreditDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditDetail.swift; sourceTree = "<group>"; };
 		1073CBA5278D626E000E4364 /* Ranking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ranking.swift; sourceTree = "<group>"; };
 		1073CBA7278D71EE000E4364 /* RankingAll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingAll.swift; sourceTree = "<group>"; };
 		1073CBA9278DA037000E4364 /* Challenge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
 		1073CBAB278DA577000E4364 /* ChallengeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeList.swift; sourceTree = "<group>"; };
 		1073CBAD278DB889000E4364 /* ChallengeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChallengeDetail.swift; sourceTree = "<group>"; };
+		1074AF1B2B2B5FD7002518EF /* Main_2.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main_2.storyboard; sourceTree = "<group>"; };
 		1075FEDB294B853B0023D140 /* WatchConnectivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchConnectivityManager.swift; sourceTree = "<group>"; };
 		108F5A782776F2B600BBB5EB /* WorkoutModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutModel.swift; sourceTree = "<group>"; };
 		108F5A7A2776F38000BBB5EB /* WorkoutSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutSession.swift; sourceTree = "<group>"; };
 		108F5A7C2777010E00BBB5EB /* Run.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
+		10906D412B31807200EAB9D5 /* MyMonthYearPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMonthYearPicker.swift; sourceTree = "<group>"; };
 		10952157278AAD8B00E074BF /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		10952159278AC20600E074BF /* Run_Old.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Run_Old.swift; sourceTree = "<group>"; };
 		1095215B278C2EFC00E074BF /* RunSummary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunSummary.swift; sourceTree = "<group>"; };
@@ -276,15 +292,19 @@
 		1095216C278C71B100E074BF /* th */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = th; path = th.lproj/Localizable.strings; sourceTree = "<group>"; };
 		10A4B02427DE25920058C44D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		10A4B02927DE269F0058C44D /* MyModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyModel.xcdatamodel; sourceTree = "<group>"; };
+		10A807A62B2B0FD2001A4305 /* Home_2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home_2.swift; sourceTree = "<group>"; };
+		10A807A82B2B1B64001A4305 /* CircularProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularProgressView.swift; sourceTree = "<group>"; };
+		10A807AB2B2B2F88001A4305 /* MyCalorie_2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCalorie_2.swift; sourceTree = "<group>"; };
+		10A807AD2B2B3472001A4305 /* Credit_2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credit_2.swift; sourceTree = "<group>"; };
 		10B247E22B21645800E6F2D8 /* QRScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScanner.swift; sourceTree = "<group>"; };
 		10B247E62B29BCA200E6F2D8 /* keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
 		10B247E82B29C07100E6F2D8 /* PlistParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistParser.swift; sourceTree = "<group>"; };
 		10B4791827FEB85F00F1C1C6 /* Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
 		10FC6E3428DD5DCB0010526E /* ServerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerError.swift; sourceTree = "<group>"; };
 		10FFFC2A280B0D710078E443 /* CheckUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckUpdate.swift; sourceTree = "<group>"; };
-		27EE989E5AFF7C07B1C42AB7 /* Pods_CCC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CCC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4E8C84D114A5F26CA71BB037 /* Pods-CCC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CCC.debug.xcconfig"; path = "Target Support Files/Pods-CCC/Pods-CCC.debug.xcconfig"; sourceTree = "<group>"; };
-		EA3E0AD9438E3C24E7461C2B /* Pods-CCC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CCC.release.xcconfig"; path = "Target Support Files/Pods-CCC/Pods-CCC.release.xcconfig"; sourceTree = "<group>"; };
+		DF34F93DD86C19A83BF69D1F /* Pods_CCC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CCC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7AA5DBEB09F480EA88241F5 /* Pods-CCC.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CCC.release.xcconfig"; path = "Target Support Files/Pods-CCC/Pods-CCC.release.xcconfig"; sourceTree = "<group>"; };
+		FA63814023DAC78E4DBC81C8 /* Pods-CCC.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CCC.debug.xcconfig"; path = "Target Support Files/Pods-CCC/Pods-CCC.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -292,16 +312,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				100A573E2B2C343B00302815 /* FacebookLogin in Frameworks */,
+				108A3C9B2B2C264700ADF8C7 /* Charts in Frameworks */,
+				100A573C2B2C343B00302815 /* FacebookCore in Frameworks */,
 				105F8F1327704DD000B6AB11 /* HealthKit.framework in Frameworks */,
-				10FACF4D2A03F0C500CC0D20 /* ComplexModule in Frameworks */,
-				10FACF592A03F19800CC0D20 /* Charts in Frameworks */,
-				10FACF512A03F0C500CC0D20 /* RealModule in Frameworks */,
-				10FACF4A2A03F06100CC0D20 /* Algorithms in Frameworks */,
-				104E9F962AFE530100FFC294 /* GoogleSignIn in Frameworks */,
-				104E9F932AFE500A00FFC294 /* FacebookLogin in Frameworks */,
-				10FACF4F2A03F0C500CC0D20 /* Numerics in Frameworks */,
-				3C2696E3A914FA86022C5CE2 /* Pods_CCC.framework in Frameworks */,
-				104E9F912AFE500A00FFC294 /* FacebookCore in Frameworks */,
+				100A57412B2C36E200302815 /* SkeletonView in Frameworks */,
+				100A573A2B2C343B00302815 /* FacebookBasics in Frameworks */,
+				108A3C932B2C252000ADF8C7 /* GoogleSignIn in Frameworks */,
+				142953AED6A00E840FEB4402 /* Pods_CCC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,10 +366,7 @@
 				103292FC2AE79E22004E086E /* Register_1.swift */,
 				103292FE2AE7AD9D004E086E /* Register_2.swift */,
 				103293002AE7B3A1004E086E /* Register_3.swift */,
-				10952157278AAD8B00E074BF /* Profile.swift */,
 				10FC6E3428DD5DCB0010526E /* ServerError.swift */,
-				104267E72A0110EF0085E71D /* Login_Old.swift */,
-				101F9FFF27C8D21B0008BDF7 /* Profile_Old.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -387,26 +402,30 @@
 				10A4B02427DE25920058C44D /* AppDelegate.swift */,
 				103B62D92765EA8D0098CD57 /* SceneDelegate.swift */,
 				103B630F2765EFF30098CD57 /* SideMenu.swift */,
-				103B633C2765F6F70098CD57 /* TabBar.swift */,
-				103293022AE7D0BD004E086E /* TabBar_2.swift */,
 				103B62DD2765EA8D0098CD57 /* Main.storyboard */,
-				103B63062765EDAB0098CD57 /* Home.swift */,
+				1074AF1B2B2B5FD7002518EF /* Main_2.storyboard */,
+				103293022AE7D0BD004E086E /* TabBar_2.swift */,
+				10A807A62B2B0FD2001A4305 /* Home_2.swift */,
+				10A807AB2B2B2F88001A4305 /* MyCalorie_2.swift */,
+				10A807AD2B2B3472001A4305 /* Credit_2.swift */,
+				1073965D2B2B84C30025B2CD /* Challenge_2.swift */,
+				1073965F2B2B86970025B2CD /* Profile_2.swift */,
+				1073CBA5278D626E000E4364 /* Ranking.swift */,
+				1073CBA7278D71EE000E4364 /* RankingAll.swift */,
 				10B247E22B21645800E6F2D8 /* QRScanner.swift */,
 				101F9FFE27C8D1D50008BDF7 /* Login */,
 				1073CBA4278D5075000E4364 /* Run */,
 				1003D97D28D1AAEB004B262D /* History */,
 				101F9FFD27C8D1B90008BDF7 /* Manual */,
-				1095215D278C3F3700E074BF /* MyCalorie.swift */,
-				1073CBA5278D626E000E4364 /* Ranking.swift */,
-				1073CBA7278D71EE000E4364 /* RankingAll.swift */,
 				10E210E32800818900A550D2 /* Challenge */,
+				107396582B2B6D2F0025B2CD /* Credit */,
 				1032B34F2791738700E9F43D /* Knowledge.swift */,
 				1032B351279173DE00E9F43D /* KnowledgeList.swift */,
 				1032B35527917AFB00E9F43D /* Web.swift */,
 				1048ACDB27F431C8001FFC59 /* Setting.swift */,
-				10FFFC2A280B0D710078E443 /* CheckUpdate.swift */,
-				103B62FD2765EC880098CD57 /* CustomUI */,
+				10A807AA2B2B2F32001A4305 /* OldVersion */,
 				103B62FB2765EC880098CD57 /* Extension */,
+				103B62FD2765EC880098CD57 /* CustomUI */,
 				1095216B278C71B000E074BF /* Localizable.strings */,
 				103B62E32765EA8F0098CD57 /* Assets.xcassets */,
 				103B62E52765EA8F0098CD57 /* LaunchScreen.storyboard */,
@@ -423,6 +442,7 @@
 			children = (
 				103B62FC2765EC880098CD57 /* MyExtension.swift */,
 				10B247E82B29C07100E6F2D8 /* PlistParser.swift */,
+				10FFFC2A280B0D710078E443 /* CheckUpdate.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -432,7 +452,8 @@
 			children = (
 				103B62FE2765EC880098CD57 /* MyCell.swift */,
 				103B62FF2765EC880098CD57 /* MyUI.swift */,
-				101FA00127C8D6A80008BDF7 /* MyDatePicker.swift */,
+				10906D412B31807200EAB9D5 /* MyMonthYearPicker.swift */,
+				10A807A82B2B1B64001A4305 /* CircularProgressView.swift */,
 			);
 			path = CustomUI;
 			sourceTree = "<group>";
@@ -516,6 +537,17 @@
 			path = "Watch WatchKit Extension";
 			sourceTree = "<group>";
 		};
+		107396582B2B6D2F0025B2CD /* Credit */ = {
+			isa = PBXGroup;
+			children = (
+				1073965B2B2B6D620025B2CD /* Credit.storyboard */,
+				107396592B2B6D490025B2CD /* CreditHistory.swift */,
+				107396612B2BED4A0025B2CD /* CreditList.swift */,
+				107396632B2BF4BE0025B2CD /* CreditDetail.swift */,
+			);
+			path = Credit;
+			sourceTree = "<group>";
+		};
 		1073CBA4278D5075000E4364 /* Run */ = {
 			isa = PBXGroup;
 			children = (
@@ -524,8 +556,8 @@
 				1095215B278C2EFC00E074BF /* RunSummary.swift */,
 				10B4791827FEB85F00F1C1C6 /* Share.swift */,
 				103A30AA282900E0006D4496 /* StickerView.swift */,
-				103A30AC28290EF4006D4496 /* ShareTemplate.xib */,
 				103A30AE28290FD3006D4496 /* ShareTemplate.swift */,
+				103A30AC28290EF4006D4496 /* ShareTemplate.xib */,
 				105F8F1A27706E7500B6AB11 /* WorkoutDataStore.swift */,
 				105F8F1427704F7700B6AB11 /* HealthKitSetupAssistant.swift */,
 				10952159278AC20600E074BF /* Run_Old.swift */,
@@ -543,20 +575,33 @@
 			path = Shared;
 			sourceTree = "<group>";
 		};
+		10A807AA2B2B2F32001A4305 /* OldVersion */ = {
+			isa = PBXGroup;
+			children = (
+				104267E72A0110EF0085E71D /* Login_Old.swift */,
+				10952157278AAD8B00E074BF /* Profile.swift */,
+				101F9FFF27C8D21B0008BDF7 /* Profile_Old.swift */,
+				103B633C2765F6F70098CD57 /* TabBar.swift */,
+				103B63062765EDAB0098CD57 /* Home.swift */,
+				1095215D278C3F3700E074BF /* MyCalorie.swift */,
+				1073CBA9278DA037000E4364 /* Challenge.swift */,
+				1073CBAB278DA577000E4364 /* ChallengeList.swift */,
+				1073CBAD278DB889000E4364 /* ChallengeDetail.swift */,
+				1032B34B279160D300E9F43D /* ChallengeJoin.swift */,
+				1032B34D27916F9A00E9F43D /* ChallengeRank.swift */,
+			);
+			path = OldVersion;
+			sourceTree = "<group>";
+		};
 		10E210E32800818900A550D2 /* Challenge */ = {
 			isa = PBXGroup;
 			children = (
 				1003D97E28D1AC10004B262D /* Challenge.storyboard */,
-				1073CBA9278DA037000E4364 /* Challenge.swift */,
 				105E20712ACEACC700791DAB /* ChallengeList_2.swift */,
 				100682842AC34E64004D64F0 /* ChallengeDetail_2.swift */,
 				100682862AC3F974004D64F0 /* ChallengeJoin_2.swift */,
 				100682882AC409E6004D64F0 /* ChallengeRank_2.swift */,
 				101F60DD279EB7FD006B88D8 /* ChallengeCreate.swift */,
-				1073CBAB278DA577000E4364 /* ChallengeList.swift */,
-				1073CBAD278DB889000E4364 /* ChallengeDetail.swift */,
-				1032B34B279160D300E9F43D /* ChallengeJoin.swift */,
-				1032B34D27916F9A00E9F43D /* ChallengeRank.swift */,
 			);
 			path = Challenge;
 			sourceTree = "<group>";
@@ -564,8 +609,8 @@
 		25A3DA291FC9E9D6AFBC0CD3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				4E8C84D114A5F26CA71BB037 /* Pods-CCC.debug.xcconfig */,
-				EA3E0AD9438E3C24E7461C2B /* Pods-CCC.release.xcconfig */,
+				FA63814023DAC78E4DBC81C8 /* Pods-CCC.debug.xcconfig */,
+				E7AA5DBEB09F480EA88241F5 /* Pods-CCC.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -574,7 +619,7 @@
 			isa = PBXGroup;
 			children = (
 				105F8F1227704DD000B6AB11 /* HealthKit.framework */,
-				27EE989E5AFF7C07B1C42AB7 /* Pods_CCC.framework */,
+				DF34F93DD86C19A83BF69D1F /* Pods_CCC.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -586,13 +631,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 103B62EB2765EA8F0098CD57 /* Build configuration list for PBXNativeTarget "CCC" */;
 			buildPhases = (
-				37046902B56081DEC7AF8898 /* [CP] Check Pods Manifest.lock */,
+				FDF1EFB6982EB44033A44326 /* [CP] Check Pods Manifest.lock */,
 				103B62D02765EA8D0098CD57 /* Sources */,
 				103B62D12765EA8D0098CD57 /* Frameworks */,
 				103B62D22765EA8D0098CD57 /* Resources */,
 				109DD21E282E87D00002447E /* ShellScript */,
 				103E7E27292647D10074CC76 /* Embed Watch Content */,
-				C4E6ED31712E8D0BBD0C312E /* [CP] Embed Pods Frameworks */,
+				898BF089FCA998D9809E7655 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -600,14 +645,12 @@
 			);
 			name = CCC;
 			packageProductDependencies = (
-				10FACF492A03F06100CC0D20 /* Algorithms */,
-				10FACF4C2A03F0C500CC0D20 /* ComplexModule */,
-				10FACF4E2A03F0C500CC0D20 /* Numerics */,
-				10FACF502A03F0C500CC0D20 /* RealModule */,
-				10FACF582A03F19800CC0D20 /* Charts */,
-				104E9F902AFE500A00FFC294 /* FacebookCore */,
-				104E9F922AFE500A00FFC294 /* FacebookLogin */,
-				104E9F952AFE530100FFC294 /* GoogleSignIn */,
+				108A3C922B2C252000ADF8C7 /* GoogleSignIn */,
+				108A3C9A2B2C264700ADF8C7 /* Charts */,
+				100A57392B2C343B00302815 /* FacebookBasics */,
+				100A573B2B2C343B00302815 /* FacebookCore */,
+				100A573D2B2C343B00302815 /* FacebookLogin */,
+				100A57402B2C36E200302815 /* SkeletonView */,
 			);
 			productName = CCC;
 			productReference = 103B62D42765EA8D0098CD57 /* CCC.app */;
@@ -659,11 +702,10 @@
 			);
 			mainGroup = 103B62CB2765EA8D0098CD57;
 			packageReferences = (
-				10FACF482A03F06100CC0D20 /* XCRemoteSwiftPackageReference "swift-algorithms" */,
-				10FACF4B2A03F0C500CC0D20 /* XCRemoteSwiftPackageReference "swift-numerics" */,
-				10FACF572A03F19800CC0D20 /* XCRemoteSwiftPackageReference "Charts" */,
-				104E9F8F2AFE500A00FFC294 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
-				104E9F942AFE530100FFC294 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				108A3C912B2C252000ADF8C7 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				108A3C992B2C264700ADF8C7 /* XCRemoteSwiftPackageReference "Charts" */,
+				100A57382B2C343B00302815 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
+				100A573F2B2C36E200302815 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = 103B62D52765EA8D0098CD57 /* Products */;
 			projectDirPath = "";
@@ -684,6 +726,7 @@
 				103B630A2765EE960098CD57 /* Login.storyboard in Resources */,
 				103B6353276756E40098CD57 /* Roboto-LightItalic.ttf in Resources */,
 				103B632F2765F56C0098CD57 /* Prompt-Thin.ttf in Resources */,
+				1074AF1C2B2B5FD7002518EF /* Main_2.storyboard in Resources */,
 				103B632A2765F56C0098CD57 /* Prompt-MediumItalic.ttf in Resources */,
 				1003D97A28D1AA1D004B262D /* History.storyboard in Resources */,
 				1003D97F28D1AC10004B262D /* Challenge.storyboard in Resources */,
@@ -712,6 +755,7 @@
 				103B6359276756E40098CD57 /* Roboto-Black.ttf in Resources */,
 				10952169278C71B000E074BF /* Localizable.strings in Resources */,
 				103B62E42765EA8F0098CD57 /* Assets.xcassets in Resources */,
+				1073965C2B2B6D620025B2CD /* Credit.storyboard in Resources */,
 				103B63282765F56C0098CD57 /* Prompt-BlackItalic.ttf in Resources */,
 				103B62DF2765EA8D0098CD57 /* Main.storyboard in Resources */,
 				10B247E72B29BCA200E6F2D8 /* keys.plist in Resources */,
@@ -777,7 +821,24 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
-		37046902B56081DEC7AF8898 /* [CP] Check Pods Manifest.lock */ = {
+		898BF089FCA998D9809E7655 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CCC/Pods-CCC-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CCC/Pods-CCC-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CCC/Pods-CCC-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FDF1EFB6982EB44033A44326 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -799,23 +860,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C4E6ED31712E8D0BBD0C312E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CCC/Pods-CCC-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CCC/Pods-CCC-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CCC/Pods-CCC-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -824,6 +868,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1095215E278C3F3700E074BF /* MyCalorie.swift in Sources */,
+				10906D422B31807200EAB9D5 /* MyMonthYearPicker.swift in Sources */,
 				103A30AB282900E0006D4496 /* StickerView.swift in Sources */,
 				105F8F1D27707B7F00B6AB11 /* WorkoutHistory.swift in Sources */,
 				102A765A27AD519100326B1E /* ManualComplete.swift in Sources */,
@@ -833,6 +878,7 @@
 				108F5A792776F2B600BBB5EB /* WorkoutModel.swift in Sources */,
 				103293032AE7D0BD004E086E /* TabBar_2.swift in Sources */,
 				103293012AE7B3A1004E086E /* Register_3.swift in Sources */,
+				107396622B2BED4A0025B2CD /* CreditList.swift in Sources */,
 				1073CBAE278DB889000E4364 /* ChallengeDetail.swift in Sources */,
 				104267E82A0110EF0085E71D /* Login_Old.swift in Sources */,
 				10A4B02727DE25920058C44D /* AppDelegate.swift in Sources */,
@@ -844,10 +890,10 @@
 				1073CBAC278DA577000E4364 /* ChallengeList.swift in Sources */,
 				1032B34C279160D300E9F43D /* ChallengeJoin.swift in Sources */,
 				100682852AC34E64004D64F0 /* ChallengeDetail_2.swift in Sources */,
+				10A807AE2B2B3472001A4305 /* Credit_2.swift in Sources */,
 				103B63032765EC880098CD57 /* MyUI.swift in Sources */,
 				101F60DC279E918F006B88D8 /* ForgetPassword.swift in Sources */,
 				103B63022765EC880098CD57 /* MyCell.swift in Sources */,
-				101FA00227C8D6A80008BDF7 /* MyDatePicker.swift in Sources */,
 				10952158278AAD8B00E074BF /* Profile.swift in Sources */,
 				103B62DA2765EA8D0098CD57 /* SceneDelegate.swift in Sources */,
 				1008732127B4129C001CDC57 /* Consent.swift in Sources */,
@@ -855,6 +901,7 @@
 				1032B352279173DE00E9F43D /* KnowledgeList.swift in Sources */,
 				103A30AF28290FD3006D4496 /* ShareTemplate.swift in Sources */,
 				1003D98528D1B5B4004B262D /* ParkrunHistory.swift in Sources */,
+				107396642B2BF4BE0025B2CD /* CreditDetail.swift in Sources */,
 				1073CBAA278DA037000E4364 /* Challenge.swift in Sources */,
 				103B63102765EFF30098CD57 /* SideMenu.swift in Sources */,
 				101F60DE279EB7FD006B88D8 /* ChallengeCreate.swift in Sources */,
@@ -864,16 +911,20 @@
 				103B63072765EDAB0098CD57 /* Home.swift in Sources */,
 				1048ACDC27F431C8001FFC59 /* Setting.swift in Sources */,
 				108F5A7B2776F38000BBB5EB /* WorkoutSession.swift in Sources */,
+				10A807AC2B2B2F88001A4305 /* MyCalorie_2.swift in Sources */,
+				107396602B2B86970025B2CD /* Profile_2.swift in Sources */,
 				10B247E92B29C07100E6F2D8 /* PlistParser.swift in Sources */,
 				108F5A7D2777010E00BBB5EB /* Run.swift in Sources */,
 				1095215C278C2EFC00E074BF /* RunSummary.swift in Sources */,
 				10FC6E3528DD5DCB0010526E /* ServerError.swift in Sources */,
 				105E20722ACEACC700791DAB /* ChallengeList_2.swift in Sources */,
+				10A807A92B2B1B64001A4305 /* CircularProgressView.swift in Sources */,
 				1075FEDC294B853B0023D140 /* WatchConnectivityManager.swift in Sources */,
 				1032B35627917AFB00E9F43D /* Web.swift in Sources */,
 				100682872AC3F974004D64F0 /* ChallengeJoin_2.swift in Sources */,
 				1032B3502791738700E9F43D /* Knowledge.swift in Sources */,
 				1032B34E27916F9A00E9F43D /* ChallengeRank.swift in Sources */,
+				10A807A72B2B0FD2001A4305 /* Home_2.swift in Sources */,
 				101F9FFC27C8BA6F0008BDF7 /* History.swift in Sources */,
 				103292FF2AE7AD9D004E086E /* Register_2.swift in Sources */,
 				1073CBA8278D71EE000E4364 /* RankingAll.swift in Sources */,
@@ -881,6 +932,8 @@
 				10B247E32B21645900E6F2D8 /* QRScanner.swift in Sources */,
 				103B63012765EC880098CD57 /* MyExtension.swift in Sources */,
 				103292FD2AE79E22004E086E /* Register_1.swift in Sources */,
+				1073965E2B2B84C30025B2CD /* Challenge_2.swift in Sources */,
+				1073965A2B2B6D490025B2CD /* CreditHistory.swift in Sources */,
 				100682892AC409E6004D64F0 /* ChallengeRank_2.swift in Sources */,
 				10FFFC2B280B0D710078E443 /* CheckUpdate.swift in Sources */,
 			);
@@ -1057,13 +1110,13 @@
 		};
 		103B62EC2765EA8F0098CD57 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4E8C84D114A5F26CA71BB037 /* Pods-CCC.debug.xcconfig */;
+			baseConfigurationReference = FA63814023DAC78E4DBC81C8 /* Pods-CCC.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CCC/CCC.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VBBZXC58JM;
 				INFOPLIST_FILE = CCC/Info.plist;
@@ -1072,7 +1125,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.4;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${DT_TOOLCHAIN_DIR}/usr/lib/swift/${PLATFORM_NAME}\"",
+					/usr/lib/swift,
+					"$(SDKROOT)/usr/lib/swift",
+				);
+				MARKETING_VERSION = 2.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = th.go.mots.ccc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1082,13 +1141,13 @@
 		};
 		103B62ED2765EA8F0098CD57 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EA3E0AD9438E3C24E7461C2B /* Pods-CCC.release.xcconfig */;
+			baseConfigurationReference = E7AA5DBEB09F480EA88241F5 /* Pods-CCC.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CCC/CCC.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VBBZXC58JM;
 				INFOPLIST_FILE = CCC/Info.plist;
@@ -1097,7 +1156,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3.4;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${DT_TOOLCHAIN_DIR}/usr/lib/swift/${PLATFORM_NAME}\"",
+					/usr/lib/swift,
+					"$(SDKROOT)/usr/lib/swift",
+				);
+				MARKETING_VERSION = 2.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = th.go.mots.ccc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1204,15 +1269,23 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		104E9F8F2AFE500A00FFC294 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+		100A57382B2C343B00302815 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 16.0.0;
+				minimumVersion = 14.0.0;
 			};
 		};
-		104E9F942AFE530100FFC294 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+		100A573F2B2C36E200302815 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.30.3;
+			};
+		};
+		108A3C912B2C252000ADF8C7 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
 			requirement = {
@@ -1220,71 +1293,45 @@
 				minimumVersion = 7.0.0;
 			};
 		};
-		10FACF482A03F06100CC0D20 /* XCRemoteSwiftPackageReference "swift-algorithms" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-algorithms.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-		10FACF4B2A03F0C500CC0D20 /* XCRemoteSwiftPackageReference "swift-numerics" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/apple/swift-numerics.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
-		10FACF572A03F19800CC0D20 /* XCRemoteSwiftPackageReference "Charts" */ = {
+		108A3C992B2C264700ADF8C7 /* XCRemoteSwiftPackageReference "Charts" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/danielgindi/Charts.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 4.1.0;
+				minimumVersion = 4.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		104E9F902AFE500A00FFC294 /* FacebookCore */ = {
+		100A57392B2C343B00302815 /* FacebookBasics */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 104E9F8F2AFE500A00FFC294 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			package = 100A57382B2C343B00302815 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookBasics;
+		};
+		100A573B2B2C343B00302815 /* FacebookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 100A57382B2C343B00302815 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
 			productName = FacebookCore;
 		};
-		104E9F922AFE500A00FFC294 /* FacebookLogin */ = {
+		100A573D2B2C343B00302815 /* FacebookLogin */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 104E9F8F2AFE500A00FFC294 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			package = 100A57382B2C343B00302815 /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
 			productName = FacebookLogin;
 		};
-		104E9F952AFE530100FFC294 /* GoogleSignIn */ = {
+		100A57402B2C36E200302815 /* SkeletonView */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 104E9F942AFE530100FFC294 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			package = 100A573F2B2C36E200302815 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
+		};
+		108A3C922B2C252000ADF8C7 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 108A3C912B2C252000ADF8C7 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignIn;
 		};
-		10FACF492A03F06100CC0D20 /* Algorithms */ = {
+		108A3C9A2B2C264700ADF8C7 /* Charts */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 10FACF482A03F06100CC0D20 /* XCRemoteSwiftPackageReference "swift-algorithms" */;
-			productName = Algorithms;
-		};
-		10FACF4C2A03F0C500CC0D20 /* ComplexModule */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 10FACF4B2A03F0C500CC0D20 /* XCRemoteSwiftPackageReference "swift-numerics" */;
-			productName = ComplexModule;
-		};
-		10FACF4E2A03F0C500CC0D20 /* Numerics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 10FACF4B2A03F0C500CC0D20 /* XCRemoteSwiftPackageReference "swift-numerics" */;
-			productName = Numerics;
-		};
-		10FACF502A03F0C500CC0D20 /* RealModule */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 10FACF4B2A03F0C500CC0D20 /* XCRemoteSwiftPackageReference "swift-numerics" */;
-			productName = RealModule;
-		};
-		10FACF582A03F19800CC0D20 /* Charts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 10FACF572A03F19800CC0D20 /* XCRemoteSwiftPackageReference "Charts" */;
+			package = 108A3C992B2C264700ADF8C7 /* XCRemoteSwiftPackageReference "Charts" */;
 			productName = Charts;
 		};
 /* End XCSwiftPackageProductDependency section */

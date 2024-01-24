@@ -12,70 +12,52 @@ class TabBar_2: UITabBarController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         
-//        if let count = self.tabBar.items?.count {
-//            for i in 0...(count-1) {
-//                let imageNameForSelectedState   = arrayOfImageNameForSelectedState[i]
-//                let imageNameForUnselectedState = arrayOfImageNameForUnselectedState[i]
-//
-//                self.tabBar.items?[i].selectedImage = UIImage(named: imageNameForSelectedState)?.withRenderingMode(.alwaysOriginal)
-//                self.tabBar.items?[i].image = UIImage(named: imageNameForUnselectedState)?.withRenderingMode(.alwaysOriginal)
-//            }
-//        }
+        self.tabBar.tintColor = .themeColor
+        self.tabBar.unselectedItemTintColor = .textGray1
         
-        self.tabBar.tintColor = UIColor.yellow
-        self.tabBar.unselectedItemTintColor = UIColor.white
-        
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.Prompt_Bold(ofSize: 12)], for: .normal)
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.Prompt_Bold(ofSize: 12)], for: .selected)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.Prompt_Regular(ofSize: 12)], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.font: UIFont.Prompt_SemiBold(ofSize: 12)], for: .selected)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-//        if UIDevice().userInterfaceIdiom == .phone && UIScreen.main.nativeBounds.height >= 1792 {//iPhone 11 and upper
-//            tabBar.frame.size.height = 100
-//        }
-//        else{//lower
-//            tabBar.frame.size.height = 60
-//        }
-//        tabBar.frame.origin.y = view.frame.height - tabBar.frame.size.height
-        
         if UIApplication.shared.windows.filter({$0.isKeyWindow}).first!.safeAreaInsets.bottom > 0 {//Detect Safe Area Bottom
-            tabBar.frame.size.height = 100
+            tabBar.frame.size.height = 85
             for tabBarItem in (tabBar.items)!{
-                tabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -10, right: 0);
-                tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 10)
+                tabBarItem.imageInsets = UIEdgeInsets(top: 5, left: 0, bottom: -5, right: 0);
+                tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: 6)
             }
         }
         else{//lower
-            tabBar.frame.size.height = 75
+            tabBar.frame.size.height = 60
             for tabBarItem in (tabBar.items)!{
-                tabBarItem.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: -5, right: 0);
+                tabBarItem.imageInsets = UIEdgeInsets(top: 3, left: 0, bottom: 0, right: 0);
                 tabBarItem.titlePositionAdjustment = UIOffset(horizontal: 0, vertical: -5)
             }
         }
         tabBar.frame.origin.y = view.frame.height - tabBar.frame.size.height
         
-        tabBar(tabBar, didSelect: tabBar.items!.first!)
+        //tabBar(tabBar, didSelect: tabBar.items!.first!)
     }
     
-    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-
-        let removeSelectedBackground = {
-            tabBar.subviews.filter({ $0.layer.name == "TabBackgroundView" }).first?.removeFromSuperview()
-        }
-
-        let addSelectedBackground = { (bgColour: UIColor) in
-            let tabIndex = CGFloat(tabBar.items!.firstIndex(of: item)!)
-            let tabWidth = tabBar.bounds.width / CGFloat(tabBar.items!.count)
-            let bgView = UIView(frame: CGRect(x: tabWidth * tabIndex, y: 0, width: tabWidth, height: tabBar.bounds.height))
-            bgView.backgroundColor = bgColour
-            bgView.layer.name = "TabBackgroundView"
-            tabBar.insertSubview(bgView, at: 0)
-        }
-
-        removeSelectedBackground()
-        addSelectedBackground(.tabSelected)
-    }
+//    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+//
+//        let removeSelectedBackground = {
+//            tabBar.subviews.filter({ $0.layer.name == "TabBackgroundView" }).first?.removeFromSuperview()
+//        }
+//
+//        let addSelectedBackground = { (bgColour: UIColor) in
+//            let tabIndex = CGFloat(tabBar.items!.firstIndex(of: item)!)
+//            let tabWidth = tabBar.bounds.width / CGFloat(tabBar.items!.count)
+//            let bgView = UIView(frame: CGRect(x: tabWidth * tabIndex, y: 0, width: tabWidth, height: tabBar.bounds.height))
+//            bgView.backgroundColor = bgColour
+//            bgView.layer.name = "TabBackgroundView"
+//            tabBar.insertSubview(bgView, at: 0)
+//        }
+//
+//        removeSelectedBackground()
+//        addSelectedBackground(.tabSelected)
+//    }
 }
 

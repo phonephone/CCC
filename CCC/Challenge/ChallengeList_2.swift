@@ -9,6 +9,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 import ProgressHUD
+import SkeletonView
 
 enum ChallengeMode {
     case all
@@ -24,11 +25,14 @@ class ChallengeList_2: UIViewController, UITextFieldDelegate {
     
     var challengeMode: ChallengeMode?
     
+    var firstTime = true
+    
     @IBOutlet weak var searchField: UITextField!
     @IBOutlet weak var myTableView: UITableView!
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         loadChallenge(showLoadingHUD: true)
         searchField.text = ""
     }
@@ -39,16 +43,17 @@ class ChallengeList_2: UIViewController, UITextFieldDelegate {
         print("CHALLENGE LIST \(challengeMode!)")
         
         // TableView
-        self.myTableView.delegate = self
-        self.myTableView.dataSource = self
-        self.myTableView.backgroundColor = .clear
+        myTableView.delegate = self
+        myTableView.dataSource = self
+        myTableView.backgroundColor = .clear
         //self.myTableView.tableFooterView = UIView(frame: .zero)
-        self.myTableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: self.myTableView.frame.size.width, height: 1))
-        self.myTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
+        myTableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: myTableView.frame.size.width, height: 1))
+        myTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 30, right: 0)
         
         searchField.delegate = self
         searchField.addTarget(self, action: #selector(self.textFieldDidChange(_:)),
                                   for: .editingChanged)
+        myTableView.isUserInteractionEnabled = false
     }
     
     func loadChallenge(showLoadingHUD:Bool) {
@@ -75,7 +80,11 @@ class ChallengeList_2: UIViewController, UITextFieldDelegate {
                 
                 self.allJSON = json["data"]
                 self.challengeJSON = self.allJSON
-                self.myTableView.reloadData()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.00) {
+                    self.myTableView.reloadData()
+                    self.myTableView.isUserInteractionEnabled = true
+                }
             }
         }
     }
@@ -86,7 +95,7 @@ class ChallengeList_2: UIViewController, UITextFieldDelegate {
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         //filterJSON(searchText: textField.text!)
-        loadChallenge(showLoadingHUD: false)
+        loadChallenge(showLoadingHUD: true)
     }
     
     func filterJSON(searchText:String) {
@@ -125,7 +134,7 @@ extension ChallengeList_2: UITableViewDataSource {
             return challengeJSON!.count
         }
         else{
-            return 0
+            return 5
         }
     }
     
@@ -135,45 +144,50 @@ extension ChallengeList_2: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cellArray = self.challengeJSON![indexPath.item]
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChallengeCell", for: indexPath) as! ChallengeCell
         
-        cell.cellImage.sd_setImage(with: URL(string:cellArray["cover_img"].stringValue), placeholderImage: UIImage(named: "icon_1024"))
-        cell.cellName.text = "\(cellArray["competition_name"].stringValue)"
-        //cell.cellName.text = "\(cellArray["competition_name"].stringValue)\n\(cellArray["description"].stringValue)"
-        cell.cellDate.text = "\(cellArray["start_date"].stringValue) - \(cellArray["end_date"].stringValue)"
-        
-        let typeArray = cellArray["type_activity"]
-        cell.cellType.arrangedSubviews.forEach {//Clear stack
-            $0.removeFromSuperview()
-        }
-        if typeArray.isEmpty {
-            cell.cellType.isHidden = true
-        }
-        else {
-            for i in 0...typeArray.count {
-                if typeArray[i]["act_type"] == "text" {
-                    let label = UILabel()
-                    label.text = typeArray[i]["act_name_th"].stringValue
-                    label.textColor = .textGray1
-                    label.font = .Prompt_SemiBold(ofSize: 13)
-                    cell.cellType.addArrangedSubview(label)
-                    cell.cellType.isHidden = false
-                }
-                else {
-                    let imageView = UIImageView()
-                    imageView.contentMode = .scaleAspectFit
-                    //imageView.image = UIImage(named: "icon_run")
-                    imageView.sd_setImage(with: URL(string:typeArray[i]["act_icon_name"].stringValue))
-                    imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1.0/1.0).isActive = true
-                    imageView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = false
-                    cell.cellType.addArrangedSubview(imageView)
-                    cell.cellType.isHidden = false
+        if challengeJSON != nil {
+            let cellArray = self.challengeJSON![indexPath.item]
+            
+            cell.cellImage.sd_setImage(with: URL(string:cellArray["cover_img"].stringValue), placeholderImage: UIImage(named: "icon_1024"))
+            cell.cellName.text = "\(cellArray["competition_name"].stringValue)"
+            //cell.cellName.text = "\(cellArray["competition_name"].stringValue)\n\(cellArray["description"].stringValue)"
+            cell.cellDate.text = "\(cellArray["start_date"].stringValue) - \(cellArray["end_date"].stringValue)"
+            
+            let typeArray = cellArray["type_activity"]
+            cell.cellType.arrangedSubviews.forEach {//Clear stack
+                $0.removeFromSuperview()
+            }
+            if typeArray.isEmpty {
+                cell.cellType.isHidden = true
+            }
+            else {
+                for i in 0...typeArray.count {
+                    if typeArray[i]["act_type"] == "text" {
+                        let label = UILabel()
+                        label.text = typeArray[i]["act_name_th"].stringValue
+                        label.textColor = .textGray1
+                        label.font = .Prompt_SemiBold(ofSize: 13)
+                        cell.cellType.addArrangedSubview(label)
+                        cell.cellType.isHidden = false
+                    }
+                    else {
+                        let imageView = UIImageView()
+                        imageView.contentMode = .scaleAspectFit
+                        //imageView.image = UIImage(named: "icon_run")
+                        imageView.sd_setImage(with: URL(string:typeArray[i]["act_icon_name"].stringValue))
+                        imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1.0/1.0).isActive = true
+                        imageView.heightAnchor.constraint(equalToConstant: CGFloat(0)).isActive = false
+                        cell.cellType.addArrangedSubview(imageView)
+                        cell.cellType.isHidden = false
+                    }
                 }
             }
+            
+            cell.cellCompetitor.text = "จำนวนผู้เข้าร่วม \(cellArray["number_challenge_participant"].stringValue) คน"
+            
+            cell.hideAnimation()
         }
-        
-        cell.cellCompetitor.text = "จำนวนผู้เข้าร่วม \(cellArray["number_challenge_participant"].stringValue) คน"
         
         return cell
     }
@@ -200,3 +214,11 @@ extension ChallengeList_2: UITableViewDelegate {
     }
 }
 
+
+// MARK: - SkeletonTableViewDataSource
+
+extension ChallengeList_2: SkeletonTableViewDataSource {
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return "ChallengeCell"
+    }
+}

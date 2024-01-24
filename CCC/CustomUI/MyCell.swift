@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class SideMenuCell: UITableViewCell {
     
@@ -103,12 +104,23 @@ class ChallengeCell: UITableViewCell {
     
     @IBOutlet var cellImage: UIImageView!
     @IBOutlet var cellName: UILabel!
+    @IBOutlet var cellDateIcon: UIImageView!
     @IBOutlet var cellDate: UILabel!
     @IBOutlet var cellType: UIStackView!
     @IBOutlet var cellCompetitor: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        [cellImage,cellName,cellDateIcon,cellDate,cellCompetitor].forEach{
+            $0?.showAnimatedGradientSkeleton()
+        }
+    }
+    
+    func hideAnimation() {
+        [cellImage,cellName,cellDateIcon,cellDate,cellCompetitor].forEach{
+            $0?.hideSkeleton()
+        }
     }
 }
 
@@ -119,6 +131,68 @@ class KnowledgeCell: UITableViewCell {
     
     @IBOutlet var cellImage: UIImageView!
     @IBOutlet var cellTitle: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+}
+
+class CreditCell: UICollectionViewCell {
+    
+    class var identifier: String { return String(describing: self) }
+    class var nib: UINib { return UINib(nibName: identifier, bundle: nil) }
+    
+    @IBOutlet var cellImage: UIImageView!
+    @IBOutlet var cellTitle: UILabel!
+    @IBOutlet var cellDesc: UILabel!
+    
+    @IBOutlet var cellImage2: UIImageView!
+    @IBOutlet var cellTitle2: UILabel!
+    @IBOutlet var cellDesc2: UILabel!
+    
+    @IBOutlet var cellImage3: UIImageView!
+    @IBOutlet var cellTitle3: UILabel!
+    @IBOutlet var cellDesc3: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        // Background
+        self.backgroundColor = .clear
+    }
+}
+
+class CreditHistoryCell: UITableViewCell {
+    
+    class var identifier: String { return String(describing: self) }
+    class var nib: UINib { return UINib(nibName: identifier, bundle: nil) }
+    
+    @IBOutlet var cellDate: UILabel!
+    @IBOutlet var cellTitle: UILabel!
+    @IBOutlet var cellScore: UILabel!
+    @IBOutlet var cellRemark: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+}
+
+class CreditListCell: UITableViewCell {
+    
+    class var identifier: String { return String(describing: self) }
+    class var nib: UINib { return UINib(nibName: identifier, bundle: nil) }
+    
+    @IBOutlet var cellImage: UIImageView!
+    @IBOutlet var cellTitle: UILabel!
+    @IBOutlet var cellDesc: UILabel!
+    
+    @IBOutlet var cellImage2: UIImageView!
+    @IBOutlet var cellTitle2: UILabel!
+    @IBOutlet var cellDesc2: UILabel!
+    
+    @IBOutlet var cellImage3: UIImageView!
+    @IBOutlet var cellTitle3: UILabel!
+    @IBOutlet var cellDesc3: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

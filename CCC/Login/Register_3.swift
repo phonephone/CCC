@@ -47,13 +47,13 @@ class Register_3: UIViewController, UITextFieldDelegate {
     var weightPicker: UIPickerView! = UIPickerView()
     var heightPicker: UIPickerView! = UIPickerView()
     var waistPicker: UIPickerView! = UIPickerView()
-    var birthDayPicker = MyDatePicker()
+    var birthDayPicker = MyMonthYearPicker()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         print("REGISTER_3")
-        self.navigationController?.setStatusBar(backgroundColor: .themeBgColor)
+        self.navigationController?.setStatusBar(backgroundColor: .themeColor)
 
         setupField(field: weightField)
         setupField(field: heightField)
@@ -72,8 +72,9 @@ class Register_3: UIViewController, UITextFieldDelegate {
         birthDayPicker.dataSource = birthDayPicker
         birthDayPicker.delegate = birthDayPicker
         birthDayPicker.backgroundColor = .white
+        birthDayPicker.pickerMode = .year
         birthDayPicker.buildYearCollection(previous: maxAge, next: 0)
-        NotificationCenter.default.addObserver(self, selector: #selector(myYearChanged(notification:)), name:.dateChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(myYearChanged(notification:)), name:.yearChanged, object: nil)
         
         birthDayField.inputView = birthDayPicker
         

@@ -48,7 +48,7 @@ class Login: UIViewController, UITextFieldDelegate, ASAuthorizationControllerDel
         super.viewDidLoad()
         
         print("LOGIN")
-        self.navigationController?.setStatusBar(backgroundColor: .themeBgColor)
+        self.navigationController?.setStatusBar(backgroundColor: .themeColor)
         
         emailField.delegate = self
         passField.delegate = self

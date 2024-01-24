@@ -38,7 +38,7 @@ class ParkrunHistory: UIViewController {
         super.viewDidLoad()
         
         print("WORKOUT HISTORY")
-        self.navigationController?.setStatusBar(backgroundColor: .themeBgColor)
+        self.navigationController?.setStatusBar(backgroundColor: .themeColor)
         
         myTableView.delegate = self
         myTableView.dataSource = self
@@ -137,7 +137,7 @@ extension ParkrunHistory: UITableViewDataSource {
             cell.cellDistance.text = String(format:"ระยะทาง: %.2f km", distance)
         }
         
-        let formattedCalories = String(format: "แคลอรี่: %@ kCal", cellArray["summary_cal"].stringValue)
+        let formattedCalories = String(format: "แคลอรี: %@ kCal", cellArray["summary_cal"].stringValue)
         cell.cellCalories.text = formattedCalories
         
         switch parkrunMode {
