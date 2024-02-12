@@ -13,39 +13,49 @@ import ProgressHUD
 import SDWebImage
 import SwiftAlertView
 
-enum HistoryMode {
-    case apple
-    case appleformServer
-    case all
-}
-
-class WorkoutHistory: UIViewController {
+class WorkoutHistory: UIViewController, UITextFieldDelegate {
     
     var historyMode: HistoryMode?
     
     var syncedJSON : JSON?
+    
+    var typeJSON : JSON?
     var historyJSON : JSON?
+    
+    var typeID : String? = "0"
+    
+    var firstTime = true
     
     private var workouts: [HKWorkout]?
     private var walkRun: [HKQuantitySample]?
     
     @IBOutlet weak var myTableView: UITableView!
     
+    @IBOutlet weak var typeField: UITextField!
+    @IBOutlet weak var typeBtn: UIButton!
+    
+    @IBOutlet weak var monthYearField: UITextField!
+    @IBOutlet weak var monthYearBtn: UIButton!
+    
+    var typePicker: UIPickerView! = UIPickerView()
+    let myDatePicker = MyMonthYearPicker()
+    let myDatePickerL = MyMonthYearPicker()
+    let myDatePickerR = MyMonthYearPicker()
+    var mySelectedDate = Date()
+    let maxPreviousMonth = 12
+    
     var serverwithTimeFormatter = DateFormatter.serverWihtTimeFormatter
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if historyMode == .apple {
-            syncHealth(startDateStr: SceneDelegate.GlobalVariables.userLastSynced)
-            reloadWorkouts()
+        if firstTime {
+            if historyMode == .appleformServer {
+                syncHealth(startDateStr: SceneDelegate.GlobalVariables.userLastSynced)
+            }
         }
-        else if historyMode == .appleformServer {
-            syncHealth(startDateStr: SceneDelegate.GlobalVariables.userLastSynced)
-            loadHistory(showLoadingHUD: true)
-        }
-        else {
-            loadHistory(showLoadingHUD: true)
+        else{
+            loadHistory(monthYear: mySelectedDate)
         }
     }
     
@@ -55,45 +65,60 @@ class WorkoutHistory: UIViewController {
         print("WORKOUT HISTORY")
         self.navigationController?.setStatusBar(backgroundColor: .themeColor)
         
+        pickerSetup(picker: typePicker)
+        typeField.inputView = typePicker
+        
+        myDatePicker.dataSource = myDatePicker
+        myDatePicker.delegate = myDatePicker
+        myDatePicker.backgroundColor = .white
+        if historyMode == .appleformServer {
+            myDatePicker.pickerMode = .month
+            NotificationCenter.default.addObserver(self, selector: #selector(myMonthChanged(notification:)), name:.monthChanged, object: nil)
+        }
+        else {
+            myDatePicker.pickerMode = .month2
+            NotificationCenter.default.addObserver(self, selector: #selector(myMonthChanged(notification:)), name:.monthChanged2, object: nil)
+        }
+        myDatePicker.buildMonthCollection(previous: maxPreviousMonth, next: 0)
+        myDatePicker.selectRow(maxPreviousMonth, inComponent: 0, animated: false)
+        
+        monthYearField.delegate = self
+        monthYearField.inputView = myDatePicker
+        
         myTableView.delegate = self
         myTableView.dataSource = self
+        
+        loadType()
     }
     
-    //    override var preferredStatusBarStyle : UIStatusBarStyle {
-    //        return .lightContent //.default for black style
-    //    }
-    
-    func reloadWorkouts() {
-        HealthKitSetupAssistant.authorizeHealthKit { (authorized, error) in
-            guard authorized else {
-                print("HealthKit Authorization Failed.")
-                ProgressHUD.showError("ไม่ได้รับอนุญาตให้เข้าถึงข้อมูลจาก Apple Health")
-                return
-            }
-            
-            print("HealthKit Successfully Authorized.")
-            let startDate = self.dateFromServerString(dateStr: "2021-01-01")
-            WorkoutDataStore.loadWorkouts(startDate: startDate!, completion: { (workouts, error) in
-                if workouts!.count > 0
-                {
-                    self.workouts = workouts
-                    //print(workouts!)
-                    self.myTableView.reloadData()
-                    self.loadSynced(showLoadingHUD: true)
-                }
-                else{
-                    ProgressHUD.showError("ไม่พบข้อมูลหรือไม่ได้รับอนุญาตให้เข้าถึงข้อมูลจาก Apple Health")
-                }
-            })
-            
-//            WorkoutDataStore.loadWorkouts { (workouts, error) in
+//    func loadHistory(showLoadingHUD:Bool) {
+//        let parameters:Parameters = ["user_id":SceneDelegate.GlobalVariables.userID]
+//        var urlStr:String
+//        if historyMode == .appleformServer {
+//            urlStr = "history/device"
+//        }
+//        else {
+//            urlStr = "history"
+//        }
+//        loadRequest(method:.post, apiName:urlStr, authorization:true, showLoadingHUD:showLoadingHUD, dismissHUD:true, parameters: parameters){ result in
+//            switch result {
+//            case .failure(let error):
+//                print(error)
+//                ProgressHUD.dismiss()
+//
+//            case .success(let responseObject):
+//                let json = JSON(responseObject)
+//                print("SUCCESS HISTORY\(json)")
+//                
+//                self.historyJSON = json["data"]
+//                self.myTableView.reloadData()
 //            }
-        }
-    }
+//        }
+//    }
     
-    func loadSynced(showLoadingHUD:Bool) {
-        let parameters:Parameters = ["id":SceneDelegate.GlobalVariables.userID]
-        loadRequest(method:.post, apiName:"history/synced", authorization:true, showLoadingHUD:showLoadingHUD, dismissHUD:true, parameters: parameters){ result in
+    func loadType() {
+        let parameters:Parameters = ["user_id":SceneDelegate.GlobalVariables.userID]
+        loadRequest_V2(method:.get, apiName:"history/filter", authorization:true, showLoadingHUD:true, dismissHUD:false, parameters: parameters){ result in
             switch result {
             case .failure(let error):
                 print(error)
@@ -101,16 +126,33 @@ class WorkoutHistory: UIViewController {
 
             case .success(let responseObject):
                 let json = JSON(responseObject)
-                //print("SUCCESS SYNCED\(json)")
+                //print("SUCCESS HISTORY TYPE\(json)")
                 
-                self.syncedJSON = json["data"]
-                self.myTableView.reloadData()
+                self.typeJSON = json["data"]
+                self.typePicker.reloadAllComponents()
+                if self.typeJSON?.count != 0 {
+                    self.typeField.text = self.typeJSON![0]["devices_text"].stringValue
+                    self.typeID = self.typeJSON![0]["devices_var"].stringValue
+                }
+                self.loadHistory(monthYear: self.mySelectedDate)
             }
         }
     }
     
-    func loadHistory(showLoadingHUD:Bool) {
-        let parameters:Parameters = ["user_id":SceneDelegate.GlobalVariables.userID]
+    func loadHistory(monthYear:Date) {
+        historyJSON = []
+        myTableView.reloadData()
+        monthYearField.text = appStringFromDate(date: mySelectedDate, format: "MMMM yyyy")
+        
+        let monthYearStr = dateToServerString(date: monthYear)
+        let dateArray = monthYearStr.split(separator: "-")
+        let yearStr = String(dateArray[0])
+        let monthStr = String(dateArray[1])
+        
+//        print(yearStr)
+//        print(monthStr)
+//        print(typeID!)
+        
         var urlStr:String
         if historyMode == .appleformServer {
             urlStr = "history/device"
@@ -118,11 +160,19 @@ class WorkoutHistory: UIViewController {
         else {
             urlStr = "history"
         }
-        loadRequest(method:.post, apiName:urlStr, authorization:true, showLoadingHUD:showLoadingHUD, dismissHUD:true, parameters: parameters){ result in
+        
+        let parameters:Parameters = ["user_id":SceneDelegate.GlobalVariables.userID,
+                                     "year":yearStr,
+                                     "month":monthStr,
+                                     "filter":typeID!
+        ]
+        print("URL = \(urlStr)")
+        print("Date = \(mySelectedDate)")
+        print("Param = \(parameters)")
+        loadRequest_V2(method:.post, apiName:urlStr, authorization:true, showLoadingHUD:true, dismissHUD:true, parameters: parameters){ result in
             switch result {
             case .failure(let error):
                 print(error)
-                ProgressHUD.dismiss()
 
             case .success(let responseObject):
                 let json = JSON(responseObject)
@@ -130,35 +180,117 @@ class WorkoutHistory: UIViewController {
                 
                 self.historyJSON = json["data"]
                 self.myTableView.reloadData()
+                
+                self.firstTime = false
             }
         }
     }
     
-    @IBAction func back(_ sender: UIButton) {
-        self.navigationController!.popViewController(animated: true)
+    @objc func myMonthChanged(notification:Notification){
+        let userInfo = notification.userInfo
+        mySelectedDate = appDateFromString(dateStr: (userInfo?["date"]) as! String, format: "MMMM yyyy")!
+        monthYearField.text = appStringFromDate(date: mySelectedDate, format: "MMMM yyyy")
+        loadHistory(monthYear: mySelectedDate)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == typeField && typeField.text == "" {
+            selectPicker(typePicker, didSelectRow: 0)
+        }
+        else if textField == monthYearField && monthYearField.text == "" {
+            myDatePicker.selectRow(myDatePicker.selectedMonth(), inComponent: 0, animated: true)
+            myDatePicker.pickerView(myDatePicker, didSelectRow: myDatePicker.selectedRow(inComponent: 0), inComponent: 0)
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+    }
+    
+    func pickerSetup(picker:UIPickerView) {
+        picker.delegate = self
+        picker.dataSource = self
+        picker.backgroundColor = .white
+        picker.setValue(UIColor.textDarkGray, forKeyPath: "textColor")
+    }
+    
+    @IBAction func dropdownClick(_ sender: UIButton) {
+        switch sender.tag {
+        case 1://type
+            typeField.becomeFirstResponder()
+            
+        case 2://head
+            monthYearField.becomeFirstResponder()
+            
+        default:
+            break
+        }
     }
     
 }//end ViewController
+
+// MARK: - Picker Datasource
+extension WorkoutHistory: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == typePicker && typeJSON!.count > 0{
+            return typeJSON!.count
+        }
+        else{
+            return 0
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        var pickerLabel: UILabel? = (view as? UILabel)
+        if pickerLabel == nil {
+            pickerLabel = UILabel()
+            pickerLabel?.font = .Prompt_Regular(ofSize: 22)
+            pickerLabel?.textAlignment = .center
+        }
+        
+        if pickerView == typePicker && typeJSON!.count > 0{
+            pickerLabel?.text = typeJSON![row]["devices_text"].stringValue
+        }
+        else{
+            pickerLabel?.text = ""
+        }
+        
+        pickerLabel?.textColor = .textDarkGray
+        
+        return pickerLabel!
+    }
+}
+
+// MARK: - Picker Delegate
+extension WorkoutHistory: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    {
+        selectPicker(pickerView, didSelectRow: row)
+    }
+    
+    func selectPicker(_ pickerView: UIPickerView, didSelectRow row: Int) {
+        if pickerView == typePicker {
+            typeField.text = typeJSON![row]["devices_text"].stringValue
+            typeID = typeJSON![row]["devices_var"].stringValue
+            
+            loadHistory(monthYear: mySelectedDate)
+        }
+    }
+}
 
 // MARK: - UITableViewDataSource
 
 extension WorkoutHistory: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if historyMode == .apple {
-            if (workouts != nil) {
-                return workouts!.count
-            }
-            else{
-                return 0
-            }
+        if (historyJSON != nil) {
+            return historyJSON!.count
         }
-        else {
-            if (historyJSON != nil) {
-                return historyJSON!.count
-            }
-            else{
-                return 0
-            }
+        else{
+            return 0
         }
     }
     
@@ -169,133 +301,84 @@ extension WorkoutHistory: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "WorkOutCell", for: indexPath) as! WorkOutCell
         
-        if historyMode == .apple {
-            let cellArray = self.workouts![indexPath.row] as HKWorkout
-            //print(cellArray.uuid)
-            
-            let sourceName = String(describing:cellArray.sourceRevision.source.name)
-            //let deviceName = String(describing:cellArray.sourceRevision.productType)
-            let type: HKWorkoutActivityType = cellArray.workoutActivityType
-
-            cell.cellName.text = "\(sourceName)"+" (\(type.name))"
-            
-            if cellArray.device != nil
-            {
-                //cell.cellName.text = "\(sourceName) \(String(describing: cellArray.device!.name))"
-            }
-            
-            let startDate = appStringFromDate(date: cellArray.startDate, format: "dd MMM yyyy HH:mm:ss")//dateFormatter.string(from:cellArray.startDate)
-            //let endDate = dateFormatter.string(from:cellArray.endDate)
-            
-            cell.cellDate.text = "\(startDate)"// - \(endDate)"
-            
-            let formattedDuration = String(format: "ระยะเวลา: %@", cellArray.duration.stringFromTimeInterval())
-            cell.cellDuration.text = formattedDuration
-            
-            if let distance = cellArray.totalDistance?.doubleValue(for: .meter()) {
-                let meters: Measurement<UnitLength> = .init(value: distance, unit: .meters)
-                let kmDistance = meters.converted(to: .kilometers)
-                let formattedDistance = String(format: "ระยะทาง: %@", kmDistance.usFormatted)
-                cell.cellDistance.text = formattedDistance
-            }
-            else{
-                cell.cellDistance.text = "ระยะทาง: -"
-            }
-            
-            let caloriesBurned = cellArray.totalEnergyBurned?.doubleValue(for: .kilocalorie())
-            let kiloCalories: Measurement<UnitEnergy> = .init(value: caloriesBurned!, unit: .kilocalories)
-            //let kiloCalories = calories.converted(to: .kilocalories)
-            let formattedCalories = String(format: "แคลอรี: %@", kiloCalories.usFormatted)
-            cell.cellCalories.text = formattedCalories
-            
-            cell.cellImportBtn.isHidden = true
-            if let items = syncedJSON?.array {
-                cell.cellImportBtn.isHidden = false
-                for item in items {
-                    if item.stringValue == cellArray.uuid.uuidString {
-                        cell.cellImportBtn.isHidden = true
-                    }
-                }
-            }
-            cell.cellImportBtn.addTarget(self, action: #selector(importClick(_:)), for: .touchUpInside)
-            
-            cell.cellReason.isHidden = true
-        }
-        else {
-            let cellArray = historyJSON![indexPath.item]
-            
-            
-            let actName = cellArray["act_name_th"].stringValue
-            let actType = cellArray["activity_type"].stringValue
-            let sourceName = cellArray["source_name"].stringValue
-            if sourceName != "" {
+        let cellArray = historyJSON![indexPath.item]
+        
+        
+        let actName = cellArray["act_name_th"].stringValue
+        let actType = cellArray["activity_type"].stringValue
+        let sourceName = cellArray["source_name"].stringValue
+        
+        if sourceName != "" {
+            cell.cellName.text = "\(sourceName)"
+            if actType != "" {
                 cell.cellName.text = "\(sourceName) (\(actType))"
             }
-            else{
-                cell.cellName.text = "\(actName)"
-            }
-            
-            if let startDate = serverwithTimeFormatter.date(from: cellArray["startdate"].stringValue) {
-                cell.cellDate.text = appStringFromDate(date: startDate, format:DateFormatter.formatDateWithTimeTH)
-            }
-            else{
-                if let createDate = serverwithTimeFormatter.date(from: cellArray["cdate"].stringValue) {
-                    cell.cellDate.text = appStringFromDate(date: createDate, format:DateFormatter.formatDateWithTimeTH)
-                }
-                else{
-                    cell.cellDate.text = "-"
-                }
-            }
-            
-            let time = NSInteger(cellArray["activity_time"].stringValue)!
-            //let ms = Int((self.truncatingRemainder(dividingBy: 1)) * 1000)
-            let seconds = time % 60
-            let minutes = (time / 60) % 60
-            let hours = (time / 3600)
-            cell.cellDuration.text = String(format: "ระยะเวลา: %0.2d:%0.2d:%0.2d",hours,minutes,seconds)
-            
-            if cellArray["distance"].stringValue == "" || cellArray["distance"].stringValue == "0" {
-                cell.cellDistance.text = "ระยะทาง: -"
+        }
+        else{
+            cell.cellName.text = "\(actName)"
+        }
+        
+        if let startDate = serverwithTimeFormatter.date(from: cellArray["startdate"].stringValue) {
+            cell.cellDate.text = appStringFromDate(date: startDate, format:DateFormatter.formatDateWithTimeTH)
+        }
+        else{
+            if let createDate = serverwithTimeFormatter.date(from: cellArray["cdate"].stringValue) {
+                cell.cellDate.text = appStringFromDate(date: createDate, format:DateFormatter.formatDateWithTimeTH)
             }
             else{
-                let distance = cellArray["distance"].doubleValue/1000
-                cell.cellDistance.text = String(format:"ระยะทาง: %.2f km", distance)
+                cell.cellDate.text = "-"
             }
-            
-            let formattedCalories = String(format: "แคลอรี: %@ kCal", cellArray["summary_cal"].stringValue)
-            cell.cellCalories.text = formattedCalories
-            
-            switch historyMode {
-            case .appleformServer:
-                if cellArray["send_status"].stringValue == "3" {
-                    cell.cellImportBtn.isHidden = false
-                    cell.cellImportBtn.setTitle("นำเข้าข้อมูล", for: .normal)
-                    cell.cellImportBtn.addTarget(self, action: #selector(importClick(_:)), for: .touchUpInside)
-                }
-                else{
-                    cell.cellImportBtn.isHidden = true
-                }
-                
-            case .all:
+        }
+        
+        let time = NSInteger(cellArray["activity_time"].stringValue)!
+        //let ms = Int((self.truncatingRemainder(dividingBy: 1)) * 1000)
+        let seconds = time % 60
+        let minutes = (time / 60) % 60
+        let hours = (time / 3600)
+        cell.cellDuration.text = String(format: "ระยะเวลา: %0.2d:%0.2d:%0.2d",hours,minutes,seconds)
+        
+        if cellArray["distance"].stringValue == "" || cellArray["distance"].stringValue == "0" {
+            cell.cellDistance.text = "ระยะทาง: -"
+        }
+        else{
+            let distance = cellArray["distance"].doubleValue/1000
+            cell.cellDistance.text = String(format:"ระยะทาง: %.2f km", distance)
+        }
+        
+        let formattedCalories = String(format: "แคลอรี: %@ kCal", cellArray["summary_cal"].stringValue)
+        cell.cellCalories.text = formattedCalories
+        
+        switch historyMode {
+        case .appleformServer:
+            if cellArray["send_status"].stringValue == "3" {
                 cell.cellImportBtn.isHidden = false
-                cell.cellImportBtn.setTitle("แชร์", for: .normal)
-                cell.cellImportBtn.addTarget(self, action: #selector(shareClick(_:)), for: .touchUpInside)
-                
-            default:
+                cell.cellImportBtn.setTitle("นำเข้าข้อมูล", for: .normal)
+                cell.cellImportBtn.addTarget(self, action: #selector(importClick(_:)), for: .touchUpInside)
+            }
+            else{
                 cell.cellImportBtn.isHidden = true
             }
             
-            cell.cellDeleteBtn.addTarget(self, action: #selector(deleteClick(_:)), for: .touchUpInside)
+        case .all:
+            cell.cellImportBtn.isHidden = false
+            cell.cellImportBtn.setTitle("แชร์", for: .normal)
+            cell.cellImportBtn.addTarget(self, action: #selector(shareClick(_:)), for: .touchUpInside)
             
-            let reasonStr = cellArray["send_status_text"].stringValue
-            if reasonStr != "" {
-                cell.cellReason.isHidden = false
-                cell.cellReason.text = reasonStr
-            }
-            else{
-                cell.cellReason.isHidden = true
-            }
-            
+        default:
+            cell.cellImportBtn.isHidden = true
+        }
+        
+        cell.cellDeleteBtn.addTarget(self, action: #selector(deleteClick(_:)), for: .touchUpInside)
+        
+        let reasonStr = cellArray["send_status_text"].stringValue
+        if reasonStr != "" {
+            cell.cellReason.isHidden = false
+            cell.cellReason.text = reasonStr
+        }
+        else{
+            cell.cellReason.isHidden = true
+        }
+        
 //            if historyMode == .appleformServer {
 //                if cellArray["send_status"].stringValue == "3" {
 //                    cell.cellImportBtn.isHidden = false
@@ -311,8 +394,6 @@ extension WorkoutHistory: UITableViewDataSource {
 //            else {
 //                cell.cellImportBtn.isHidden = true
 //            }
-            
-        }
         
         return cell
     }
@@ -424,10 +505,7 @@ extension WorkoutHistory: UITableViewDelegate {
         }
         //print("Import \(indexPath.section) - \(indexPath.item)")
         
-        if historyMode == .apple {
-            loadImportFromHealth(indexPath: indexPath)
-        }
-        else if historyMode == .appleformServer{
+        if historyMode == .appleformServer{
             SwiftAlertView.show(title: "ยืนยันการนำเข้าข้อมูล",
                                 message: "ข้อมูลการออกกำลังกาย ในช่วงเวลาเดียวกับรายการนี้ จากอุปกรณ์หรือแอปพลิเคชันอื่น จะถูกลบ",
                                 buttonTitles: "ยกเลิก", "ยืนยัน") { alert in
@@ -519,7 +597,8 @@ extension WorkoutHistory: UITableViewDelegate {
                 ProgressHUD.showSuccess("นำเข้าข้อมูลเรียบร้อย")
                 self.historyJSON = nil
                 self.myTableView.reloadData()
-                self.loadHistory(showLoadingHUD: false)
+                //self.loadHistory(showLoadingHUD: false)
+                self.loadHistory(monthYear: self.mySelectedDate)
             }
         }
     }
@@ -585,58 +664,59 @@ extension WorkoutHistory: UITableViewDelegate {
                 ProgressHUD.showSuccess("ลบข้อมูลเรียบร้อย")
                 self.historyJSON = nil
                 self.myTableView.reloadData()
-                self.loadHistory(showLoadingHUD: false)
+                //self.loadHistory(showLoadingHUD: false)
+                self.loadHistory(monthYear: self.mySelectedDate)
             }
         }
     }
 }
 
-extension TimeInterval{
-    
-    func stringFromTimeInterval() -> String {
-        
-        let time = NSInteger(self)
-        
-        //let ms = Int((self.truncatingRemainder(dividingBy: 1)) * 1000)
-        let seconds = time % 60
-        let minutes = (time / 60) % 60
-        let hours = (time / 3600)
-        
-        //return String(format: "%0.2d:%0.2d:%0.2d.%0.3d",hours,minutes,seconds,ms)
-        return String(format: "%0.2d:%0.2d:%0.2d",hours,minutes,seconds)
-    }
-}
-
-extension Measurement where UnitType == UnitLength {
-    private static let usFormatted: MeasurementFormatter = {
-       let formatter = MeasurementFormatter()
-        formatter.locale = Locale(identifier: "en_US")
-        formatter.unitOptions = .providedUnit
-        //formatter.numberFormatter.numberStyle = .decimal
-        formatter.numberFormatter.maximumFractionDigits = 2
-        //formatter.unitStyle = .short
-        return formatter
-    }()
-    var usFormatted: String { Measurement.usFormatted.string(from: self) }
-}
-
-extension Measurement where UnitType == UnitEnergy {
-    private static let usFormatted: MeasurementFormatter = {
-       let formatter = MeasurementFormatter()
-        formatter.locale = Locale(identifier: "en_US")
-        formatter.unitOptions = .providedUnit
-        //formatter.numberFormatter.numberStyle = .decimal
-        formatter.numberFormatter.maximumFractionDigits = 0
-        //formatter.unitStyle = .short
-        return formatter
-    }()
-    var usFormatted: String { Measurement.usFormatted.string(from: self) }
-}
-
-extension Double {
-    // Rounds the double to decimal places value
-    func rounded(toPlaces places:Int) -> Double {
-        let divisor = pow(10.0, Double(places))
-        return (self * divisor).rounded() / divisor
-    }
-}
+//extension TimeInterval{
+//    
+//    func stringFromTimeInterval() -> String {
+//        
+//        let time = NSInteger(self)
+//        
+//        //let ms = Int((self.truncatingRemainder(dividingBy: 1)) * 1000)
+//        let seconds = time % 60
+//        let minutes = (time / 60) % 60
+//        let hours = (time / 3600)
+//        
+//        //return String(format: "%0.2d:%0.2d:%0.2d.%0.3d",hours,minutes,seconds,ms)
+//        return String(format: "%0.2d:%0.2d:%0.2d",hours,minutes,seconds)
+//    }
+//}
+//
+//extension Measurement where UnitType == UnitLength {
+//    private static let usFormatted: MeasurementFormatter = {
+//       let formatter = MeasurementFormatter()
+//        formatter.locale = Locale(identifier: "en_US")
+//        formatter.unitOptions = .providedUnit
+//        //formatter.numberFormatter.numberStyle = .decimal
+//        formatter.numberFormatter.maximumFractionDigits = 2
+//        //formatter.unitStyle = .short
+//        return formatter
+//    }()
+//    var usFormatted: String { Measurement.usFormatted.string(from: self) }
+//}
+//
+//extension Measurement where UnitType == UnitEnergy {
+//    private static let usFormatted: MeasurementFormatter = {
+//       let formatter = MeasurementFormatter()
+//        formatter.locale = Locale(identifier: "en_US")
+//        formatter.unitOptions = .providedUnit
+//        //formatter.numberFormatter.numberStyle = .decimal
+//        formatter.numberFormatter.maximumFractionDigits = 0
+//        //formatter.unitStyle = .short
+//        return formatter
+//    }()
+//    var usFormatted: String { Measurement.usFormatted.string(from: self) }
+//}
+//
+//extension Double {
+//    // Rounds the double to decimal places value
+//    func rounded(toPlaces places:Int) -> Double {
+//        let divisor = pow(10.0, Double(places))
+//        return (self * divisor).rounded() / divisor
+//    }
+//}

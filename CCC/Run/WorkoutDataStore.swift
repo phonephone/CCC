@@ -126,8 +126,9 @@ class WorkoutDataStore {
                         }
                         
                         if let distance = cellArray.totalDistance?.doubleValue(for: .meter()) {
-                            let kmDistance = "\((distance/1000).rounded(toPlaces: 2))"
-                            workOutArray["distance"] = kmDistance
+                            let kmDistance = distance/1000
+                            let roundedDistance = String(format:"%.2f", kmDistance)//"\((distance/1000).rounded(toPlaces: 2))"
+                            workOutArray["distance"] = roundedDistance
                         }else{
                             workOutArray["distance"] = ""
                         }
@@ -366,7 +367,7 @@ class WorkoutDataStore {
                 return
             }
             
-            print("HealthKit Successfully Authorized.")
+            print("HealthKit Successfully Authorized. (STEP)")
             
             WorkoutDataStore.loadSteps(startDate: startDate, completion: { (steps) in
                 if (steps as AnyObject).count > 0
@@ -412,7 +413,7 @@ class WorkoutDataStore {
                     }
                 }
                 else{
-                    print("ไม่พบข้อมูลหรือไม่ได้รับอนุญาตให้เข้าถึงข้อมูลจาก Apple Health")
+                    print("ไม่พบข้อมูลหรือไม่ได้รับอนุญาตให้เข้าถึงข้อมูลจาก Apple Health (STEP)")
                     //ProgressHUD.showError("ไม่พบข้อมูลหรือไม่ได้รับอนุญาตให้เข้าถึงข้อมูลจาก Apple Health")
                 }
             })// end loadSteps

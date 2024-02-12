@@ -99,6 +99,8 @@ class CreditHistory: UIViewController, UITextFieldDelegate {
     }
     
     func loadHistory(monthYear:Date) {
+        monthYearField.text = appStringFromDate(date: mySelectedDate, format: "MMMM yyyy")
+        
         let monthYearStr = dateToServerString(date: monthYear)
         let dateArray = monthYearStr.split(separator: "-")
         let yearStr = String(dateArray[0])
@@ -157,8 +159,6 @@ class CreditHistory: UIViewController, UITextFieldDelegate {
         
         specialScoreTitle.text = historyJSON!["text_credit_special"].stringValue
         specialScoreLabel.text = historyJSON!["credit_special"].stringValue
-        
-        monthYearField.text = appStringFromDate(date: mySelectedDate, format: "MMMM yyyy")
     }
     
     @objc func myMonthChanged(notification:Notification){

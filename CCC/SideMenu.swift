@@ -14,6 +14,7 @@ enum MenuID {
     case history
     case manual_input
     case parkrun
+    case create_challenge
     case setting
     case document
     case logout
@@ -28,6 +29,7 @@ struct Menu {
 class SideMenu: UIViewController {
     
     var parkrunStatus:Bool?
+    var createChallengeStatus:Bool?
     
     @IBOutlet var sideMenuTableView: UITableView!
     @IBOutlet weak var cccIDLabel: UILabel!
@@ -37,6 +39,7 @@ class SideMenu: UIViewController {
         Menu(menuID: .history, title: "ประวัติการออกกำลังกาย", imgName: "menu_history"),
         Menu(menuID: .manual_input, title: "ส่งผลแบบกรอกเอง", imgName: "menu_manual"),
         //Menu(menuID: .parkrun, title: "ส่งผล Park Run Anywhere", imgName: "menu_parkrun"),
+        //Menu(menuID: .create_challenge, title: "สร้าง Challenge", imgName: "menu_create_challenge"),
         Menu(menuID: .setting, title: "การตั้งค่า", imgName: "menu_setting"),
         Menu(menuID: .document, title: "คู่มือการใช้งาน", imgName: "menu_doc"),
         Menu(menuID: .logout, title: "ออกจากระบบ", imgName: "menu_logout"),
@@ -96,18 +99,38 @@ class SideMenu: UIViewController {
 //    }
     
     func updateMenu() {
-        parkrunStatus = SceneDelegate.GlobalVariables.profileJSON!["parkrunstatus"].boolValue
-        let found = menus.filter{$0.menuID == .parkrun}.count > 0
+        var settingIndex = [Range<Array<Menu>.Index>.Element]()
         
-        if parkrunStatus == found {
+        parkrunStatus = SceneDelegate.GlobalVariables.profileJSON!["parkrunstatus"].boolValue
+        let parkrunFound = menus.filter{$0.menuID == .parkrun}.count > 0
+        
+        if parkrunStatus == parkrunFound {
             //menus.remove(at: 2)
         } else {
-            if found {
-                menus.remove(at: 2)
+            if parkrunFound {
+                let parkrunIndex = menus.indices.filter({menus[$0].menuID == .parkrun})
+                menus.remove(at: parkrunIndex.first!)
             } else{
-                menus.insert(Menu(menuID: .parkrun, title: "ส่งผล Park Run Anywhere", imgName: "menu_parkrun"), at: 2)
+                settingIndex = menus.indices.filter({menus[$0].menuID == .setting})
+                menus.insert(Menu(menuID: .parkrun, title: "ส่งผล Park Run Anywhere", imgName: "menu_parkrun"), at: settingIndex.first!)
             }
         }
+        
+        createChallengeStatus = SceneDelegate.GlobalVariables.profileJSON!["create_challenge_status"].boolValue
+        let createChallengeFound = menus.filter{$0.menuID == .create_challenge}.count > 0
+
+        if createChallengeStatus == createChallengeFound {
+            //menus.remove(at: 3)
+        } else {
+            if createChallengeFound {
+                let createChallengeIndex = menus.indices.filter({menus[$0].menuID == .create_challenge})
+                menus.remove(at: createChallengeIndex.first!)
+            } else{
+                settingIndex = menus.indices.filter({menus[$0].menuID == .setting})
+                menus.insert(Menu(menuID: .create_challenge, title: "สร้าง Challenge", imgName: "menu_create_challenge"), at: settingIndex.first!)
+            }
+        }
+        
         self.sideMenuTableView.reloadData()
     }
     
@@ -173,6 +196,13 @@ extension SideMenu: UITableViewDelegate {
             
         case .parkrun:
             let vc = UIStoryboard.historyStoryBoard.instantiateViewController(withIdentifier: "Parkrun") as! Parkrun
+            self.navigationController!.pushViewController(vc, animated: true)
+            self.sideMenuController!.hideMenu()
+            
+        case .create_challenge:
+            let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "Web") as! Web
+            vc.titleString = "สร้าง Challenge"
+            vc.webUrlString = SceneDelegate.GlobalVariables.profileJSON!["create_challenge_url"].stringValue
             self.navigationController!.pushViewController(vc, animated: true)
             self.sideMenuController!.hideMenu()
         

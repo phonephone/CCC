@@ -114,7 +114,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="73.666666666666671"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="3mL-Nv-ERT">
-                                                <rect key="frame" x="15" y="5" width="363" height="53.666666666666657"/>
+                                                <rect key="frame" x="15" y="5" width="363" height="53.666666666666664"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YHL-ME-0pG">
                                                         <rect key="frame" x="0.0" y="0.0" width="334" height="30.333333333333332"/>

@@ -9,6 +9,7 @@ import UIKit
 
 enum myPickerMode {
     case month
+    case month2
     case year
 }
 
@@ -63,6 +64,9 @@ extension MyMonthYearPicker : UIPickerViewDataSource{
         case .month:
             return monthCollection.count
             
+        case .month2:
+            return monthCollection.count
+            
         case .year:
             return yearCollection.count
             
@@ -92,6 +96,9 @@ extension MyMonthYearPicker : UIPickerViewDataSource{
         
         switch pickerMode {
         case .month:
+            pickerLabel?.text = formatMonthPicker(date: monthCollection[row])
+            
+        case .month2:
             pickerLabel?.text = formatMonthPicker(date: monthCollection[row])
             
         case .year:
@@ -127,6 +134,10 @@ extension MyMonthYearPicker : UIPickerViewDelegate{
             let date = formatMonthPicker(date: self.monthCollection[row])
             NotificationCenter.default.post(name: .monthChanged, object: nil, userInfo:["date":date])
             
+        case .month2:
+            let date = formatMonthPicker(date: self.monthCollection[row])
+            NotificationCenter.default.post(name: .monthChanged2, object: nil, userInfo:["date":date])
+            
         case .year:
             let date = formatYearPicker(date: self.yearCollection[row])
             NotificationCenter.default.post(name: .yearChanged, object: nil, userInfo:["date":date])
@@ -141,6 +152,10 @@ extension MyMonthYearPicker : UIPickerViewDelegate{
 extension Notification.Name{
     static var monthChanged : Notification.Name{
         return .init("myMonthChanged")
+    }
+    
+    static var monthChanged2 : Notification.Name{
+        return .init("myMonthChanged2")
     }
     
     static var yearChanged : Notification.Name{

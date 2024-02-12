@@ -55,8 +55,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //userID = "17617" //โฟน Apple*
         //userID = "17619" //เทส Challenge
         //userID = "41475" //ป้อม pk2:test
-        //userID = "19413"//ป้อม 2023
         //userID = "17497" //โฟน Google
+        //userID = "19413"//ป้อม 2023
+        //userID = "999"//พี่เม 2024 parkrun
         
         checkConsent(userID:userID, scene:scene)
     }
@@ -215,6 +216,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             //let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "Home") as! Home
             
             //let vc = UIStoryboard.historyStoryBoard.instantiateViewController(withIdentifier: "History") as! History
+            
+            //let vc = UIStoryboard.historyStoryBoard.instantiateViewController(withIdentifier: "Parkrun") as! Parkrun
             
             //navigationController = UINavigationController.init(rootViewController: vc)
             //***อย่าลืม

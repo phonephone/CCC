@@ -70,6 +70,7 @@ class Home_2: UIViewController {
         super.viewDidLoad()
         
         print("HOME_2")
+        
         self.navigationController?.setStatusBar(backgroundColor: .themeColor)
         
         self.view.showAnimatedGradientSkeleton()

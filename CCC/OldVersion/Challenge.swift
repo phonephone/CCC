@@ -79,3 +79,12 @@ class Challenge: UIViewController {
         self.sideMenuController!.revealMenu()
     }
 }
+
+// MARK: - PagingViewControllerDelegate
+
+extension Challenge: PagingViewControllerDelegate {
+    func pagingViewController(_ pagingViewController: PagingViewController, didSelectItem pagingItem: PagingItem) {
+        
+        view.endEditing(true)
+    }
+}

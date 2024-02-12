@@ -751,7 +751,7 @@
             <size key="intrinsicContentSize" width="40" height="31"/>
         </designable>
         <designable name="Lqj-za-IHg">
-            <size key="intrinsicContentSize" width="36.5" height="34"/>
+            <size key="intrinsicContentSize" width="46.5" height="34"/>
         </designable>
         <designable name="Ubj-ip-fHm">
             <size key="intrinsicContentSize" width="41" height="31"/>
@@ -769,7 +769,7 @@
             <size key="intrinsicContentSize" width="65" height="50"/>
         </designable>
         <designable name="pvD-Fe-Toa">
-            <size key="intrinsicContentSize" width="36.5" height="34"/>
+            <size key="intrinsicContentSize" width="46.5" height="34"/>
         </designable>
     </designables>
     <resources>

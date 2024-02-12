@@ -21,12 +21,14 @@ enum thirdParty {
     case apple
     case garmin
     case strava
+    case coros
+    case fitbit
     case parkrun
 }
 
 class Setting: UIViewController {
     
-    //var settingJSON : JSON?
+    var settingJSON : JSON?
     var garminJSON : JSON?
     var stravaJSON : JSON?
     
@@ -43,17 +45,22 @@ class Setting: UIViewController {
     private let stravaFallbackUrl: String = "stravacallback"
     private let stravaClientSecret: String = PlistParser.getKeysValue()!["stravaClientSecret"]!
     
+    private let corosClientId: String = PlistParser.getKeysValue()!["corosClientId"]!
+    private let corosState: String = PlistParser.getKeysValue()!["corosState"]!
+    
     var suuntoOauthSwift: OAuth2Swift?
     
     @IBOutlet weak var myScrollView: UIScrollView!
     @IBOutlet weak var appleHealthSwitch: UISwitch!
-    @IBOutlet weak var stravaSwitch: UISwitch!
     @IBOutlet weak var garminSwitch: UISwitch!
+    @IBOutlet weak var stravaSwitch: UISwitch!
+    @IBOutlet weak var corosSwitch: UISwitch!
+    @IBOutlet weak var fitbitSwitch: UISwitch!
     @IBOutlet weak var parkrunSwitch: UISwitch!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadAllStatus()
+        loadPartnerStatus()
     }
     
     override func viewDidLoad() {
@@ -67,11 +74,6 @@ class Setting: UIViewController {
         
         //Mark:- application move to foreground
         NotificationCenter.default.addObserver(self, selector:#selector(appMovedToForeground),name: UIApplication.didBecomeActiveNotification, object: nil)
-        
-        print(garminConsumerKey)
-        print(garminConsumerSecret)
-        print(stravaClientId)
-        print(stravaClientSecret)
     }
     
     // MARK: - background method implementation
@@ -82,35 +84,14 @@ class Setting: UIViewController {
     // MARK: - foreground method implementation
     @objc func appMovedToForeground() {
         print("App moved to foreground!")
-        loadAllStatus()
-        //updateSwitch()
+        //loadAllStatus()
+        loadPartnerStatus()
     }
     
-    func loadAllStatus() {
-        switch thirdParty {
-        case .all:
-            loadGarminStatus()
-            loadStravaStatus()
-            loadParkRunStatus()
-        case .none:
-            break
-        case .apple:
-            break
-        case .garmin:
-            loadGarminStatus()
-        case .strava:
-            loadStravaStatus()
-        case .parkrun:
-            loadParkRunStatus()
-        }
+    func loadPartnerStatus() {
+        let parameters:Parameters = ["user_id":SceneDelegate.GlobalVariables.userID]
         
-        thirdParty = .none
-    }
-    
-    func loadGarminStatus() {
-        let parameters:Parameters = [:]
-        
-        loadRequest(method:.get, apiName:"connect/garmin/user/status_connect/\(SceneDelegate.GlobalVariables.userID)", authorization:true, showLoadingHUD:true, dismissHUD:true, parameters: parameters){ result in
+        loadRequest_V2(method:.get, apiName:"status_connect", authorization:true, showLoadingHUD:true, dismissHUD:true, parameters: parameters){ result in
             switch result {
             case .failure(let error):
                 print(error)
@@ -118,46 +99,10 @@ class Setting: UIViewController {
                 
             case .success(let responseObject):
                 let json = JSON(responseObject)
-                print("SUCCESS GARMIN STATUS\(json)")
+                print("SUCCESS PARTNER STATUS\(json)")
                 
-                self.garminJSON = json["data"]
+                self.settingJSON = json["data"]
                 self.updateSwitch()
-            }
-        }
-    }
-    
-    func loadStravaStatus() {
-        let parameters:Parameters = ["id":SceneDelegate.GlobalVariables.userID]
-        
-        loadRequest(method:.post, apiName:"connect/strava/user/status_connect", authorization:true, showLoadingHUD:true, dismissHUD:true, parameters: parameters){ result in
-            switch result {
-            case .failure(let error):
-                print(error)
-                ProgressHUD.dismiss()
-                
-            case .success(let responseObject):
-                let json = JSON(responseObject)
-                print("SUCCESS STRAVA STATUS\(json)")
-                
-                self.stravaJSON = json["data"]
-                self.updateSwitch()
-            }
-        }
-    }
-    
-    func loadParkRunStatus() {
-        let parameters:Parameters = ["id":SceneDelegate.GlobalVariables.userID]
-        loadRequest(method:.post, apiName:"connect/parkrun/user/status_connect/", authorization:true, showLoadingHUD:false, dismissHUD:false, parameters: parameters){ result in
-            switch result {
-            case .failure(let error):
-                print(error)
-                ProgressHUD.dismiss()
-
-            case .success(let responseObject):
-                let json = JSON(responseObject)
-                //print("SUCCESS PARKRUN STATUS\(json)")
-                
-                self.parkrunSwitch.isOn = json["data"]["parkrunstatus"].boolValue
             }
         }
     }
@@ -170,11 +115,12 @@ class Setting: UIViewController {
             print("Health OFF")
             appleHealthSwitch.isOn = false
         }
-        if garminJSON != nil {
-            garminSwitch.isOn = garminJSON!["garminstatus"].boolValue
-        }
-        if stravaJSON != nil {
-            stravaSwitch.isOn = stravaJSON!["stravastatus"].boolValue
+        if settingJSON != nil {
+            garminSwitch.isOn = settingJSON!["garminstatus"].boolValue
+            stravaSwitch.isOn = settingJSON!["stravastatus"].boolValue
+            corosSwitch.isOn = settingJSON!["corosstatus"].boolValue
+            fitbitSwitch.isOn = settingJSON!["fitbitstatus"].boolValue
+            parkrunSwitch.isOn = settingJSON!["parkrunstatus"].boolValue
         }
         //stravaSwitch.isOn = settingJSON!["stravastatus"].boolValue
         
@@ -324,7 +270,7 @@ class Setting: UIViewController {
                 let json = JSON(responseObject)
                 print("SUCCESS GARMIN CCC\(json)")
                 
-                self.loadGarminStatus()
+                self.loadPartnerStatus()
             }
         }
     }
@@ -342,7 +288,7 @@ class Setting: UIViewController {
                 let json = JSON(responseObject)
                 print("SUCCESS GARMIN DELETE\(json)")
                 
-                self.loadGarminStatus()
+                self.loadPartnerStatus()
             }
         }
     }
@@ -376,6 +322,7 @@ class Setting: UIViewController {
         //let url: String = "https://www.strava.com/oauth/mobile/authorize?client_id=\(stravaClientId)&redirect_uri=\(urlScheme)%3A%2F%2F\(stravaFallbackUrl)&response_type=code&approval_prompt=force&scope=activity:read_all"
         
         let url: String = "https://www.strava.com/oauth/mobile/authorize?client_id=\(stravaClientId)&redirect_uri=https://ccc.mots.go.th/connect-auth/strava/\(SceneDelegate.GlobalVariables.userID)&response_type=code&approval_prompt=auto&scope=read_all,activity:read,activity:read_all,activity:write,profile:read_all"
+        
         guard let authenticationUrl = URL(string: url) else { return }
         
         authSession = ASWebAuthenticationSession(url: authenticationUrl, callbackURLScheme: "\(urlScheme)") { [weak self] url, error in
@@ -386,7 +333,7 @@ class Setting: UIViewController {
                     print("CODE \(code)")
                     //self?.requestStravaTokens(with: code)
                 }
-                self?.loadStravaStatus()
+                self?.loadPartnerStatus()
             }
         }
         
@@ -502,7 +449,102 @@ class Setting: UIViewController {
                 let json = JSON(responseObject)
                 print("SUCCESS STRAVA DELETE\(json)")
                 
-                self.loadStravaStatus()
+                self.loadPartnerStatus()
+            }
+        }
+    }
+    
+    
+    // MARK: - COROS
+    @IBAction func coros_Click(_ sender: UISwitch) {
+        if sender.isOn{//เปิด
+            sender.setOn(false, animated: true)
+            
+            let appOAuthUrlCorosScheme = URL(string: "http://open.coros.com/oauth2/authorize?client_id=\(corosClientId)&state=\(corosState)&response_type=code&redirect_uri=https://ccc.mots.go.th/connect-auth/coros/\(SceneDelegate.GlobalVariables.userID)")!
+            
+            if UIApplication.shared.canOpenURL(appOAuthUrlCorosScheme) {
+                UIApplication.shared.open(appOAuthUrlCorosScheme, options: [:])
+            }
+            else {
+                //authorizeCoros()
+            }
+        }
+        else{//ปิด
+            sender.setOn(true, animated: true)
+            deAuthorizeCorosFromCCC()
+        }
+    }
+    
+    func deAuthorizeCorosFromCCC() {
+        let parameters:Parameters = ["id":SceneDelegate.GlobalVariables.userID]
+        
+        loadRequest(method:.post, apiName:"connect/coros/user/disconnect", authorization:true, showLoadingHUD:true, dismissHUD:true, parameters: parameters){ result in
+            switch result {
+            case .failure(let error):
+                print(error)
+                ProgressHUD.dismiss()
+                
+            case .success(let responseObject):
+                let json = JSON(responseObject)
+                print("SUCCESS COROS DELETE\(json)")
+                
+                self.loadPartnerStatus()
+            }
+        }
+    }
+    
+    
+    // MARK: - FITBIT
+    @IBAction func fitbit_Click(_ sender: UISwitch) {
+        if sender.isOn{//เปิด
+            sender.setOn(false, animated: true)
+            requestFitbitURL()
+        }
+        else{//ปิด
+            sender.setOn(true, animated: true)
+            deAuthorizeFitbitFromCCC()
+        }
+    }
+    
+    func requestFitbitURL() {
+        let parameters:Parameters = [:]
+        
+        loadRequest(method:.get, apiName:"connect/fitbit/user/auth_url/\(SceneDelegate.GlobalVariables.userID)", authorization:true, showLoadingHUD:true, dismissHUD:true, parameters: parameters){ result in
+            switch result {
+            case .failure(let error):
+                print(error)
+                ProgressHUD.dismiss()
+                
+            case .success(let responseObject):
+                let json = JSON(responseObject)
+                print("SUCCESS FITBIT URL\(json)")
+                
+                let authenticationUrl = URL(string:json["data"]["link_authorization"].stringValue)
+
+                if UIApplication.shared.canOpenURL(authenticationUrl!) {
+                    UIApplication.shared.open(authenticationUrl!, options: [:])
+                }
+                else {
+                    //authorizeFitbit()
+                }
+            }
+        }
+    }
+    
+    func deAuthorizeFitbitFromCCC() {
+        let parameters:Parameters = ["user_id":SceneDelegate.GlobalVariables.userID]
+        
+        loadRequest(method:.post, apiName:"connect/fitbit/user/disconnect", authorization:true, showLoadingHUD:true, dismissHUD:true, parameters: parameters){ result in
+            switch result {
+            case .failure(let error):
+                print(error)
+                ProgressHUD.dismiss()
+                
+            case .success(let responseObject):
+                let json = JSON(responseObject)
+                print("SUCCESS FITBIT DELETE\(json)")
+                
+                self.loadPartnerStatus()
             }
         }
     }
@@ -591,7 +633,7 @@ class Setting: UIViewController {
                 print("SUCCESS PARKRUN DELETE\(json)")
                 
                 ProgressHUD.showSuccess(json["data"]["message"].stringValue)
-                self.loadParkRunStatus()
+                self.loadPartnerStatus()
             }
         }
     }

@@ -48,9 +48,9 @@ class Challenge_2: UIViewController {
 
         let pagingViewController = PagingViewController(viewControllers: controllerArray)
         
+        pagingViewController.delegate = self
         pagingViewController.backgroundColor = .white
         pagingViewController.menuItemSize = .sizeToFit(minWidth: self.view.frame.width/2, height: 50)
-
         pagingViewController.indicatorColor = .buttonRed
         pagingViewController.textColor = .textDarkGray
         pagingViewController.selectedTextColor = .themeColor
@@ -85,3 +85,11 @@ class Challenge_2: UIViewController {
     }
 }
 
+// MARK: - PagingViewControllerDelegate
+
+extension Challenge_2: PagingViewControllerDelegate {
+    func pagingViewController(_ pagingViewController: PagingViewController, didSelectItem pagingItem: PagingItem) {
+        
+        view.endEditing(true)
+    }
+}

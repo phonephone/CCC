@@ -11,6 +11,11 @@ import SwiftyJSON
 import ProgressHUD
 import Parchment
 
+enum HistoryMode {
+    case appleformServer
+    case all
+}
+
 class History: UIViewController {
     
     @IBOutlet weak var backBtn: UIButton!
@@ -44,6 +49,7 @@ class History: UIViewController {
             vc2
         ])
         
+        pagingViewController.delegate = self
         pagingViewController.backgroundColor = .white
         pagingViewController.menuItemSize = .sizeToFit(minWidth: 0, height: 50)
         pagingViewController.indicatorColor = .buttonRed
@@ -68,11 +74,18 @@ class History: UIViewController {
           pagingViewController.view.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor),
           pagingViewController.view.topAnchor.constraint(equalTo: bottomView.topAnchor)
         ])
-        
-        
     }
     
     @IBAction func back(_ sender: UIButton) {
             self.navigationController!.popViewController(animated: true)
+    }
+}
+
+// MARK: - PagingViewControllerDelegate
+
+extension History: PagingViewControllerDelegate {
+    func pagingViewController(_ pagingViewController: PagingViewController, didSelectItem pagingItem: PagingItem) {
+        
+        view.endEditing(true)
     }
 }

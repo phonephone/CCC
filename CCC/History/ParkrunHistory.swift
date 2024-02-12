@@ -18,42 +18,105 @@ enum parkrunMode {
     case added
 }
 
-class ParkrunHistory: UIViewController {
+class ParkrunHistory: UIViewController, UITextFieldDelegate {
     
     var parkrunMode: parkrunMode?
     
+    var typeJSON : JSON?
     var historyJSON : JSON?
     
+    var typeID : String? = "0"
+    
+    var firstTime = true
+    
     @IBOutlet weak var myTableView: UITableView!
+    
+    @IBOutlet weak var typeField: UITextField!
+    @IBOutlet weak var typeBtn: UIButton!
+    
+    @IBOutlet weak var monthYearField: UITextField!
+    @IBOutlet weak var monthYearBtn: UIButton!
+    
+    var typePicker: UIPickerView! = UIPickerView()
+    let myDatePicker = MyMonthYearPicker()
+    let myDatePickerL = MyMonthYearPicker()
+    let myDatePickerR = MyMonthYearPicker()
+    var mySelectedDate = Date()
+    let maxPreviousMonth = 12
     
     var serverwithTimeFormatter = DateFormatter.serverWihtTimeFormatter
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        loadHistory(showLoadingHUD: true)
+        if firstTime {
+        
+        }
+        else{
+            loadHistory(monthYear: mySelectedDate)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("WORKOUT HISTORY")
+        print("PARKRUN HISTORY")
         self.navigationController?.setStatusBar(backgroundColor: .themeColor)
+        
+        pickerSetup(picker: typePicker)
+        typeField.inputView = typePicker
+        
+        myDatePicker.dataSource = myDatePicker
+        myDatePicker.delegate = myDatePicker
+        myDatePicker.backgroundColor = .white
+        if parkrunMode == .history {
+            myDatePicker.pickerMode = .month
+            NotificationCenter.default.addObserver(self, selector: #selector(myMonthChanged(notification:)), name:.monthChanged, object: nil)
+        }
+        else {
+            myDatePicker.pickerMode = .month2
+            NotificationCenter.default.addObserver(self, selector: #selector(myMonthChanged(notification:)), name:.monthChanged2, object: nil)
+        }
+        myDatePicker.buildMonthCollection(previous: maxPreviousMonth, next: 0)
+        myDatePicker.selectRow(maxPreviousMonth, inComponent: 0, animated: false)
+        
+        monthYearField.delegate = self
+        monthYearField.inputView = myDatePicker
         
         myTableView.delegate = self
         myTableView.dataSource = self
+        
+        loadType()
     }
     
-    func loadHistory(showLoadingHUD:Bool) {
+//    func loadHistory(showLoadingHUD:Bool) {
+//        let parameters:Parameters = ["user_id":SceneDelegate.GlobalVariables.userID]
+//        var urlStr:String
+//        if parkrunMode == .history {
+//            urlStr = "connect/parkrun/user/history"
+//        }
+//        else {
+//            urlStr = "connect/parkrun/user/history_sended"
+//        }
+//        loadRequest(method:.post, apiName:urlStr, authorization:true, showLoadingHUD:showLoadingHUD, dismissHUD:true, parameters: parameters){ result in
+//            switch result {
+//            case .failure(let error):
+//                print(error)
+//                ProgressHUD.dismiss()
+//
+//            case .success(let responseObject):
+//                let json = JSON(responseObject)
+//                //print("SUCCESS HISTORY\(json)")
+//
+//                self.historyJSON = json["data"]
+//                self.myTableView.reloadData()
+//            }
+//        }
+//    }
+    
+    func loadType() {
         let parameters:Parameters = ["user_id":SceneDelegate.GlobalVariables.userID]
-        var urlStr:String
-        if parkrunMode == .history {
-            urlStr = "connect/parkrun/user/history"
-        }
-        else {
-            urlStr = "connect/parkrun/user/history_sended"
-        }
-        loadRequest(method:.post, apiName:urlStr, authorization:true, showLoadingHUD:showLoadingHUD, dismissHUD:true, parameters: parameters){ result in
+        loadRequest(method:.get, apiName:"connect/parkrun/user/filter", authorization:true, showLoadingHUD:true, dismissHUD:false, parameters: parameters){ result in
             switch result {
             case .failure(let error):
                 print(error)
@@ -61,19 +124,161 @@ class ParkrunHistory: UIViewController {
 
             case .success(let responseObject):
                 let json = JSON(responseObject)
-                //print("SUCCESS HISTORY\(json)")
+                //print("SUCCESS HISTORY TYPE\(json)")
                 
-                self.historyJSON = json["data"]
-                self.myTableView.reloadData()
+                self.typeJSON = json["data"]
+                self.typePicker.reloadAllComponents()
+                if self.typeJSON?.count != 0 {
+                    self.typeField.text = self.typeJSON![0]["devices_text"].stringValue
+                    self.typeID = self.typeJSON![0]["devices_var"].stringValue
+                }
+                self.loadHistory(monthYear: self.mySelectedDate)
             }
         }
     }
     
-    @IBAction func back(_ sender: UIButton) {
-        self.navigationController!.popViewController(animated: true)
+    func loadHistory(monthYear:Date) {
+        historyJSON = []
+        myTableView.reloadData()
+        monthYearField.text = appStringFromDate(date: mySelectedDate, format: "MMMM yyyy")
+        
+        let monthYearStr = dateToServerString(date: monthYear)
+        let dateArray = monthYearStr.split(separator: "-")
+        let yearStr = String(dateArray[0])
+        let monthStr = String(dateArray[1])
+        
+//        print(yearStr)
+//        print(monthStr)
+//        print(typeID!)
+        
+        var urlStr:String
+        if parkrunMode == .history {
+            urlStr = "connect/parkrun/user/history"
+        }
+        else {
+            urlStr = "connect/parkrun/user/history_sended"
+        }
+        
+        let parameters:Parameters = ["user_id":SceneDelegate.GlobalVariables.userID,
+                                     "year":yearStr,
+                                     "month":monthStr,
+                                     "filter":typeID!
+        ]
+        print("URL = \(urlStr)")
+        print("Date = \(mySelectedDate)")
+        print("Param = \(parameters)")
+        loadRequest(method:.post, apiName:urlStr, authorization:true, showLoadingHUD:true, dismissHUD:true, parameters: parameters){ result in
+            switch result {
+            case .failure(let error):
+                print(error)
+
+            case .success(let responseObject):
+                let json = JSON(responseObject)
+                print("SUCCESS PARKRUN\(json)")
+                
+                self.historyJSON = json["data"]
+                self.myTableView.reloadData()
+                
+                self.firstTime = false
+            }
+        }
+    }
+    
+    @objc func myMonthChanged(notification:Notification){
+        let userInfo = notification.userInfo
+        mySelectedDate = appDateFromString(dateStr: (userInfo?["date"]) as! String, format: "MMMM yyyy")!
+        monthYearField.text = appStringFromDate(date: mySelectedDate, format: "MMMM yyyy")
+        loadHistory(monthYear: mySelectedDate)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == typeField && typeField.text == "" {
+            selectPicker(typePicker, didSelectRow: 0)
+        }
+        else if textField == monthYearField && monthYearField.text == "" {
+            myDatePicker.selectRow(myDatePicker.selectedMonth(), inComponent: 0, animated: true)
+            myDatePicker.pickerView(myDatePicker, didSelectRow: myDatePicker.selectedRow(inComponent: 0), inComponent: 0)
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+    }
+    
+    func pickerSetup(picker:UIPickerView) {
+        picker.delegate = self
+        picker.dataSource = self
+        picker.backgroundColor = .white
+        picker.setValue(UIColor.textDarkGray, forKeyPath: "textColor")
+    }
+    
+    @IBAction func dropdownClick(_ sender: UIButton) {
+        switch sender.tag {
+        case 1://type
+            typeField.becomeFirstResponder()
+            
+        case 2://head
+            monthYearField.becomeFirstResponder()
+            
+        default:
+            break
+        }
     }
     
 }//end ViewController
+
+// MARK: - Picker Datasource
+extension ParkrunHistory: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == typePicker && typeJSON!.count > 0{
+            return typeJSON!.count
+        }
+        else{
+            return 0
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        var pickerLabel: UILabel? = (view as? UILabel)
+        if pickerLabel == nil {
+            pickerLabel = UILabel()
+            pickerLabel?.font = .Prompt_Regular(ofSize: 22)
+            pickerLabel?.textAlignment = .center
+        }
+        
+        if pickerView == typePicker && typeJSON!.count > 0{
+            pickerLabel?.text = typeJSON![row]["devices_text"].stringValue
+        }
+        else{
+            pickerLabel?.text = ""
+        }
+        
+        pickerLabel?.textColor = .textDarkGray
+        
+        return pickerLabel!
+    }
+}
+
+// MARK: - Picker Delegate
+extension ParkrunHistory: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    {
+        selectPicker(pickerView, didSelectRow: row)
+    }
+    
+    func selectPicker(_ pickerView: UIPickerView, didSelectRow row: Int) {
+        if pickerView == typePicker {
+            typeField.text = typeJSON![row]["devices_text"].stringValue
+            typeID = typeJSON![row]["devices_var"].stringValue
+            
+            loadHistory(monthYear: mySelectedDate)
+        }
+    }
+}
 
 // MARK: - UITableViewDataSource
 
@@ -99,12 +304,18 @@ extension ParkrunHistory: UITableViewDataSource {
         let actName = cellArray["act_name_th"].stringValue
         let actType = cellArray["activity_type"].stringValue
         let sourceName = cellArray["source_name"].stringValue
+        
         if sourceName != "" {
-            cell.cellName.text = "\(sourceName) (\(actType))"
+            cell.cellName.text = "\(sourceName)"
+            if actType != "" {
+                cell.cellName.text = "\(sourceName) (\(actType))"
+            }
         }
         else{
             cell.cellName.text = "\(actName)"
         }
+        
+        cell.cellName.text
         
 //            let serverFormatter = DateFormatter()
 //            serverFormatter.locale = Locale(identifier: "en_US")
@@ -277,7 +488,8 @@ extension ParkrunHistory: UITableViewDelegate {
                 ProgressHUD.showSuccess("ส่งผลการแข่งขันเรียบร้อย")
                 self.historyJSON = nil
                 self.myTableView.reloadData()
-                self.loadHistory(showLoadingHUD: false)
+                //self.loadHistory(showLoadingHUD: false)
+                self.loadHistory(monthYear: self.mySelectedDate)
             }
         }
     }
@@ -343,7 +555,8 @@ extension ParkrunHistory: UITableViewDelegate {
                 ProgressHUD.showSuccess("ลบข้อมูลเรียบร้อย")
                 self.historyJSON = nil
                 self.myTableView.reloadData()
-                self.loadHistory(showLoadingHUD: false)
+                //self.loadHistory(showLoadingHUD: false)
+                self.loadHistory(monthYear: self.mySelectedDate)
             }
         }
     }

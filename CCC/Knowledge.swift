@@ -119,6 +119,7 @@ class Knowledge: UIViewController {
             pagingViewController.menuItemSize = .sizeToFit(minWidth: 0, height: 50)//.selfSizing(estimatedWidth: 100, height: 50)
         }
 
+        pagingViewController.delegate = self
         pagingViewController.indicatorColor = .buttonRed
         pagingViewController.textColor = .textDarkGray
         pagingViewController.selectedTextColor = .themeColor
@@ -148,3 +149,11 @@ class Knowledge: UIViewController {
     }
 }
 
+// MARK: - PagingViewControllerDelegate
+
+extension Knowledge: PagingViewControllerDelegate {
+    func pagingViewController(_ pagingViewController: PagingViewController, didSelectItem pagingItem: PagingItem) {
+        
+        view.endEditing(true)
+    }
+}

@@ -153,6 +153,7 @@
 		10DDA9212982F5F100C89772 /* Prompt-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 103B63222765F56C0098CD57 /* Prompt-SemiBoldItalic.ttf */; };
 		10DDA9222982F5F100C89772 /* Prompt-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 103B631A2765F56C0098CD57 /* Prompt-Light.ttf */; };
 		10DDA9232982F5F100C89772 /* Prompt-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 103B631C2765F56C0098CD57 /* Prompt-Thin.ttf */; };
+		10F6EC892B71FF50008611C5 /* ShareTemplate2.xib in Resources */ = {isa = PBXBuildFile; fileRef = 10F6EC882B71FF50008611C5 /* ShareTemplate2.xib */; };
 		10FC6E3528DD5DCB0010526E /* ServerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FC6E3428DD5DCB0010526E /* ServerError.swift */; };
 		10FFFC2B280B0D710078E443 /* CheckUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10FFFC2A280B0D710078E443 /* CheckUpdate.swift */; };
 		142953AED6A00E840FEB4402 /* Pods_CCC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF34F93DD86C19A83BF69D1F /* Pods_CCC.framework */; };
@@ -300,6 +301,7 @@
 		10B247E62B29BCA200E6F2D8 /* keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = keys.plist; sourceTree = "<group>"; };
 		10B247E82B29C07100E6F2D8 /* PlistParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistParser.swift; sourceTree = "<group>"; };
 		10B4791827FEB85F00F1C1C6 /* Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
+		10F6EC882B71FF50008611C5 /* ShareTemplate2.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareTemplate2.xib; sourceTree = "<group>"; };
 		10FC6E3428DD5DCB0010526E /* ServerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerError.swift; sourceTree = "<group>"; };
 		10FFFC2A280B0D710078E443 /* CheckUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckUpdate.swift; sourceTree = "<group>"; };
 		DF34F93DD86C19A83BF69D1F /* Pods_CCC.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CCC.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -410,9 +412,6 @@
 				10A807AD2B2B3472001A4305 /* Credit_2.swift */,
 				1073965D2B2B84C30025B2CD /* Challenge_2.swift */,
 				1073965F2B2B86970025B2CD /* Profile_2.swift */,
-				1073CBA5278D626E000E4364 /* Ranking.swift */,
-				1073CBA7278D71EE000E4364 /* RankingAll.swift */,
-				10B247E22B21645800E6F2D8 /* QRScanner.swift */,
 				101F9FFE27C8D1D50008BDF7 /* Login */,
 				1073CBA4278D5075000E4364 /* Run */,
 				1003D97D28D1AAEB004B262D /* History */,
@@ -423,9 +422,9 @@
 				1032B351279173DE00E9F43D /* KnowledgeList.swift */,
 				1032B35527917AFB00E9F43D /* Web.swift */,
 				1048ACDB27F431C8001FFC59 /* Setting.swift */,
-				10A807AA2B2B2F32001A4305 /* OldVersion */,
 				103B62FB2765EC880098CD57 /* Extension */,
 				103B62FD2765EC880098CD57 /* CustomUI */,
+				10A807AA2B2B2F32001A4305 /* OldVersion */,
 				1095216B278C71B000E074BF /* Localizable.strings */,
 				103B62E32765EA8F0098CD57 /* Assets.xcassets */,
 				103B62E52765EA8F0098CD57 /* LaunchScreen.storyboard */,
@@ -541,9 +540,9 @@
 			isa = PBXGroup;
 			children = (
 				1073965B2B2B6D620025B2CD /* Credit.storyboard */,
-				107396592B2B6D490025B2CD /* CreditHistory.swift */,
 				107396612B2BED4A0025B2CD /* CreditList.swift */,
 				107396632B2BF4BE0025B2CD /* CreditDetail.swift */,
+				107396592B2B6D490025B2CD /* CreditHistory.swift */,
 			);
 			path = Credit;
 			sourceTree = "<group>";
@@ -558,6 +557,7 @@
 				103A30AA282900E0006D4496 /* StickerView.swift */,
 				103A30AE28290FD3006D4496 /* ShareTemplate.swift */,
 				103A30AC28290EF4006D4496 /* ShareTemplate.xib */,
+				10F6EC882B71FF50008611C5 /* ShareTemplate2.xib */,
 				105F8F1A27706E7500B6AB11 /* WorkoutDataStore.swift */,
 				105F8F1427704F7700B6AB11 /* HealthKitSetupAssistant.swift */,
 				10952159278AC20600E074BF /* Run_Old.swift */,
@@ -602,6 +602,9 @@
 				100682862AC3F974004D64F0 /* ChallengeJoin_2.swift */,
 				100682882AC409E6004D64F0 /* ChallengeRank_2.swift */,
 				101F60DD279EB7FD006B88D8 /* ChallengeCreate.swift */,
+				10B247E22B21645800E6F2D8 /* QRScanner.swift */,
+				1073CBA5278D626E000E4364 /* Ranking.swift */,
+				1073CBA7278D71EE000E4364 /* RankingAll.swift */,
 			);
 			path = Challenge;
 			sourceTree = "<group>";
@@ -751,6 +754,7 @@
 				1003D97828D1A863004B262D /* Manual.storyboard in Resources */,
 				103B63392765F56C0098CD57 /* Prompt-Black.ttf in Resources */,
 				103B63272765F56C0098CD57 /* Prompt-ThinItalic.ttf in Resources */,
+				10F6EC892B71FF50008611C5 /* ShareTemplate2.xib in Resources */,
 				103B6352276756E40098CD57 /* Roboto-BoldItalic.ttf in Resources */,
 				103B6359276756E40098CD57 /* Roboto-Black.ttf in Resources */,
 				10952169278C71B000E074BF /* Localizable.strings in Resources */,
@@ -1116,7 +1120,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CCC/CCC.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VBBZXC58JM;
 				INFOPLIST_FILE = CCC/Info.plist;
@@ -1131,7 +1135,7 @@
 					/usr/lib/swift,
 					"$(SDKROOT)/usr/lib/swift",
 				);
-				MARKETING_VERSION = 2.0.3;
+				MARKETING_VERSION = 2.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = th.go.mots.ccc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1147,7 +1151,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CCC/CCC.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VBBZXC58JM;
 				INFOPLIST_FILE = CCC/Info.plist;
@@ -1162,7 +1166,7 @@
 					/usr/lib/swift,
 					"$(SDKROOT)/usr/lib/swift",
 				);
-				MARKETING_VERSION = 2.0.3;
+				MARKETING_VERSION = 2.0.4;
 				PRODUCT_BUNDLE_IDENTIFIER = th.go.mots.ccc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

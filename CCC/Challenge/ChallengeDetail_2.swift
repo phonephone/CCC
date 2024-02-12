@@ -146,7 +146,6 @@ class ChallengeDetail_2: UIViewController {
             }
         }
         
-        
         dailyCalLabel.text = challengeJSON!["cal_per_day"].stringValue
         dailyDurationLabel.text = challengeJSON!["time_limit"].stringValue
         dailyTimeLabel.text = challengeJSON!["times_per_day"].stringValue

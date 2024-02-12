@@ -47,6 +47,7 @@ class Ranking: UIViewController {
             vc2
         ])
         
+        pagingViewController.delegate = self
         pagingViewController.backgroundColor = .white
         pagingViewController.menuItemSize = .sizeToFit(minWidth: 0, height: 50)
         pagingViewController.indicatorColor = .buttonRed
@@ -75,5 +76,14 @@ class Ranking: UIViewController {
     
     @IBAction func back(_ sender: UIButton) {
             self.navigationController!.popViewController(animated: true)
+    }
+}
+
+// MARK: - PagingViewControllerDelegate
+
+extension Ranking: PagingViewControllerDelegate {
+    func pagingViewController(_ pagingViewController: PagingViewController, didSelectItem pagingItem: PagingItem) {
+        
+        view.endEditing(true)
     }
 }

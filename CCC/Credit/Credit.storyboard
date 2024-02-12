@@ -234,7 +234,7 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UH6-eX-JRb">
                                                                 <rect key="frame" x="10" y="0.0" width="154" height="48"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="เลือกประเภท" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sfb-JS-Kip">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="เลือกประเภท" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sfb-JS-Kip" customClass="MyField" customModule="CCC" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="136" height="48"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="48" id="DqP-Fx-qMr"/>
@@ -293,7 +293,7 @@
                                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ziR-9B-4uL">
                                                                 <rect key="frame" x="10" y="0.0" width="154" height="48"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="เลือกช่วงเวลา" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nnH-Fg-f7S">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="เลือกช่วงเวลา" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nnH-Fg-f7S" customClass="MyField" customModule="CCC" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="0.0" width="136" height="48"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="48" id="Xe7-Yr-IZg"/>
@@ -1321,8 +1321,14 @@
         </scene>
     </scenes>
     <designables>
+        <designable name="nnH-Fg-f7S">
+            <size key="intrinsicContentSize" width="97.666666666666671" height="24.666666666666668"/>
+        </designable>
         <designable name="nxR-Ma-TxS">
             <size key="intrinsicContentSize" width="42" height="37"/>
+        </designable>
+        <designable name="sfb-JS-Kip">
+            <size key="intrinsicContentSize" width="88.333333333333329" height="24.666666666666668"/>
         </designable>
     </designables>
     <resources>
