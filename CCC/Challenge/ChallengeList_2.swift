@@ -76,7 +76,7 @@ class ChallengeList_2: UIViewController, UITextFieldDelegate {
 
             case .success(let responseObject):
                 let json = JSON(responseObject)
-                print("SUCCESS CHALLENGE LIST\(json)")
+                //print("SUCCESS CHALLENGE LIST\(json)")
                 
                 self.allJSON = json["data"]
                 self.challengeJSON = self.allJSON

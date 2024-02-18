@@ -18,6 +18,7 @@ import SkeletonView
 class Home_2: UIViewController {
     
     var profileJSON: JSON?
+    var challengeJSON: JSON?
     
     var firstTime = true
     var notShowAgain = false
@@ -115,7 +116,7 @@ class Home_2: UIViewController {
 
             case .success(let responseObject):
                 let json = JSON(responseObject)
-                //print("SUCCESS HOME\(json)")
+                print("SUCCESS HOME\(json)")
                 
                 self.profileJSON = json["data"][0]
                 SceneDelegate.GlobalVariables.profileJSON = json["data"][0]
@@ -154,11 +155,34 @@ class Home_2: UIViewController {
                 }
                 else if popupArray.count != 0 && self.notShowAgain == false {
                     self.popupPic.sd_setImage(with: URL(string:popupArray[0]["pop_ups_img_url"].stringValue), placeholderImage: nil)
+                    
                     self.popupTitle.text = popupArray[0]["pop_ups_name"].stringValue
                     self.popupDescription.text = popupArray[0]["pop_ups_content"].stringValue.html2String
                     
                     self.popIn(popupView: self.blurView)
                     self.popIn(popupView: self.popupView)
+                    
+                    self.popupPic.addTapGesture {
+                        switch popupArray[0]["pop_ups_type"].stringValue {
+                        case "web":
+                            let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "Web") as! Web
+                            vc.titleString = ""
+                            vc.webUrlString = popupArray[0]["pop_ups_link"].stringValue
+                            self.navigationController!.pushViewController(vc, animated: true)
+                            self.notShowAgain = true
+                            self.popOut(popupView: self.popupView)
+                            self.popOut(popupView: self.blurView)
+                            
+                        case "challengep":
+                            self.checkJoinStatus(challengeID: popupArray[0]["pop_ups_link"].stringValue)
+                            self.notShowAgain = true
+                            self.popOut(popupView: self.popupView)
+                            self.popOut(popupView: self.blurView)
+                            
+                        default:
+                            break
+                        }
+                    }
                 }
                 SceneDelegate.GlobalVariables.userPicURL = self.profileJSON!["pictureUrl"].stringValue
                 
@@ -202,6 +226,42 @@ class Home_2: UIViewController {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.00) {
             self.view.hideSkeleton()
+        }
+    }
+    
+    func checkJoinStatus(challengeID:String) {
+        let parameters:Parameters = ["user_id":SceneDelegate.GlobalVariables.userID,
+                                     "challenge_id":challengeID
+        ]
+        
+        loadRequest_V2(method:.post, apiName:"challenges/info", authorization:true, showLoadingHUD:true, dismissHUD:true, parameters: parameters){ result in
+            switch result {
+            case .failure(let error):
+                print(error)
+                ProgressHUD.dismiss()
+                
+            case .success(let responseObject):
+                let json = JSON(responseObject)
+                print("SUCCESS JOIN CHECK\(json)")
+                
+                self.challengeJSON = json["data"][0]
+                self.pushToChallenge(challengeID: challengeID, joinStatus: self.challengeJSON!["status_join"].stringValue)
+            }
+        }
+    }
+    
+    func pushToChallenge(challengeID:String, joinStatus:String) {
+        if joinStatus == "unjoin" {
+            let vc = UIStoryboard.challengeStoryBoard.instantiateViewController(withIdentifier: "ChallengeDetail_2") as! ChallengeDetail_2
+            vc.challengeMode = .all
+            vc.challengeID = challengeID
+            self.navigationController!.pushViewController(vc, animated: true)
+        }
+        else {
+            let vc = UIStoryboard.challengeStoryBoard.instantiateViewController(withIdentifier: "ChallengeJoin_2") as! ChallengeJoin_2
+            vc.challengeMode = .joined
+            vc.challengeID = challengeID
+            self.navigationController!.pushViewController(vc, animated: true)
         }
     }
     

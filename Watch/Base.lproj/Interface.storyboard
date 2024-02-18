@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="20037" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch38"/>
+    <dependencies>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="20006"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Prompt-Medium.ttf">
+            <string>Prompt-Medium</string>
+        </array>
+        <array key="Prompt-Regular.ttf">
+            <string>Prompt-Regular</string>
+        </array>
+        <array key="Prompt-SemiBold.ttf">
+            <string>Prompt-SemiBold</string>
+        </array>
+    </customFonts>
+    <scenes>
+        <!--Interface Controller-->
+        <scene sceneID="aou-V4-d1y">
+            <objects>
+                <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Watch" customModuleProvider="target">
+                    <items>
+                        <group width="1" alignment="center" layout="vertical" spacing="8" id="fIa-qa-cu0">
+                            <items>
+                                <group alignment="center" layout="vertical" spacing="0.0" id="IzP-Fy-v13">
+                                    <items>
+                                        <group alignment="left" spacing="8" id="gHS-we-Htm">
+                                            <items>
+                                                <imageView width="26" height="26" alignment="left" verticalAlignment="center" image="watch_distance" contentMode="scaleAspectFit" id="whe-Bv-qpr"/>
+                                                <label alignment="right" verticalAlignment="center" text="Distance" id="kmO-SK-MnM">
+                                                    <fontDescription key="font" name="Prompt-Regular" family="Prompt" pointSize="12"/>
+                                                </label>
+                                            </items>
+                                        </group>
+                                        <group alignment="center" spacing="5" id="Cfb-JE-4Ds">
+                                            <items>
+                                                <label height="45" alignment="left" text="0.00" id="IVj-F2-eeH">
+                                                    <fontDescription key="font" name="Prompt-SemiBold" family="Prompt" pointSize="40"/>
+                                                </label>
+                                                <label height="0.75" alignment="left" verticalAlignment="bottom" text="KM" id="3Mx-0Q-JVt">
+                                                    <fontDescription key="font" name="Prompt-SemiBold" family="Prompt" pointSize="20"/>
+                                                </label>
+                                            </items>
+                                        </group>
+                                        <group alignment="left" layout="vertical" id="mk1-Xq-ZvB">
+                                            <items>
+                                                <group alignment="center" spacing="10" id="Rta-vU-TqA">
+                                                    <items>
+                                                        <group alignment="left" spacing="5" id="NiE-jR-2ET">
+                                                            <items>
+                                                                <imageView width="17" height="17" alignment="left" verticalAlignment="center" image="watch_time" contentMode="scaleAspectFit" id="eLo-j2-qwy"/>
+                                                                <label alignment="right" verticalAlignment="center" text="00:00:00" id="WXs-Gt-uf3">
+                                                                    <fontDescription key="font" name="Prompt-Regular" family="Prompt" pointSize="14"/>
+                                                                </label>
+                                                            </items>
+                                                        </group>
+                                                        <group alignment="right" spacing="5" id="jHR-W9-P79">
+                                                            <items>
+                                                                <imageView width="14" height="19" alignment="left" verticalAlignment="center" image="watch_step" contentMode="scaleAspectFit" id="pRY-Xl-MlU"/>
+                                                                <label alignment="right" verticalAlignment="center" text="0000" id="0SB-O9-OaU">
+                                                                    <fontDescription key="font" name="Prompt-Regular" family="Prompt" pointSize="14"/>
+                                                                </label>
+                                                            </items>
+                                                        </group>
+                                                    </items>
+                                                </group>
+                                                <group alignment="left" spacing="5" id="m4q-Z7-yGi">
+                                                    <items>
+                                                        <imageView width="13" height="16" alignment="left" verticalAlignment="center" image="watch_cal" contentMode="scaleAspectFit" id="ELI-IP-n0X"/>
+                                                        <label alignment="right" verticalAlignment="center" text="0 kCal" id="KUW-aG-XM3">
+                                                            <fontDescription key="font" name="Prompt-Regular" family="Prompt" pointSize="14"/>
+                                                        </label>
+                                                    </items>
+                                                </group>
+                                            </items>
+                                        </group>
+                                    </items>
+                                </group>
+                                <group width="1" alignment="center" spacing="20" id="stv-4l-RCD">
+                                    <items>
+                                        <button width="147" height="39" alignment="center" title="START" backgroundImage="watch_start" id="kWZ-aa-BO4">
+                                            <fontDescription key="font" name="Prompt-Medium" family="Prompt" pointSize="22"/>
+                                            <connections>
+                                                <action selector="startClick" destination="AgC-eL-Hgc" id="TbL-kh-eR6"/>
+                                            </connections>
+                                        </button>
+                                        <button width="50" height="50" alignment="center" backgroundImage="watch_pause" id="HIS-Og-T1r">
+                                            <connections>
+                                                <action selector="pauseClick" destination="AgC-eL-Hgc" id="RIa-Ee-pye"/>
+                                            </connections>
+                                        </button>
+                                        <button width="41" height="54" alignment="center" backgroundImage="watch_play" id="UzP-49-fT7">
+                                            <connections>
+                                                <action selector="startClick" destination="AgC-eL-Hgc" id="hMN-zX-LIt"/>
+                                            </connections>
+                                        </button>
+                                        <button width="30" height="30" alignment="center" verticalAlignment="center" backgroundImage="run_stop" id="cnr-Ja-w6q">
+                                            <connections>
+                                                <action selector="stopClick" destination="AgC-eL-Hgc" id="ZNq-9I-W3L"/>
+                                            </connections>
+                                        </button>
+                                    </items>
+                                </group>
+                            </items>
+                        </group>
+                        <label height="20" alignment="center" verticalAlignment="center" hidden="YES" text="Countdown" textAlignment="center" numberOfLines="0" id="cFa-et-K45"/>
+                        <group width="1" alignment="left" hidden="YES" layout="vertical" id="Tq6-ln-mYZ">
+                            <items>
+                                <button width="1" alignment="left" title="Send" id="IAL-Xp-AwL">
+                                    <color key="backgroundColor" name="AccentColor"/>
+                                    <connections>
+                                        <action selector="sendClicked" destination="AgC-eL-Hgc" id="jOA-8Y-Py4"/>
+                                    </connections>
+                                </button>
+                                <label height="20" alignment="center" verticalAlignment="center" text="message..." textAlignment="center" numberOfLines="0" id="7lT-ZF-dew"/>
+                                <label height="20" alignment="center" verticalAlignment="center" text="user info..." textAlignment="center" numberOfLines="0" id="swn-Vq-tSa"/>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="calorieLabel" destination="KUW-aG-XM3" id="DFe-vr-VYG"/>
+                        <outlet property="countDownLabel" destination="cFa-et-K45" id="HIA-tj-EP6"/>
+                        <outlet property="kmLabel" destination="IVj-F2-eeH" id="mcA-NF-pRc"/>
+                        <outlet property="mainLabel" destination="7lT-ZF-dew" id="DNv-mi-sVQ"/>
+                        <outlet property="pauseBtn" destination="HIS-Og-T1r" id="KjA-I1-lJ2"/>
+                        <outlet property="playBtn" destination="UzP-49-fT7" id="ikT-RL-2Uy"/>
+                        <outlet property="sendBtn" destination="IAL-Xp-AwL" id="GkN-Ah-trK"/>
+                        <outlet property="startBtn" destination="kWZ-aa-BO4" id="83t-8H-Hvu"/>
+                        <outlet property="stepLabel" destination="0SB-O9-OaU" id="LjE-dQ-uX7"/>
+                        <outlet property="stopBtn" destination="cnr-Ja-w6q" id="AQo-7w-ui7"/>
+                        <outlet property="timeLabel" destination="WXs-Gt-uf3" id="mip-gy-qc5"/>
+                        <outlet property="userLabel" destination="swn-Vq-tSa" id="Jyc-DM-yrl"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="220" y="345"/>
+        </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="AEw-b0-oYE">
+            <objects>
+                <notificationController id="YCC-NB-fut">
+                    <items>
+                        <label alignment="left" text="Alert Label" numberOfLines="0" id="IdU-wH-bcW"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="myCategory" id="JfB-70-Muf"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="IdU-wH-bcW" id="JKC-fr-R95"/>
+                        <segue destination="4sK-HA-Art" kind="relationship" relationship="dynamicNotificationInterface" id="kXh-Jw-8B1"/>
+                        <segue destination="eXb-UN-Cd0" kind="relationship" relationship="dynamicInteractiveNotificationInterface" id="mpB-YA-K8N"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="220" y="643"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="ZPc-GJ-vnh">
+            <objects>
+                <controller id="4sK-HA-Art" customClass="NotificationController" customModule="Watch" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="468" y="643"/>
+        </scene>
+        <!--Notification Controller-->
+        <scene sceneID="Niz-AI-uX2">
+            <objects>
+                <controller id="eXb-UN-Cd0" customClass="NotificationController" customModule="Watch" customModuleProvider="target"/>
+            </objects>
+            <point key="canvasLocation" x="468" y="345"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="run_stop" width="96" height="96"/>
+        <image name="watch_cal" width="38" height="48"/>
+        <image name="watch_distance" width="78" height="78"/>
+        <image name="watch_pause" width="153" height="153"/>
+        <image name="watch_play" width="124" height="162"/>
+        <image name="watch_start" width="443" height="118"/>
+        <image name="watch_step" width="42" height="57"/>
+        <image name="watch_time" width="51" height="51"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

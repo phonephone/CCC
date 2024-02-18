@@ -458,7 +458,7 @@ extension UIView {
         self.layer.mask = mask
     }
     
-    func  addTapGesture(action : @escaping ()->Void ){
+    func addTapGesture(action : @escaping ()->Void ){
         let tap = MyTapGestureRecognizer(target: self , action: #selector(self.handleTap(_:)))
         tap.action = action
         tap.numberOfTapsRequired = 1
@@ -573,8 +573,18 @@ extension String {
             return  nil
         }
     }
+    
     var html2String: String {
         return html2AttributedString?.string ?? ""
+    }
+    
+    func convertToAttributedFromHTML() -> NSAttributedString? {
+        var attributedText: NSAttributedString?
+        let options: [NSAttributedString.DocumentReadingOptionKey: Any] = [.documentType: NSAttributedString.DocumentType.html, .characterEncoding: String.Encoding.utf8.rawValue]
+        if let data = data(using: .unicode, allowLossyConversion: true), let attrStr = try? NSAttributedString(data: data, options: options, documentAttributes: nil) {
+            attributedText = attrStr
+        }
+        return attributedText
     }
 }
 

@@ -32,14 +32,14 @@ class ChallengeDetail_2: UIViewController {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var joinLabel: UILabel!
     @IBOutlet weak var updateLabel: UILabel!
-    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var descriptionTextView: UITextView!
     
     @IBOutlet weak var ruleView: UIView!
     @IBOutlet weak var typeStack: UIStackView!
     @IBOutlet weak var dailyCalLabel: UILabel!
     @IBOutlet weak var dailyDurationLabel: UILabel!
     @IBOutlet weak var dailyTimeLabel: UILabel!
-    @IBOutlet weak var ruleLabel: UILabel!
+    @IBOutlet weak var ruleTextView: UITextView!
     
     @IBOutlet weak var methodView: UIView!
     @IBOutlet weak var methodStack: UIStackView!
@@ -89,7 +89,7 @@ class ChallengeDetail_2: UIViewController {
                 
             case .success(let responseObject):
                 let json = JSON(responseObject)
-                //print("SUCCESS CHALLENGE DETAIL 2\(json)")
+                print("SUCCESS CHALLENGE DETAIL 2\(json)")
                 
                 self.challengeJSON = json["data"][0]
                 self.updateBtn()
@@ -122,7 +122,10 @@ class ChallengeDetail_2: UIViewController {
         
         updateLabel.text = challengeJSON!["update_time"].stringValue
         
-        descriptionLabel.text = challengeJSON!["description"].stringValue.html2String
+        //descriptionTextView.text = challengeJSON!["description"].stringValue.html2String
+        descriptionTextView.attributedText = challengeJSON!["description"].stringValue.convertToAttributedFromHTML()
+        descriptionTextView.textColor = .textGray1
+        descriptionTextView.font = .Prompt_Regular(ofSize: 12)
         descriptionView.isHidden = false
         
         //RULE VIEW
@@ -149,7 +152,10 @@ class ChallengeDetail_2: UIViewController {
         dailyCalLabel.text = challengeJSON!["cal_per_day"].stringValue
         dailyDurationLabel.text = challengeJSON!["time_limit"].stringValue
         dailyTimeLabel.text = challengeJSON!["times_per_day"].stringValue
-        ruleLabel.text = challengeJSON!["other_text"].stringValue.html2String
+        //ruleTextView.text = challengeJSON!["other_text"].stringValue.html2String
+        ruleTextView.attributedText = challengeJSON!["other_text"].stringValue.convertToAttributedFromHTML()
+        ruleTextView.textColor = .textGray1
+        ruleTextView.font = .Prompt_Regular(ofSize: 12)
         ruleView.isHidden = false
         
         //METHOD VIEW
@@ -287,4 +293,3 @@ class ChallengeDetail_2: UIViewController {
         self.navigationController!.popViewController(animated: true)
     }
 }
-

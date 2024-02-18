@@ -15,6 +15,7 @@ enum MenuID {
     case manual_input
     case parkrun
     case create_challenge
+    case campaign
     case setting
     case document
     case logout
@@ -30,6 +31,7 @@ class SideMenu: UIViewController {
     
     var parkrunStatus:Bool?
     var createChallengeStatus:Bool?
+    var campaignStatus:Bool?
     
     @IBOutlet var sideMenuTableView: UITableView!
     @IBOutlet weak var cccIDLabel: UILabel!
@@ -40,6 +42,7 @@ class SideMenu: UIViewController {
         Menu(menuID: .manual_input, title: "ส่งผลแบบกรอกเอง", imgName: "menu_manual"),
         //Menu(menuID: .parkrun, title: "ส่งผล Park Run Anywhere", imgName: "menu_parkrun"),
         //Menu(menuID: .create_challenge, title: "สร้าง Challenge", imgName: "menu_create_challenge"),
+        //Menu(menuID: .campaign, title: "Campaign", imgName: "menu_campaign"),
         Menu(menuID: .setting, title: "การตั้งค่า", imgName: "menu_setting"),
         Menu(menuID: .document, title: "คู่มือการใช้งาน", imgName: "menu_doc"),
         Menu(menuID: .logout, title: "ออกจากระบบ", imgName: "menu_logout"),
@@ -131,6 +134,21 @@ class SideMenu: UIViewController {
             }
         }
         
+        campaignStatus = SceneDelegate.GlobalVariables.profileJSON!["campaign_status"].boolValue
+        let campaignFound = menus.filter{$0.menuID == .campaign}.count > 0
+        
+        if campaignStatus == campaignFound {
+            //menus.remove(at: 4)
+        } else {
+            if campaignFound {
+                let campaignIndex = menus.indices.filter({menus[$0].menuID == .campaign})
+                menus.remove(at: campaignIndex.first!)
+            } else{
+                settingIndex = menus.indices.filter({menus[$0].menuID == .setting})
+                menus.insert(Menu(menuID: .campaign, title: "Campaign", imgName: "menu_campaign"), at: settingIndex.first!)
+            }
+        }
+        
         self.sideMenuTableView.reloadData()
     }
     
@@ -203,6 +221,13 @@ extension SideMenu: UITableViewDelegate {
             let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "Web") as! Web
             vc.titleString = "สร้าง Challenge"
             vc.webUrlString = SceneDelegate.GlobalVariables.profileJSON!["create_challenge_url"].stringValue
+            self.navigationController!.pushViewController(vc, animated: true)
+            self.sideMenuController!.hideMenu()
+            
+        case .campaign:
+            let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "Web") as! Web
+            vc.titleString = "Campaign"
+            vc.webUrlString = SceneDelegate.GlobalVariables.profileJSON!["campaign_url"].stringValue
             self.navigationController!.pushViewController(vc, animated: true)
             self.sideMenuController!.hideMenu()
         

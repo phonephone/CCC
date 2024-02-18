@@ -190,7 +190,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             //let vc = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "Challenge_2") as! Challenge_2
             
 //            let vc = UIStoryboard.challengeStoryBoard.instantiateViewController(withIdentifier: "ChallengeDetail_2") as! ChallengeDetail_2
-//            vc.challengeID = "2590"//"2581"//"2511"//"40"
+//            vc.challengeID = "2798"//"2590"//"2581"//"2511"
             
 //            let vc = UIStoryboard.challengeStoryBoard.instantiateViewController(withIdentifier: "ChallengeJoin_2") as! ChallengeJoin_2
 //            vc.challengeID = "2599"//"2581"//"2511"

@@ -38,6 +38,7 @@ class CreditDetail: UIViewController {
     @IBOutlet weak var durationLabel: UILabel!
     
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var descriptionTextView: UITextView!
     
     @IBOutlet weak var acceptBtn: UIButton!
     @IBOutlet weak var termsLabel: UILabel!
@@ -122,7 +123,8 @@ class CreditDetail: UIViewController {
         durationTitle.text = detailJSON!["condition_2_text"].stringValue
         durationLabel.text = detailJSON!["condition_2"].stringValue
         
-        descriptionLabel.text = detailJSON!["detail"].stringValue.html2String
+        //descriptionLabel.text = detailJSON!["detail"].stringValue.html2String
+        descriptionTextView.text = detailJSON!["detail"].stringValue.html2String
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.00) {
             self.view.hideSkeleton()
