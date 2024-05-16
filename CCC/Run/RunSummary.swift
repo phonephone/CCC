@@ -20,6 +20,7 @@ enum SummaryMode {
 class RunSummary: UIViewController {
     
     var summaryJSON : JSON?
+    var locationJSON : JSON?
     
     var summaryMode: SummaryMode?
     
@@ -31,12 +32,16 @@ class RunSummary: UIViewController {
     var startDate: Date!
     var endDate: Date!
     
+    var lat: String?
+    var long: String?
+    
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var kmLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var stepLabel: UILabel!
     @IBOutlet weak var calorieLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
     
     @IBOutlet weak var submitBtn: UIButton!
     
@@ -58,6 +63,41 @@ class RunSummary: UIViewController {
         stepLabel.text = String(totalStep)
         calorieLabel.text = String(format: "%.0f", totalCalories)
         dateLabel.text = appStringFromDate(date: endDate, format: "d MMMM yyyy")
+        
+        locationLabel.text = ""
+        
+        if lat != "" && long != "" {
+            loadLocation()
+        }
+    }
+    
+    func loadLocation() {
+        print("Lat \(String(describing: lat))")
+        print("Long \(String(describing: long))")
+        
+        let parameters:Parameters = ["lat":lat ?? "",
+                                     "lon":long ?? ""
+        ]
+        loadRequest_V2(method:.post, apiName:"gistda/locataon", authorization:true, showLoadingHUD:false, dismissHUD:true, parameters: parameters){ result in
+            switch result {
+            case .failure(let error):
+                print(error)
+                ProgressHUD.dismiss()
+
+            case .success(let responseObject):
+                let json = JSON(responseObject)
+                print("SUCCESS LOCATION\(json)")
+                
+                self.locationJSON = json["data"]
+                self.updateDisplay()
+            }
+        }
+    }
+    
+    func updateDisplay() {
+        if locationJSON!.count > 0 {
+            locationLabel.text = "\(locationJSON!["subdistrict"]), \(locationJSON!["district"]), \(locationJSON!["province"])"
+        }
     }
     
     @IBAction func submitClick(_ sender: UIButton) {
@@ -94,6 +134,8 @@ class RunSummary: UIViewController {
         vc.totalCalories = totalCalories
         vc.startDate = startDate
         vc.endDate = endDate
+        vc.lat = lat
+        vc.long = long
         self.navigationController!.pushViewController(vc, animated: true)
     }
     

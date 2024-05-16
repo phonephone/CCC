@@ -55,7 +55,7 @@ class WorkoutHistory: UIViewController, UITextFieldDelegate {
             }
         }
         else{
-            loadHistory(monthYear: mySelectedDate)
+            //loadHistory(monthYear: mySelectedDate)
         }
     }
     
@@ -435,6 +435,8 @@ extension WorkoutHistory: UITableViewDelegate {
                 vc.endDate = Date()
             }
         }
+        vc.lat = cellArray["latitude"].stringValue
+        vc.long = cellArray["longitude"].stringValue
         
         self.navigationController!.pushViewController(vc, animated: true)
         
@@ -486,6 +488,8 @@ extension WorkoutHistory: UITableViewDelegate {
             }
         }
         //vc.endDate = endDate
+        vc.lat = cellArray["latitude"].stringValue
+        vc.long = cellArray["longitude"].stringValue
         
         self.navigationController!.pushViewController(vc, animated: true)
     }

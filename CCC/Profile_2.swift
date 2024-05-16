@@ -12,6 +12,7 @@ import ProgressHUD
 import AVFoundation
 import Photos
 import SkeletonView
+import SwiftAlertView
 
 enum ProfileMode {
     case register
@@ -59,6 +60,7 @@ class Profile_2: UIViewController, UITextFieldDelegate {
     var selectedImage: UIImage?
     
     var firstTime = true
+    var locationChange = false
     
     @IBOutlet weak var myScrollView: UIScrollView!
     @IBOutlet weak var myStackView: UIStackView!
@@ -98,13 +100,6 @@ class Profile_2: UIViewController, UITextFieldDelegate {
     var waistPicker: UIPickerView! = UIPickerView()
     var informationPicker: UIPickerView! = UIPickerView()
     var shirtPicker: UIPickerView! = UIPickerView()
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        loadProfile()
-        
-        firstTime = false
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -195,6 +190,8 @@ class Profile_2: UIViewController, UITextFieldDelegate {
         let popupWidth = self.view.bounds.width*0.9
         let popupHeight = self.view.bounds.height*0.8//popupWidth*1.5
         popupView.frame = CGRect(x: (self.view.bounds.width-popupWidth)/2, y: (self.view.bounds.height-popupHeight)/2, width: popupWidth, height: popupHeight)
+        
+        loadDropdown()
     }
     
     func pickerSetup(picker:UIPickerView) {
@@ -202,6 +199,33 @@ class Profile_2: UIViewController, UITextFieldDelegate {
         picker.dataSource = self
         picker.backgroundColor = .white
         picker.setValue(UIColor.textDarkGray, forKeyPath: "textColor")
+    }
+    
+    func loadDropdown() {
+        let parameters:Parameters = ["id":SceneDelegate.GlobalVariables.userID]
+        print(parameters)
+        loadRequest(method:.get, apiName:"masterdata", authorization:true, showLoadingHUD:firstTime, dismissHUD:true, parameters: parameters){ result in
+            switch result {
+            case .failure(let error):
+                print(error)
+                ProgressHUD.dismiss()
+                
+            case .success(let responseObject):
+                let json = JSON(responseObject)
+                //print("SUCCESS DROPDOWN\(json)")
+                
+                let jsonArray = json["data"][0]
+                self.occupationJSON = jsonArray["occupation"]
+                self.genderJSON = jsonArray["gender"]
+                self.provinceJSON = jsonArray["province"]
+                self.informationJSON = jsonArray["information"]
+                self.shirtJSON = jsonArray["sizeinformation"]
+                
+                self.popupImage.sd_setImage(with: URL(string:jsonArray["sizeimages"][0]["url"].stringValue), placeholderImage: UIImage(named: "icon_profile"))
+                
+                self.loadProfile()
+            }
+        }
     }
     
     func loadProfile() {
@@ -219,32 +243,8 @@ class Profile_2: UIViewController, UITextFieldDelegate {
                 print("SUCCESS PROFILE\(json)")
                 
                 self.profileJSON = json["data"][0]
-                self.loadDropdown()
-            }
-        }
-    }
-    
-    func loadDropdown() {
-        let parameters:Parameters = ["id":SceneDelegate.GlobalVariables.userID]
-        print(parameters)
-        loadRequest(method:.get, apiName:"masterdata", authorization:true, showLoadingHUD:true, dismissHUD:true, parameters: parameters){ result in
-            switch result {
-            case .failure(let error):
-                print(error)
-                ProgressHUD.dismiss()
                 
-            case .success(let responseObject):
-                let json = JSON(responseObject)
-                print("SUCCESS DROPDOWN\(json)")
-                
-                let jsonArray = json["data"][0]
-                self.occupationJSON = jsonArray["occupation"]
-                self.genderJSON = jsonArray["gender"]
-                self.provinceJSON = jsonArray["province"]
-                self.informationJSON = jsonArray["information"]
-                self.shirtJSON = jsonArray["sizeinformation"]
-                
-                self.popupImage.sd_setImage(with: URL(string:jsonArray["sizeimages"][0]["url"].stringValue), placeholderImage: UIImage(named: "icon_profile"))
+                self.firstTime = false
                 
                 self.updateDisplay()
             }
@@ -273,6 +273,7 @@ class Profile_2: UIViewController, UITextFieldDelegate {
         telField.text = profileJSON!["mobile"].stringValue
         fullNameField.text = profileJSON!["first_name"].stringValue
         idNoField.text = profileJSON!["identity_number"].stringValue
+        idNoField.isEnabled = profileJSON!["identity_editable"].boolValue
         
         selectedOccupationID = profileJSON!["occupation_id"].stringValue
         if selectedOccupationID == ""
@@ -766,7 +767,12 @@ class Profile_2: UIViewController, UITextFieldDelegate {
 //            loadSubmit()
 //        }
         
-        loadSubmit()
+        if locationChange {
+            alertLocation()
+        }
+        else {
+            loadSubmit()
+        }
     }
     
     func loadSubmit() {
@@ -804,10 +810,16 @@ class Profile_2: UIViewController, UITextFieldDelegate {
                 let json = JSON(responseObject)
                 print("UPDATE PROFILE\(json)")
 
+                self.locationChange = false
                 self.submitSuccess()
 
                 if self.profileMode == .register {
                     self.switchToHome()
+                }
+                else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2.00) {
+                        self.loadProfile()
+                    }
                 }
             }
         }
@@ -815,6 +827,32 @@ class Profile_2: UIViewController, UITextFieldDelegate {
     
     @IBAction func leftMenuShow(_ sender: UIButton) {
         self.sideMenuController!.revealMenu()
+    }
+    
+    func alertLocation() {
+        SwiftAlertView.show(title: "การเปลี่ยนแปลงที่อยู่ปัจจุบันของท่าน มีผลต่อชาเลนจ์ประเภทพื้นที่",
+                            message: "ท่านต้องการเปลี่ยนแปลงหรือไม่",
+                            buttonTitles: "ยกเลิก", "ยืนยัน") { alert in
+            //alert.backgroundColor = .yellow
+            alert.titleLabel.font = .Alert_Title
+            alert.messageLabel.font = .Alert_Message
+            alert.cancelButtonIndex = 0
+            alert.button(at: 0)?.titleLabel?.font = .Alert_Button
+            alert.button(at: 0)?.setTitleColor(.buttonRed, for: .normal)
+            
+            alert.button(at: 1)?.titleLabel?.font = .Alert_Button
+            alert.button(at: 1)?.setTitleColor(.themeColor, for: .normal)
+            //alert.buttonTitleColor = .themeColor
+        }
+                            .onButtonClicked { _, buttonIndex in
+                                print("Button Clicked At Index \(buttonIndex)")
+                                switch buttonIndex{
+                                case 1:
+                                    self.loadSubmit()
+                                default:
+                                    break
+                                }
+                            }
     }
 }
 
@@ -929,6 +967,12 @@ extension Profile_2: UIPickerViewDelegate {
     {
         print("Select \(row)")
         selectPicker(pickerView, didSelectRow: row)
+        
+        if pickerView == provincePicker || pickerView == amphurPicker || pickerView == tumbonPicker {
+            if self.profileMode == .edit {
+                locationChange = true
+            }
+        }
     }
 
     func selectPicker(_ pickerView: UIPickerView, didSelectRow row: Int) {

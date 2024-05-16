@@ -191,7 +191,7 @@ class Home: UIViewController {
 //        let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "ManualList") as! ManualList
 //        self.navigationController!.pushViewController(vc, animated: true)
         
-        let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "Web") as! Web
+        let vc = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "Web") as! Web
         vc.titleString = "ข้อเสนอแนะ (Feedback)"
         vc.webUrlString = "\(HTTPHeaders.websiteURL)feedback"
         self.navigationController!.pushViewController(vc, animated: true)

@@ -210,8 +210,9 @@ class Register_2: UIViewController, UITextFieldDelegate {
                 let json = JSON(responseObject)
                 print("REGISTER_2 SUBMIT\(json)")
 
-                let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "Register_3") as! Register_3
-                self.navigationController!.pushViewController(vc, animated: true)
+//                let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "Register_3") as! Register_3
+//                self.navigationController!.pushViewController(vc, animated: true)
+                self.switchToHome()
             }
         }
     }

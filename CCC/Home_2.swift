@@ -14,11 +14,14 @@ import SDWebImage
 import CoreLocation
 import SwiftAlertView
 import SkeletonView
+import Parchment
 
 class Home_2: UIViewController {
     
     var profileJSON: JSON?
     var challengeJSON: JSON?
+    
+    var popupJSON: JSON?
     
     var firstTime = true
     var notShowAgain = false
@@ -54,7 +57,7 @@ class Home_2: UIViewController {
     @IBOutlet var popupView: UIView!
     @IBOutlet weak var popupPic: UIImageView!
     @IBOutlet weak var popupTitle: UILabel!
-    @IBOutlet weak var popupDescription: UILabel!
+    @IBOutlet weak var popupDescription: UITextView!
     @IBOutlet weak var popupXBtn: UIButton!
     @IBOutlet weak var notShowAgainBtn: UIButton!
     
@@ -71,6 +74,8 @@ class Home_2: UIViewController {
         super.viewDidLoad()
         
         print("HOME_2")
+        
+        print(self.tabBarController!.viewControllers![3])
         
         self.navigationController?.setStatusBar(backgroundColor: .themeColor)
         
@@ -102,12 +107,18 @@ class Home_2: UIViewController {
         blurView = blurViewSetup()
         
         let popupWidth = self.view.bounds.width*0.9
-        let popupHeight = self.view.bounds.height*0.7//popupWidth*1.5
+        let popupHeight = self.view.bounds.height*0.8//popupWidth*1.5
         popupView.frame = CGRect(x: (self.view.bounds.width-popupWidth)/2, y: (self.view.bounds.height-popupHeight)/2, width: popupWidth, height: popupHeight)
     }
     
     func loadHome() {
-        let parameters:Parameters = ["id":SceneDelegate.GlobalVariables.userID]
+        var parameters:Parameters = ["id":SceneDelegate.GlobalVariables.userID]
+        let fcmToken = UserDefaults.standard.string(forKey:"fcm_token")
+        if  fcmToken != nil {
+            parameters.updateValue(fcmToken!, forKey: "token_notification")
+        }
+        //print(parameters)
+        
         loadRequest(method:.post, apiName:"get_profile", authorization:true, showLoadingHUD:firstTime, dismissHUD:true, parameters: parameters){ result in
             switch result {
             case .failure(let error):
@@ -116,12 +127,12 @@ class Home_2: UIViewController {
 
             case .success(let responseObject):
                 let json = JSON(responseObject)
-                print("SUCCESS HOME\(json)")
+                //print("SUCCESS HOME\(json)")
                 
                 self.profileJSON = json["data"][0]
                 SceneDelegate.GlobalVariables.profileJSON = json["data"][0]
                 
-                let popupArray = json["data"][0]["pop_ups"]
+                self.popupJSON = json["data"][0]["pop_ups"]
                 
                 if json["data"][0]["consent_status"] != "2" {
                     SwiftAlertView.show(title: "มีการแก้ไขปรับปรุงเงื่อนไขการใช้งาน",
@@ -153,35 +164,59 @@ class Home_2: UIViewController {
                     vc.consentType = .terms
                     self.navigationController!.pushViewController(vc, animated: true)
                 }
-                else if popupArray.count != 0 && self.notShowAgain == false {
-                    self.popupPic.sd_setImage(with: URL(string:popupArray[0]["pop_ups_img_url"].stringValue), placeholderImage: nil)
+                else if self.popupJSON!.count != 0 {
+                    let popupArray = self.popupJSON![0]
+                    self.popupPic.sd_setImage(with: URL(string:popupArray["pop_ups_img_url"].stringValue), placeholderImage: nil)
                     
-                    self.popupTitle.text = popupArray[0]["pop_ups_name"].stringValue
-                    self.popupDescription.text = popupArray[0]["pop_ups_content"].stringValue.html2String
+                    self.popupTitle.text = popupArray["pop_ups_name"].stringValue
+                    
+                    //self.popupDescription.text = popupArray[0]["pop_ups_content"].stringValue.html2String
+                    self.popupDescription.attributedText = popupArray["pop_ups_content"].stringValue.convertToAttributedFromHTML()
+                    self.popupDescription.textColor = .textGray1
+                    self.popupDescription.font = .Prompt_Regular(ofSize: 14)
+                    self.popupDescription.textContainerInset = .zero
                     
                     self.popIn(popupView: self.blurView)
                     self.popIn(popupView: self.popupView)
                     
                     self.popupPic.addTapGesture {
-                        switch popupArray[0]["pop_ups_type"].stringValue {
+                        switch popupArray["pop_ups_type"].stringValue {
                         case "web":
-                            let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "Web") as! Web
-                            vc.titleString = ""
-                            vc.webUrlString = popupArray[0]["pop_ups_link"].stringValue
-                            self.navigationController!.pushViewController(vc, animated: true)
-                            self.notShowAgain = true
-                            self.popOut(popupView: self.popupView)
-                            self.popOut(popupView: self.blurView)
+                            let urlStr = popupArray["pop_ups_link"].stringValue
+                            if urlStr.contains("http") {
+                                let vc = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "Web") as! Web
+                                vc.titleString = ""
+                                vc.webUrlString = urlStr
+                                self.navigationController!.pushViewController(vc, animated: true)
+                            }
+                            else {
+                                if let url = URL(string: urlStr) {
+                                    if UIApplication.shared.canOpenURL(url) {
+                                        UIApplication.shared.open(url)
+                                    }
+                                    else {
+                                        self.showErrorNoData()
+                                    }
+                                }
+                            }
                             
-                        case "challengep":
-                            self.checkJoinStatus(challengeID: popupArray[0]["pop_ups_link"].stringValue)
-                            self.notShowAgain = true
-                            self.popOut(popupView: self.popupView)
-                            self.popOut(popupView: self.blurView)
+                        case "challenge":
+                            self.checkJoinStatus(challengeID: popupArray["pop_ups_link"].stringValue)
+                            
+                        case "challenge_my":
+                            let vc = self.tabBarController!.viewControllers![3] as! Challenge_2
+                            vc.myMode = .official
+                            self.tabBarController?.selectedIndex = 3
                             
                         default:
                             break
                         }
+                        
+                        if self.notShowAgain {
+                            self.savePopupRead()
+                        }
+                        self.popOut(popupView: self.popupView)
+                        self.popOut(popupView: self.blurView)
                     }
                 }
                 SceneDelegate.GlobalVariables.userPicURL = self.profileJSON!["pictureUrl"].stringValue
@@ -266,6 +301,9 @@ class Home_2: UIViewController {
     }
     
     @IBAction func leftMenuShow(_ sender: UIButton) {
+//        let sideMenu = self.sideMenuController?.menuViewController as! SideMenu_2
+//        sideMenu.loadSideMenu()
+        
         self.sideMenuController!.revealMenu()
     }
     
@@ -290,8 +328,29 @@ class Home_2: UIViewController {
     }
     
     @IBAction func closePopupClick(_ sender: UIButton) {
+        if notShowAgain {
+            savePopupRead()
+        }
         self.popOut(popupView: self.popupView)
         self.popOut(popupView: self.blurView)
+    }
+    
+    func savePopupRead() {
+        let parameters:Parameters = ["user_id":SceneDelegate.GlobalVariables.userID,
+                                     "popups_id":popupJSON![0]["id_pop_ups"].stringValue
+        ]
+        //print(parameters)
+        loadRequest_V2(method:.post, apiName:"popups/read", authorization:true, showLoadingHUD:false, dismissHUD:true, parameters: parameters){ result in
+            switch result {
+            case .failure(let error):
+                print(error)
+                ProgressHUD.dismiss()
+
+            case .success(let responseObject):
+                let json = JSON(responseObject)
+                print("POPUP READ\(json)")
+            }
+        }
     }
     
     @IBAction func startClick(_ sender: UIButton) {

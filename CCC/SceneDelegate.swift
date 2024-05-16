@@ -30,9 +30,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         static var profileJSON:JSON? = nil
         
         static var stravaAccessToken = ""
-        //static var stravaRefreshToken = ""
-        static var garminAccessToken = ""
-        static var garminAccessTokenSecret = ""
+//        static var stravaRefreshToken = ""
+//        static var garminAccessToken = ""
+//        static var garminAccessTokenSecret = ""
+        
+        static var reloadSideMenu = true
+        static var reloadChallengeAll = true
+        static var reloadChallengeJoin = true
     }
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -58,8 +62,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //userID = "17497" //โฟน Google
         //userID = "19413"//ป้อม 2023
         //userID = "999"//พี่เม 2024 parkrun
+        //userID = "1000"//พี่เม 2024
         
-        checkConsent(userID:userID, scene:scene)
+        if userID != nil {
+            GlobalVariables.userID = userID!
+            
+            if let url = connectionOptions.urlContexts.first?.url {//Launch from URL Scheme
+                handleURL(url: url, scene: scene)
+            }
+            else {
+                checkConsent(userID:userID, scene:scene)
+            }
+        }
+        else {
+            checkConsent(userID:userID, scene:scene)
+        }
     }
     
     func checkConsent(userID:String?, scene:UIScene) {
@@ -123,18 +140,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             navigationController = UINavigationController.init(rootViewController: vc)
             
         case "2":
-            let menuViewController = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "SideMenu")
-            let contentViewController = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "TabBar_2")
-            let screenSize: CGRect = UIScreen.main.bounds
-            SideMenuController.preferences.basic.menuWidth = screenSize.width*0.8
-            SideMenuController.preferences.basic.position = .above
-            SideMenuController.preferences.basic.direction = .left
-            SideMenuController.preferences.basic.enablePanGesture = true
-            SideMenuController.preferences.basic.supportedOrientations = .portrait
-            SideMenuController.preferences.basic.shouldRespectLanguageDirection = true
-            
-            let vc = SideMenuController(contentViewController: contentViewController, menuViewController: menuViewController)
-            navigationController = UINavigationController.init(rootViewController: vc)
+            navigationController = UINavigationController.init(rootViewController: getHomeVC())
             
         case "99":
             let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "ServerError")
@@ -199,9 +205,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             //let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "Knowledge") as! Knowledge
             
-            //let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "Web") as! Web
+            //let vc = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "Web") as! Web
             
-            //let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "Setting") as! Setting
+            //let vc = UIStoryboard.settingStoryBoard.instantiateViewController(withIdentifier: "Setting") as! Setting
+            
+            //let vc = UIStoryboard.settingStoryBoard.instantiateViewController(withIdentifier: "Setting_Account") as! Setting_Account
             
             //let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "Share") as! Share
             
@@ -219,6 +227,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             
             //let vc = UIStoryboard.historyStoryBoard.instantiateViewController(withIdentifier: "Parkrun") as! Parkrun
             
+            //let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "LocationRequest") as! LocationRequest
+            
             //navigationController = UINavigationController.init(rootViewController: vc)
             //***อย่าลืม
             
@@ -230,14 +240,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //guard let _ = (scene as? UIWindowScene) else { return }
     }
     
+    func getHomeVC() -> SideMenuController {
+        let menuViewController = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "SideMenu_2")
+        let contentViewController = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "TabBar_2")
+        let screenSize: CGRect = UIScreen.main.bounds
+        SideMenuController.preferences.basic.menuWidth = screenSize.width*0.8
+        SideMenuController.preferences.basic.position = .above
+        SideMenuController.preferences.basic.direction = .left
+        SideMenuController.preferences.basic.enablePanGesture = true
+        SideMenuController.preferences.basic.supportedOrientations = .portrait
+        SideMenuController.preferences.basic.shouldRespectLanguageDirection = true
+        
+        let vc = SideMenuController(contentViewController: contentViewController, menuViewController: menuViewController)
+        return vc
+    }
+    
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
-        
-        //LINE
-        _ = LoginManager.shared.application(.shared, open: URLContexts.first?.url)
-        
         guard let url = URLContexts.first?.url else {
             return
         }
+        print(url)
+        
+        //CCC
+        handleURL(url: url, scene: scene)
+        
+        //LINE
+        _ = LoginManager.shared.application(.shared, open: url)
+        
         //GARMIN
         if url.host == "garmin-callback" {
             OAuthSwift.handle(url: url)
@@ -250,6 +279,39 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             sourceApplication: nil,
             annotation: [UIApplication.OpenURLOptionsKey.annotation]
         )
+    }
+    
+    func handleURL(url:URL, scene:UIScene) {
+        //CCC
+        if url.absoluteString.contains("challenge") {
+            let urlStr = url.absoluteString
+            let component = urlStr.components(separatedBy: "?")
+            if component.count > 1, let challengeId = component.last {
+                print(challengeId)
+                if GlobalVariables.userID != "" {
+                    
+                    let vc = UIStoryboard.challengeStoryBoard.instantiateViewController(withIdentifier: "ChallengeDetail_2") as! ChallengeDetail_2
+                    vc.challengeID = challengeId
+                    
+                    let rootNavi = self.window?.rootViewController as? UINavigationController
+                    if (rootNavi?.containsViewController(ofKind: SideMenuController.self)) != nil {//From Active App
+                        rootNavi?.pushViewController(vc, animated: true)
+                    }
+                    else {//From Killed App
+                        let navigationController = UINavigationController()
+                        navigationController.setNavigationBarHidden(true, animated:false)
+                        navigationController.viewControllers = [getHomeVC(),vc]
+                        
+                        guard let windowScene = (scene as? UIWindowScene) else { return }
+                        let window = UIWindow(windowScene: windowScene)
+                        window.rootViewController = navigationController
+                        
+                        self.window? = window
+                        window.makeKeyAndVisible()
+                    }
+                }
+            }
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

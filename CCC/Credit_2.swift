@@ -20,6 +20,10 @@ class Credit_2: UIViewController {
     
     var firstTime = true
     
+    var rewardURL: String?
+    var rewardHistoryURL: String?
+    var rewardInfoURL: String?
+    
     @IBOutlet weak var sideMenuBtn: UIButton!
     
     @IBOutlet weak var medalImage: UIImageView!
@@ -87,6 +91,8 @@ class Credit_2: UIViewController {
         menuBtnText2.disableIconBtn()
         menuBtn3.disableIconBtn()
         menuBtnText3.disableIconBtn()
+        menuBtn4.disableIconBtn()
+        menuBtnText4.disableIconBtn()
         
         assessmentStackView.isHidden = true
         activityStackView.isHidden = true
@@ -107,6 +113,10 @@ class Credit_2: UIViewController {
                 
                 self.creditJSON = json["data"]
                 
+                self.rewardURL = self.creditJSON?["url_reward"].stringValue
+                self.rewardHistoryURL = self.creditJSON?["url_reward_history"].stringValue
+                self.rewardInfoURL = self.creditJSON?["url_credit_information"].stringValue
+                
                 self.assessmentJSON = self.creditJSON?["online_assessment"]
                 self.activityJSON = self.creditJSON?["health_activities"]
                 self.specialJSON = self.creditJSON?["special_activities"]
@@ -121,6 +131,21 @@ class Credit_2: UIViewController {
     }
     
     func updateDisplay() {
+        
+        if rewardURL != "" {
+            menuBtn2.enableIconBtn()
+            menuBtnText2.enableIconBtn()
+        }
+        
+        if rewardHistoryURL != "" {
+            menuBtn3.enableIconBtn()
+            menuBtnText3.enableIconBtn()
+        }
+        
+        if rewardInfoURL != "" {
+            menuBtn4.enableIconBtn()
+            menuBtnText4.enableIconBtn()
+        }
         
         if self.assessmentJSON?.count != 0 {
             assessmentStackView.isHidden = false
@@ -191,17 +216,23 @@ class Credit_2: UIViewController {
     }
     
     @IBAction func menuClicked2(_ sender: UIButton) {
-        
+        let vc = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "Web") as! Web
+        vc.titleString = "สิทธิประโยชน์"
+        vc.webUrlString = rewardURL
+        self.navigationController!.pushViewController(vc, animated: true)
     }
     
     @IBAction func menuClicked3(_ sender: UIButton) {
-        
+        let vc = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "Web") as! Web
+        vc.titleString = "ประวัติการแลก"
+        vc.webUrlString = rewardHistoryURL
+        self.navigationController!.pushViewController(vc, animated: true)
     }
     
     @IBAction func menuClicked4(_ sender: UIButton) {
-        let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "Web") as! Web
+        let vc = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "Web") as! Web
         vc.titleString = "ข้อมูลเพิ่มเติม"
-        vc.webUrlString = "\(HTTPHeaders.websiteURL)credit-information"
+        vc.webUrlString = rewardInfoURL//"\(HTTPHeaders.websiteURL)credit-information"
         self.navigationController!.pushViewController(vc, animated: true)
     }
     

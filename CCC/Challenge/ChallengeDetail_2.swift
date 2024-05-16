@@ -63,6 +63,8 @@ class ChallengeDetail_2: UIViewController {
         print("CHALLENGE DETAIL 2")
         print(inviteID)
         
+        self.navigationController?.setStatusBar(backgroundColor: .themeColor)
+        
         self.view.showAnimatedGradientSkeleton()
         
         myScrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
@@ -89,7 +91,7 @@ class ChallengeDetail_2: UIViewController {
                 
             case .success(let responseObject):
                 let json = JSON(responseObject)
-                print("SUCCESS CHALLENGE DETAIL 2\(json)")
+                //print("SUCCESS CHALLENGE DETAIL 2\(json)")
                 
                 self.challengeJSON = json["data"][0]
                 self.updateBtn()
@@ -155,7 +157,7 @@ class ChallengeDetail_2: UIViewController {
         //ruleTextView.text = challengeJSON!["other_text"].stringValue.html2String
         ruleTextView.attributedText = challengeJSON!["other_text"].stringValue.convertToAttributedFromHTML()
         ruleTextView.textColor = .textGray1
-        ruleTextView.font = .Prompt_Regular(ofSize: 12)
+        ruleTextView.font = .Prompt_Regular(ofSize: 14)
         ruleView.isHidden = false
         
         //METHOD VIEW
@@ -177,16 +179,25 @@ class ChallengeDetail_2: UIViewController {
         }
         
         //Check joined?
-        if challengeJSON!["status_join"].stringValue == "joined"
+        if challengeJSON!["show_status"].boolValue == false
+        {
+            challengeMode = .joined
+            submitBtn.isHidden = true
+            passcodeView.isHidden = true
+            inviteView.isHidden = true
+        }
+        else if challengeJSON!["status_join"].stringValue == "joined"
         {
             challengeMode = .joined
             submitBtn.setTitle("ออกจากการแข่งขัน", for: .normal)
+            submitBtn.isHidden = false
             passcodeView.isHidden = true
             inviteView.isHidden = true
         }
         else{
             challengeMode = .all
             submitBtn.setTitle("เข้าร่วมการแข่งขัน", for: .normal)
+            submitBtn.isHidden = false
             inviteView.isHidden = false
         }
         
@@ -273,6 +284,9 @@ class ChallengeDetail_2: UIViewController {
                 
                 //self.loadChallengeDetail(showLoadingHUD: false)
                 //self.submitSuccess()
+                
+                SceneDelegate.GlobalVariables.reloadChallengeAll = true
+                SceneDelegate.GlobalVariables.reloadChallengeJoin = true
                 
                 if join{
                     ProgressHUD.showSucceed("เข้าร่วมการแข่งขันแล้ว")

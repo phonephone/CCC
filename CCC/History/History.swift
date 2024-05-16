@@ -56,7 +56,7 @@ class History: UIViewController {
         pagingViewController.textColor = .textDarkGray
         pagingViewController.selectedTextColor = .themeColor
         pagingViewController.font = .Prompt_Regular(ofSize: 15)
-        pagingViewController.selectedFont = .Prompt_Regular(ofSize: 15)
+        pagingViewController.selectedFont = .Prompt_Medium(ofSize: 15)
         
         let insets = UIEdgeInsets(top: 0, left: 50, bottom: 0, right: 50)
         pagingViewController.indicatorOptions = .visible(height: 4, zIndex: Int.max, spacing: insets, insets: .zero)

@@ -10,7 +10,6 @@
 #endif
 #endif
 
-#import "LineSDK.h"
 
 FOUNDATION_EXPORT double LineSDKVersionNumber;
 FOUNDATION_EXPORT const unsigned char LineSDKVersionString[];

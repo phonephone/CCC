@@ -38,7 +38,9 @@ class ChallengeJoin_2: UIViewController {
     @IBOutlet weak var rankingLabel: UILabel!
     @IBOutlet weak var joinDateLabel: UILabel!
     
+    @IBOutlet weak var userCalTitle: UILabel!
     @IBOutlet weak var userCalLabel: UILabel!
+    @IBOutlet weak var groupCalTitle: UILabel!
     @IBOutlet weak var groupCalLabel: UILabel!
     
     var blurView : UIVisualEffectView!
@@ -51,15 +53,11 @@ class ChallengeJoin_2: UIViewController {
         .underlineStyle: NSUnderlineStyle.single.rawValue
     ]
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        loadChallengeSummary()
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         print("CHALLENGE JOIN 2")
+        self.navigationController?.setStatusBar(backgroundColor: .themeColor)
         
         self.view.showAnimatedGradientSkeleton()
         
@@ -79,8 +77,10 @@ class ChallengeJoin_2: UIViewController {
         blurView = blurViewSetup()
         
         let popupWidth = self.view.bounds.width*0.8
-        let popupHeight = popupWidth*1.2
+        let popupHeight = popupWidth*1.4
         popupView.frame = CGRect(x: (self.view.bounds.width-popupWidth)/2, y: (self.view.bounds.height-popupHeight)/2, width: popupWidth, height: popupHeight)
+        
+        loadChallengeSummary()
     }
     
     func loadChallengeSummary() {
@@ -128,7 +128,10 @@ class ChallengeJoin_2: UIViewController {
         remainDayLabel.text = challengeJSON!["date_diff_txt"].stringValue
         rankingLabel.text = challengeJSON!["my_rank"].stringValue
         joinDateLabel.text = "วันที่เข้าร่วม : \(challengeJSON!["date_join"].stringValue)"
+        
+        userCalTitle.text = challengeJSON!["my_cal_title"].stringValue
         userCalLabel.text = challengeJSON!["my_cal"].stringValue
+        groupCalTitle.text = challengeJSON!["sum_cal_group_title"].stringValue
         groupCalLabel.text = challengeJSON!["sum_cal_group"].stringValue
         
         descriptionView.isHidden = false
@@ -137,7 +140,12 @@ class ChallengeJoin_2: UIViewController {
         groupCalLabel.isHidden = false
         
         //qrPic.image = generateQRCode(from: challengeJSON!["url_invite_code"].stringValue)
-        qrPic.image = generateQRCode(from: "\(SceneDelegate.GlobalVariables.userID)-\(challengeID!)")
+        //qrPic.image = generateQRCode(from: "\(SceneDelegate.GlobalVariables.userID)-\(challengeID!)")
+        qrPic.image = generateQRCode(from: "ccc://challenge?\(challengeID!)")
+        
+        if challengeJSON!["show_status"].boolValue == false {
+            qrBtn.isHidden = true
+        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.00) {
             self.view.hideSkeleton()
@@ -149,7 +157,7 @@ class ChallengeJoin_2: UIViewController {
 
         if let filter = CIFilter(name: "CIQRCodeGenerator") {
             filter.setValue(data, forKey: "inputMessage")
-            let transform = CGAffineTransform(scaleX: 3, y: 3)
+            let transform = CGAffineTransform(scaleX: 200, y: 200)
 
             if let output = filter.outputImage?.transformed(by: transform) {
                 return UIImage(ciImage: output)
@@ -166,6 +174,31 @@ class ChallengeJoin_2: UIViewController {
     @IBAction func QRClose(_ sender: UIButton) {
         popOut(popupView: self.popupView)
         popOut(popupView: self.blurView)
+    }
+    
+    @IBAction func QRShare(_ sender: UIButton) {
+        let image : UIImage = qrPic.image!
+        let activityViewController : UIActivityViewController = UIActivityViewController(
+            activityItems: [image], applicationActivities: nil)
+        activityViewController.activityItemsConfiguration = [
+            UIActivity.ActivityType.message
+        ] as? UIActivityItemsConfigurationReading
+        
+        // Anything you want to exclude
+        activityViewController.excludedActivityTypes = [
+            UIActivity.ActivityType.postToWeibo,
+            //UIActivity.ActivityType.print,
+            UIActivity.ActivityType.assignToContact,
+            //UIActivity.ActivityType.saveToCameraRoll,
+            UIActivity.ActivityType.addToReadingList,
+            UIActivity.ActivityType.postToFlickr,
+            UIActivity.ActivityType.postToVimeo,
+            UIActivity.ActivityType.postToTencentWeibo,
+            //UIActivity.ActivityType.postToFacebook
+        ]
+        
+        activityViewController.isModalInPresentation = true
+        self.present(activityViewController, animated: true, completion: nil)
     }
     
     @IBAction func rankingClick(_ sender: UIButton) {

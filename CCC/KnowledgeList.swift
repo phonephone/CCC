@@ -106,7 +106,7 @@ extension KnowledgeList: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cellArray = knowledgeJSON![indexPath.item]
         
-        let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "Web") as! Web
+        let vc = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "Web") as! Web
         //vc.titleString = "Announcement"
         vc.webUrlString = cellArray["url"].stringValue
         self.navigationController!.pushViewController(vc, animated: true)

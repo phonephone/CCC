@@ -18,10 +18,65 @@
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>line3rdp.$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>th.go.mots.ccc</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>ccc</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.838411620117-mclec6v2d0oalgju860pcqbfg5rbkn0b</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fbAPP-ID</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>FacebookAppID</key>
+	<string>APP-ID</string>
+	<key>FacebookClientToken</key>
+	<string>CLIENT-TOKEN</string>
+	<key>FacebookDisplayName</key>
+	<string>APP-NAME</string>
+	<key>GIDClientID</key>
+	<string>838411620117-mclec6v2d0oalgju860pcqbfg5rbkn0b.apps.googleusercontent.com</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>lineauth2</string>
+		<string>strava</string>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fb</string>
+		<string>twitter</string>
+		<string>instagram</string>
+		<string>youtube</string>
+		<string>tiktok</string>
+		<string>fb-messenger-public</string>
+		<string>fb-messenger</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -40,7 +95,7 @@
 	<key>NSMotionUsageDescription</key>
 	<string>อนุญาตให้แอพตรวจจับการเคลื่อนไหวของโทรศัพท์มือถือ เพื่อติดตามและเก็บข้อมูลการวิ่งของคุณ</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>อนุญาตให้แอพใช้รูปภาพใน Photos</string>
+	<string>อนุญาตให้แอพใช้รูปภาพใน Photos เพื่อใช้ในการอัพโหลดรูปภาพโปรไฟล์หรือ QR Code</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Prompt-Regular.ttf</string>
@@ -99,51 +154,5 @@
 	<string>Light</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>line3rdp.$(PRODUCT_BUNDLE_IDENTIFIER)</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>ccc</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>com.googleusercontent.apps.838411620117-mclec6v2d0oalgju860pcqbfg5rbkn0b</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fbAPP-ID</string>
-			</array>
-		</dict>
-	</array>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>lineauth2</string>
-		<string>strava</string>
-		<string>fbapi</string>
-		<string>fb-messenger-share-api</string>
-	</array>
-	<key>GIDClientID</key>
-	<string>838411620117-mclec6v2d0oalgju860pcqbfg5rbkn0b.apps.googleusercontent.com</string>
-	<key>FacebookAppID</key>
-	<string>APP-ID</string>
-	<key>FacebookClientToken</key>
-	<string>CLIENT-TOKEN</string>
-	<key>FacebookDisplayName</key>
-	<string>APP-NAME</string>
 </dict>
 </plist>

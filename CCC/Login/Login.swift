@@ -63,6 +63,7 @@ class Login: UIViewController, UITextFieldDelegate, ASAuthorizationControllerDel
         setupBtn(button: appleBtn)
         setupBtn(button: googleBtn)
         setupBtn(button: fbBtn)
+        setupBtn(button: emailBtn)
         
         blurView = blurViewSetup()
         
@@ -221,8 +222,10 @@ class Login: UIViewController, UITextFieldDelegate, ASAuthorizationControllerDel
     }
     
     @IBAction func emailClick(_ sender: UIButton) {
-        popIn(popupView: self.blurView)
-        popIn(popupView: self.popupView)
+//        popIn(popupView: self.blurView)
+//        popIn(popupView: self.popupView)
+        let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "Login_Email") as! Login_Email
+        self.navigationController!.pushViewController(vc, animated: true)
     }
     
     @IBAction func emailClose(_ sender: UIButton) {
@@ -283,8 +286,13 @@ class Login: UIViewController, UITextFieldDelegate, ASAuthorizationControllerDel
             self.navigationController!.pushViewController(vc, animated: true)
         }
         else if status == "1" {//go to register profile
-            let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "Register_1") as! Register_1
-            vc.emailFormLogin = emailFormLogin
+            //let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "Register_1") as! Register_1
+            //vc.emailFormLogin = emailFormLogin
+            
+            //let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "Register_2") as! Register_2
+            //self.navigationController!.pushViewController(vc, animated: true)
+            
+            let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "LocationRequest") as! LocationRequest
             self.navigationController!.pushViewController(vc, animated: true)
         }
         else if status == "2" {//go to home page

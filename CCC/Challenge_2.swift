@@ -16,6 +16,10 @@ class Challenge_2: UIViewController {
     var rankingAllJSON : JSON?
     var rankingWeekJSON : JSON?
     
+    var pagingViewController:PagingViewController!
+    
+    var myMode: MyMode?
+    
     @IBOutlet weak var bottomView: UIView!
     
     override func viewDidLoad() {
@@ -39,6 +43,7 @@ class Challenge_2: UIViewController {
         let vc2 = UIStoryboard.challengeStoryBoard.instantiateViewController(withIdentifier: "ChallengeList_2") as! ChallengeList_2
         vc2.title = "รายการที่เข้าร่วม"
         vc2.challengeMode = .joined
+        //vc2.myMode = .official
         controllerArray.append(vc2)
         
 //        let vc3 = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "ChallengeCreate") as! ChallengeCreate
@@ -46,7 +51,8 @@ class Challenge_2: UIViewController {
 //        vc3.challengeMode = .create
 //        controllerArray.append(vc3)
 
-        let pagingViewController = PagingViewController(viewControllers: controllerArray)
+        //let pagingViewController = PagingViewController(viewControllers: controllerArray)
+        pagingViewController = PagingViewController(viewControllers: controllerArray)
         
         pagingViewController.delegate = self
         pagingViewController.backgroundColor = .white
@@ -55,7 +61,7 @@ class Challenge_2: UIViewController {
         pagingViewController.textColor = .textDarkGray
         pagingViewController.selectedTextColor = .themeColor
         pagingViewController.font = .Prompt_Regular(ofSize: 15)
-        pagingViewController.selectedFont = .Prompt_Regular(ofSize: 15)
+        pagingViewController.selectedFont = .Prompt_Medium(ofSize: 15)
         
         let insets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         pagingViewController.indicatorOptions = .visible(height: 4, zIndex: Int.max, spacing: insets, insets: .zero)
@@ -73,6 +79,10 @@ class Challenge_2: UIViewController {
           pagingViewController.view.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor),
           pagingViewController.view.topAnchor.constraint(equalTo: bottomView.topAnchor)
         ])
+        
+        if myMode == .official {
+            pagingViewController.select(index: 1, animated: true)
+        }
     }
     
     @IBAction func leftMenuShow(_ sender: UIButton) {

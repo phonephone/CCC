@@ -185,8 +185,13 @@ class Consent: UIViewController, UITextViewDelegate {
 //                    self.switchToHome()
 //                }
                 else{
-                    let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "Register_1") as! Register_1
-                    vc.emailFormLogin = self.emailFormLogin
+                    //let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "Register_1") as! Register_1
+                    //vc.emailFormLogin = self.emailFormLogin
+                    
+//                    let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "Register_2") as! Register_2
+//                    self.navigationController!.pushViewController(vc, animated: true)
+                    
+                    let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "LocationRequest") as! LocationRequest
                     self.navigationController!.pushViewController(vc, animated: true)
                 }
             }

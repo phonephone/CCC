@@ -46,10 +46,6 @@ class CreditDetail: UIViewController {
     @IBOutlet weak var myScrollView: UIScrollView!
     @IBOutlet weak var myStackView: UIStackView!
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -124,7 +120,10 @@ class CreditDetail: UIViewController {
         durationLabel.text = detailJSON!["condition_2"].stringValue
         
         //descriptionLabel.text = detailJSON!["detail"].stringValue.html2String
-        descriptionTextView.text = detailJSON!["detail"].stringValue.html2String
+        //descriptionTextView.text = detailJSON!["detail"].stringValue.html2String
+        descriptionTextView.attributedText = detailJSON!["detail"].stringValue.convertToAttributedFromHTML()
+        descriptionTextView.textColor = .textGray1
+        descriptionTextView.font = .Prompt_Regular(ofSize: 14)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.00) {
             self.view.hideSkeleton()
@@ -132,7 +131,7 @@ class CreditDetail: UIViewController {
     }
     
     @IBAction func acceptClicked(_ sender: UIButton) {
-        let vc = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "Web") as! Web
+        let vc = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "Web") as! Web
         vc.titleString = detailJSON!["type_name"].stringValue
         vc.webUrlString = detailJSON!["url"].stringValue
         self.navigationController!.pushViewController(vc, animated: true)

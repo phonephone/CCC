@@ -29,6 +29,9 @@ class Share: UIViewController, UIGestureRecognizerDelegate {
     var startDate: Date!
     var endDate: Date!
     
+    var lat: String?
+    var long: String?
+    
     var imgSticker: UIImageView!
     
     @IBOutlet weak var shareView: UIView!
@@ -83,6 +86,8 @@ class Share: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         
         print("SHARE")
+//        print(lat)
+//        print(long)
         self.navigationController?.setStatusBar(backgroundColor: .themeColor)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
@@ -119,7 +124,7 @@ class Share: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        //changeSticker(stickerUrl: "", templateNumber: 1, textColor: .white)
+        changeSticker(stickerUrl: "", templateNumber: 1, textColor: .white)
     }
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
@@ -138,7 +143,7 @@ class Share: UIViewController, UIGestureRecognizerDelegate {
 
             case .success(let responseObject):
                 let json = JSON(responseObject)
-                print("SUCCESS STICKER TYPE\(json)")
+                //print("SUCCESS STICKER TYPE\(json)")
                 
                 self.typeJSON = json["data"]
                 self.typePicker.reloadAllComponents()
@@ -156,9 +161,14 @@ class Share: UIViewController, UIGestureRecognizerDelegate {
         stickerJSON = []
         myCollectionView.reloadData()
         
-        let parameters:Parameters = ["user_id":SceneDelegate.GlobalVariables.userID,
+        var parameters:Parameters = ["user_id":SceneDelegate.GlobalVariables.userID,
                                      "category_id":typeID!
         ]
+        if lat != "" && long != "" {
+            parameters.updateValue(lat!, forKey: "lat")
+            parameters.updateValue(long!, forKey: "long")
+        }
+        
         loadRequest_V2(method:.get, apiName:"Sticker_template", authorization:true, showLoadingHUD:true, dismissHUD:true, parameters: parameters){ result in
             switch result {
             case .failure(let error):
@@ -446,7 +456,7 @@ extension Share: UICollectionViewDataSource {
         cell.cellImage.sd_setImage(with: URL(string:cellArray["sticker_url"].stringValue), placeholderImage: nil)
         
         if selectedStickerID == cellArray["sticker_id"].stringValue {
-            cell.layer.borderColor = UIColor.themeColor.cgColor
+            cell.layer.borderColor = UIColor.stickerSelected.cgColor
             cell.layer.borderWidth = 3
         }
         else {

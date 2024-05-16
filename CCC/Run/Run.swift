@@ -13,6 +13,7 @@ import ProgressHUD
 import CoreMotion
 import SwiftAlertView
 import SideMenuSwift
+import CoreLocation
 
 enum Sex {
     case male
@@ -91,6 +92,7 @@ class Run: UIViewController {
     // Provides to create an instance of the CMPedometer.
     private let pedometer = CMPedometer()
     
+    var locationManager: CLLocationManager!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -99,11 +101,22 @@ class Run: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(beforeTerminate), name: UIApplication.willTerminateNotification, object: nil)
         
+        locationManager = CLLocationManager()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.distanceFilter = 5.0 //minimun distance to update in meters
+        locationManager.delegate = self
+        //locationManager.startUpdatingLocation()
+        
 //        cacheStep = 200
 //        cacheDistance = 0.7
 //        cacheDuration = 750
         
         clearWorkout()
+        
+        activityManager.startActivityUpdates(to: OperationQueue.main) { (activity: CMMotionActivity?) in
+            self.activityManager.stopActivityUpdates()
+        }
     }
     
     @objc func beforeTerminate(notification:NSNotification) {
@@ -269,7 +282,37 @@ class Run: UIViewController {
     
     @IBAction func startClick(_ sender: UIButton) {
         if state == .notStarted {
-            countDown()
+            if CMMotionActivityManager.authorizationStatus() == .authorized {
+                countDown()
+            } 
+            else {
+                SwiftAlertView.show(title: "กรุณาตั้งค่าการอนุญาตให้เข้าถึงการเคลื่อนไหวและฟิตเนส\n(Motion & Fitness)",
+                                    message: nil,
+                                    buttonTitles: "ยกเลิก", "ตั้งค่า") { alert in
+                    //alert.backgroundColor = .yellow
+                    alert.titleLabel.font = .Alert_Title
+                    alert.messageLabel.font = .Alert_Message
+                    alert.cancelButtonIndex = 0
+                    alert.button(at: 0)?.titleLabel?.font = .Alert_Button
+                    alert.button(at: 0)?.setTitleColor(.buttonRed, for: .normal)
+                    
+                    alert.button(at: 1)?.titleLabel?.font = .Alert_Button
+                    alert.button(at: 1)?.setTitleColor(.themeColor, for: .normal)
+                    //            alert.buttonTitleColor = .themeColor
+                }
+                                    .onButtonClicked { _, buttonIndex in
+                                        print("Button Clicked At Index \(buttonIndex)")
+                                        switch buttonIndex{
+                                        case 1:
+                                            if let settingsUrl = URL(string: UIApplication.openSettingsURLString) {
+                                               UIApplication.shared.open(settingsUrl)
+
+                                             }
+                                        default:
+                                            break
+                                        }
+                                    }
+            }
         }
         else if state == .pause {
             continueWorkout()
@@ -327,6 +370,8 @@ class Run: UIViewController {
     }
     
     func beginWorkout() {
+        locationManager.startUpdatingLocation()
+        
         timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
             self.updateActivity()
         }
@@ -438,6 +483,7 @@ class Run: UIViewController {
                 print("Error: \(String(describing: error?.localizedDescription))")
                 self.loadSubmit()
             }
+            
             if success {
                 print("Saved: \(success)")
                 self.syncHealth(startDateStr: SceneDelegate.GlobalVariables.userLastSynced)
@@ -457,7 +503,7 @@ class Run: UIViewController {
                                      "activity_time":String(format: "%.0f", duration) ,
                                      "weight":String(format: "%.1f", SceneDelegate.GlobalVariables.userWeight) ,
                                      "step":String(format: "%d", totalStep) ,
-                                     "distance":String(format: "%.0f", totalDistance) ,
+                                     "distance":String(format: "%.0f", totalDistance*1000) ,
                                      "summary_cal":String(format: "%.0f", totalCalories),
                                      "latitude":SceneDelegate.GlobalVariables.userLat,
                                      "longitude":SceneDelegate.GlobalVariables.userLong,
@@ -496,10 +542,48 @@ class Run: UIViewController {
         vc.totalCalories = totalCalories
         vc.startDate = startDate
         vc.endDate = endDate
+        vc.lat = SceneDelegate.GlobalVariables.userLat
+        vc.long = SceneDelegate.GlobalVariables.userLong
         self.navigationController!.pushViewController(vc, animated: true)
     }
     
     @IBAction func back(_ sender: UIButton) {
         self.navigationController!.popViewController(animated: true)
+    }
+}
+
+// MARK: - CLLocation Delegate
+extension Run: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        let location: CLLocation = locations.last!
+        print("Location: \(location)")
+        SceneDelegate.GlobalVariables.userLat = location.coordinate.latitude.description
+        SceneDelegate.GlobalVariables.userLong = location.coordinate.longitude.description
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        // Handle authorization status
+        
+        switch status {
+        case .restricted:
+            print("Location access was restricted.")
+        case .denied:
+            print("User denied access to location.")
+            // Display the map using the default location.
+            //myMap.isHidden = false
+        case .notDetermined:
+            print("Location status not determined.")
+        case .authorizedAlways: fallthrough
+        case .authorizedWhenInUse:
+            print("Location status is OK.")
+        @unknown default:
+            fatalError()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        locationManager.stopUpdatingLocation()
+        print("Error: \(error)")
     }
 }

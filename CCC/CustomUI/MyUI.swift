@@ -124,6 +124,12 @@ class MyButton: UIButton {
             return UIColor(cgColor: color)
         }
     }
+    
+    override var isEnabled: Bool {
+        willSet {
+            backgroundColor = newValue ? UIColor.white : UIColor.buttonDisable
+        }
+    }
 }
 
 
@@ -190,6 +196,12 @@ class MyField: UITextField {
         get {
             guard let color = layer.borderColor else { return nil }
             return UIColor(cgColor: color)
+        }
+    }
+    
+    override var isEnabled: Bool {
+        willSet {
+            backgroundColor = newValue ? UIColor.white : UIColor.buttonDisable
         }
     }
 }

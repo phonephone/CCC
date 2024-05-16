@@ -33,6 +33,9 @@ class ForgetPassword: UIViewController, UITextFieldDelegate {
         if isValidEmail(emailField.text!) {
             submitBtn.enableBtn()
         }
+        else{
+            submitBtn.disableBtn()
+        }
     }
     
     func isValidEmail(_ email: String) -> Bool {

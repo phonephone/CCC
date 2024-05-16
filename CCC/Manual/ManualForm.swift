@@ -23,6 +23,7 @@ enum ManualActivity {
 class ManualForm: UIViewController, UITextFieldDelegate {
     
     var manualJSON : JSON?
+    var iamgeProcessJSON : JSON?
     
     var manualActivity:ManualActivity?
     
@@ -69,26 +70,26 @@ class ManualForm: UIViewController, UITextFieldDelegate {
         
         timeField.delegate = self
         timeField.addTarget(self, action: #selector(self.textFieldDidChange(_:)),
-                                  for: .editingChanged)
+                            for: .editingChanged)
         
         distancefield.delegate = self
         distancefield.addTarget(self, action: #selector(self.textFieldDidChange(_:)),
-                                  for: .editingChanged)
+                                for: .editingChanged)
         
         tiredLabel.isHidden = true
         
         switch manualJSON!["act_id"].stringValue {
         case "4"://วิ่ง
             manualActivity = .run
-            distanceStack.isHidden = false
+            distanceStack.isHidden = true
             
         case "11"://เดิน
             manualActivity = .walk
-            distanceStack.isHidden = false
+            distanceStack.isHidden = true
             
         case "12"://ปั่น
             manualActivity = .cycling
-            distanceStack.isHidden = false
+            distanceStack.isHidden = true
             
         default:
             manualActivity = .other
@@ -114,11 +115,8 @@ class ManualForm: UIViewController, UITextFieldDelegate {
     
     @objc func textFieldDidChange(_ textField: UITextField) {
         clearBtn()
-        calLabel.text = "0"
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if manualActivity == .other {
+        
+        if textField == timeField {
             if timeField.text == "" {
                 durationMinute = 0
                 calLabel.text = "0"
@@ -131,40 +129,57 @@ class ManualForm: UIViewController, UITextFieldDelegate {
             }
             updateBtn()
         }
-        else {//เดิน,วิ่ง,ปั่น
-            if textField == timeField {
-                if timeField.text == "" {
-                    durationMinute = 0
-                    tiredLabel.isHidden = true
-                }
-                else {
-                    let minute:Float? = Float(timeField.text!)
-                    durationMinute = minute!
-                    //timeField.text = String(format: "%.0f นาที", durationMinute)
-                }
-            }
-            else if textField == distancefield {
-                if distancefield.text == "" {
-                    distanceKiloMeter = 0.00
-                    distanceMeter = 0
-                    tiredLabel.isHidden = true
-                }
-                else {
-                    let meter:Float? = Float(distancefield.text!)
-                    distanceKiloMeter = meter!
-                    distanceMeter = distanceKiloMeter*1000
-                    //distancefield.text = String(format: "%.2f กิโลเมตร", distanceKiloMeter)
-                }
-            }
-            
-            if timeField.text == "" || distancefield.text == "" {
-                calLabel.text = "0"
-            }
-            else{
-                calculateSummaryCal()
-            }
-            updateBtn()
-        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        //        if manualActivity == .other {
+        //            if timeField.text == "" {
+        //                durationMinute = 0
+        //                calLabel.text = "0"
+        //            }
+        //            else{
+        //                let minute:Float? = Float(timeField.text!)
+        //                durationMinute = minute!
+        //                //timeField.text = String(format: "%.0f นาที", durationMinute)
+        //                calculateSummaryCal()
+        //            }
+        //            updateBtn()
+        //        }
+        //        else {//เดิน,วิ่ง,ปั่น
+        //            if textField == timeField {
+        //                if timeField.text == "" {
+        //                    durationMinute = 0
+        //                    tiredLabel.isHidden = true
+        //                }
+        //                else {
+        //                    let minute:Float? = Float(timeField.text!)
+        //                    durationMinute = minute!
+        //                    //timeField.text = String(format: "%.0f นาที", durationMinute)
+        //                }
+        //            }
+        //            else if textField == distancefield {
+        //                if distancefield.text == "" {
+        //                    distanceKiloMeter = 0.00
+        //                    distanceMeter = 0
+        //                    tiredLabel.isHidden = true
+        //                }
+        //                else {
+        //                    let meter:Float? = Float(distancefield.text!)
+        //                    distanceKiloMeter = meter!
+        //                    distanceMeter = distanceKiloMeter*1000
+        //                    //distancefield.text = String(format: "%.2f กิโลเมตร", distanceKiloMeter)
+        //                }
+        //            }
+        //
+        //            if timeField.text == "" || distancefield.text == "" {
+        //                calLabel.text = "0"
+        //            }
+        //            else{
+        //                calculateSummaryCal()
+        //            }
+        //            updateBtn()
+        //        }
     }
     
     func clearBtn() {
@@ -187,73 +202,86 @@ class ManualForm: UIViewController, UITextFieldDelegate {
             let averageDistance = (distanceMeter/(durationMinute*60)) * 3600/1000
             switch manualActivity {
             case .walk:
-                if averageDistance >= 5.2 {
-                    calPerMinute = 4.30
-                    tiredLabel.text = tiredLevelHigh
-                }
-                else if averageDistance > 3.0 {
-                    calPerMinute = 3.50
-                    tiredLabel.text = tiredLevelMedium
-                }
-                else if averageDistance <= 3.0 {
-                    calPerMinute = 2.50
-                    tiredLabel.text = tiredLevelLow
-                }
+                //                if averageDistance >= 5.2 {
+                //                    calPerMinute = 4.30
+                //                    tiredLabel.text = tiredLevelHigh
+                //                }
+                //                else if averageDistance > 3.0 {
+                //                    calPerMinute = 3.50
+                //                    tiredLabel.text = tiredLevelMedium
+                //                }
+                //                else if averageDistance <= 3.0 {
+                //                    calPerMinute = 2.50
+                //                    tiredLabel.text = tiredLevelLow
+                //                }
+                calPerMinute = 3.50
+                tiredLabel.text = tiredLevelMedium
                 
             case .run:
-                if averageDistance >= 9.7 {
-                    calPerMinute = 9.80
-                    tiredLabel.text = tiredLevelHigh
-                }
-                else if averageDistance > 6.7 {
-                    calPerMinute = 8.30
-                    tiredLabel.text = tiredLevelMedium
-                }
-                else if averageDistance <= 6.7 {
-                    calPerMinute = 7.00
-                    tiredLabel.text = tiredLevelLow
-                }
+                //                if averageDistance >= 9.7 {
+                //                    calPerMinute = 9.80
+                //                    tiredLabel.text = tiredLevelHigh
+                //                }
+                //                else if averageDistance > 6.7 {
+                //                    calPerMinute = 8.30
+                //                    tiredLabel.text = tiredLevelMedium
+                //                }
+                //                else if averageDistance <= 6.7 {
+                //                    calPerMinute = 7.00
+                //                    tiredLabel.text = tiredLevelLow
+                //                }
+                calPerMinute = 8.30
+                tiredLabel.text = tiredLevelMedium
                 
             case .cycling:
-                if averageDistance >= 19.3 {
-                    calPerMinute = 8.00
-                    tiredLabel.text = tiredLevelHigh
-                }
-                else if averageDistance > 8.9 {
-                    calPerMinute = 5.80
-                    tiredLabel.text = tiredLevelMedium
-                }
-                else if averageDistance <= 8.9 {
-                    calPerMinute = 3.50
-                    tiredLabel.text = tiredLevelLow
-                }
+                //                if averageDistance >= 19.3 {
+                //                    calPerMinute = 8.00
+                //                    tiredLabel.text = tiredLevelHigh
+                //                }
+                //                else if averageDistance > 8.9 {
+                //                    calPerMinute = 5.80
+                //                    tiredLabel.text = tiredLevelMedium
+                //                }
+                //                else if averageDistance <= 8.9 {
+                //                    calPerMinute = 3.50
+                //                    tiredLabel.text = tiredLevelLow
+                //                }
+                calPerMinute = 5.80
+                tiredLabel.text = tiredLevelMedium
                 
             default:
                 break
             }
-            tiredLabel.isHidden = false
+            //tiredLabel.isHidden = false
         }
         summaryCal = Float((durationMinute/60)*calPerMinute*weight)
         calLabel.text = String(format: "%.0f", summaryCal)
     }
     
     func updateBtn() {
-        if manualActivity == .other {
-            if timeField.text != "" && selectedImage != nil {
-                submitBtn.enableBtn()
-            }
-            else{
-                submitBtn.disableBtn()
-            }
+        if timeField.text != "" && selectedImage != nil {
+            submitBtn.enableBtn()
         }
-        else {//เดิน,วิ่ง,ปั่น
-            if timeField.text != "" && distancefield.text != "" && selectedImage != nil {
-                submitBtn.enableBtn()
-            }
-            else{
-                submitBtn.disableBtn()
-            }
+        else{
+            submitBtn.disableBtn()
         }
+        
+        //        if manualActivity == .other {
+        //            if timeField.text != "" && selectedImage != nil {
+        //                submitBtn.enableBtn()
+        //            }
+        //            else{
+        //                submitBtn.disableBtn()
+        //            }
+        //        }
+        //        else {//เดิน,วิ่ง,ปั่น
+        //            if timeField.text != "" && distancefield.text != "" && selectedImage != nil {
+        //                submitBtn.enableBtn()
+        //            }
+        //            else{
+        //                submitBtn.disableBtn()
+        //            }
+        //        }
     }
     
     @IBAction func timeCick(_ sender: UIButton) {
@@ -298,7 +326,7 @@ class ManualForm: UIViewController, UITextFieldDelegate {
     
     func confirmAsk() {
         SwiftAlertView.show(title: "ยืนยันการส่งผลแบบกรอกเอง",
-                            message: "1. จำนวนแคลอรีของแต่ละกิจกรรมใช้ตัวเลขเฉลี่ย เพื่อให้จดจำง่าย ซึ่งใกล้เคียงกับตัวเลขจริง\n2. แนบรูปหลักฐานการออกกำลังกายด้วยทุกครั้ง",
+                            message: nil,//"1. จำนวนแคลอรีของแต่ละกิจกรรมใช้ตัวเลขเฉลี่ย เพื่อให้จดจำง่าย ซึ่งใกล้เคียงกับตัวเลขจริง\n2. แนบรูปหลักฐานการออกกำลังกายด้วยทุกครั้ง",
                             buttonTitles: "ยกเลิก", "ยืนยัน") { alert in
             //alert.backgroundColor = .yellow
             alert.titleLabel.font = .Alert_Title
@@ -526,11 +554,116 @@ extension ManualForm: UIImagePickerControllerDelegate, UINavigationControllerDel
             sharePic.isHidden = false
             
             updateBtn()
+            
+            let imageProcessUrl = manualJSON!["url"].stringValue
+            if  imageProcessUrl != "" {
+                loadImageProcess(apiPath:imageProcessUrl, withImage: pickedImage)
+            }
         }
         picker.dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+    }
+    
+    func loadImageProcess(apiPath:String, withImage:UIImage?) {
+        
+        loadingHUD()
+        
+        var parameters:Parameters = [:]
+        if withImage != nil {
+            let base64Image = selectedImage!.convertImageToBase64String()
+            parameters.updateValue(base64Image, forKey: "base64str")
+        }
+        
+        AF.request(apiPath,
+                   method: .post,
+                   parameters: parameters,
+                   encoding: JSONEncoding.default,
+                   headers: HTTPHeaders.header,
+                   requestModifier: { $0.timeoutInterval = 60 }
+        ).responseJSON { response in
+            
+            //debugPrint(response)
+            
+            switch response.result {
+            case .success(let data as AnyObject):
+                
+                let json = JSON(data)
+                print("IMAGE PROCESS\(json)")
+                
+                if json["message"] == "success" {
+                    
+                    let durationFromImage = json["data"]["tm"].stringValue
+                    if durationFromImage != "" {
+                        self.autofillAsk(duration: durationFromImage)
+                    }
+                    ProgressHUD.dismiss()
+                }
+                else{
+                    //ProgressHUD.showError(json["message"].stringValue)
+                    ProgressHUD.dismiss()
+                }
+                
+            case .failure(let error):
+                print(error)
+                ProgressHUD.dismiss()
+                
+            default:
+                fatalError("received non-dictionary JSON response")
+                ProgressHUD.dismiss()
+            }
+        }
+    }
+    
+    func autofillAsk(duration:String) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm:ss"
+        let date = dateFormatter.date(from: duration)
+        print(date ?? "")
+        
+        let calendar = Calendar.current
+        let comp = calendar.dateComponents([.hour, .minute], from: date!)
+        let hour = comp.hour ?? 0
+        let minute = comp.minute ?? 0
+        print(hour)
+        let finalMinute:Int = (hour * 60) + minute
+        print(finalMinute)
+        
+        self.durationMinute = Float(finalMinute)
+        self.timeField.text = String(finalMinute)
+        self.calculateSummaryCal()
+        self.updateBtn()
+        
+//        SwiftAlertView.show(title: "เปลี่ยนเวลาออกกำลังกาย",
+//                            message: "เป็น \(finalMinute) นาที",
+//                            buttonTitles: "ยกเลิก", "ยืนยัน") { alert in
+//            //alert.backgroundColor = .yellow
+//            alert.titleLabel.font = .Alert_Title
+//            alert.messageLabel.font = .Alert_Message
+//            alert.messageLabel.textAlignment = .left
+//            alert.cancelButtonIndex = 0
+//            alert.button(at: 0)?.titleLabel?.font = .Alert_Button
+//            alert.button(at: 0)?.setTitleColor(.buttonRed, for: .normal)
+//            
+//            alert.button(at: 1)?.titleLabel?.font = .Alert_Button
+//            alert.button(at: 1)?.setTitleColor(.themeColor, for: .normal)
+//            //            alert.buttonTitleColor = .themeColor
+//        }
+//                            .onButtonClicked { _, buttonIndex in
+//                                print("Button Clicked At Index \(buttonIndex)")
+//                                switch buttonIndex{
+//                                case 1:
+//                                    self.durationMinute = Float(finalMinute)
+//                                    self.timeField.text = String(finalMinute)
+//                                    
+//                                default:
+//                                    break
+//                                }
+//                                
+//                                self.calculateSummaryCal()
+//                                self.updateBtn()
+//                            }
     }
 }

@@ -1,12 +1,211 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Prompt-Bold.ttf">
+            <string>Prompt-Bold</string>
+        </array>
+        <array key="Prompt-Regular.ttf">
+            <string>Prompt-Regular</string>
+        </array>
+        <array key="Prompt-SemiBold.ttf">
+            <string>Prompt-SemiBold</string>
+        </array>
+    </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShareTemplate" customModule="CCC" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShareTemplate" customModule="CCC" customModuleProvider="target">
+            <connections>
+                <outlet property="calorieIcon" destination="VQF-Xl-3cf" id="LG7-hm-3oQ"/>
+                <outlet property="calorieLabel" destination="F0e-ub-B4b" id="Mva-Ta-Xch"/>
+                <outlet property="calorieTitle" destination="jHV-5v-sG7" id="RL3-th-BJ2"/>
+                <outlet property="dateLabel" destination="ywt-03-g2Y" id="Vsl-1C-Ab2"/>
+                <outlet property="distanceLabel" destination="A75-QK-V2b" id="Ziq-J8-HcH"/>
+                <outlet property="distanceSuffix" destination="daS-bf-nH3" id="Oxa-ZB-G16"/>
+                <outlet property="distanceTitle" destination="rUj-qc-ftr" id="JRe-XP-8VS"/>
+                <outlet property="timeIcon" destination="pMX-Yg-43g" id="tPy-BE-nkU"/>
+                <outlet property="timeLabel" destination="qCQ-WM-dsg" id="Xoc-dQ-415"/>
+                <outlet property="timeTitle" destination="5Ws-J3-saM" id="9kV-3p-BKo"/>
+                <outlet property="userPic" destination="U2q-Ud-4k7" id="Mqg-Dy-nLN"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="ybz-MB-wma">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="share_logo2" translatesAutoresizingMaskIntoConstraints="NO" id="kdK-oj-TE3">
+                    <rect key="frame" x="20" y="20" width="106.66666666666669" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="kdK-oj-TE3" secondAttribute="height" multiplier="333:156" id="5BE-9x-ost"/>
+                        <constraint firstAttribute="height" constant="50" id="fVd-ob-pdQ"/>
+                    </constraints>
+                </imageView>
+                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="inK-gZ-qs3">
+                    <rect key="frame" x="15" y="345" width="384" height="54"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_profile" translatesAutoresizingMaskIntoConstraints="NO" id="U2q-Ud-4k7" customClass="MyImageView" customModule="CCC" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="U2q-Ud-4k7" secondAttribute="height" multiplier="1:1" id="Ad3-ZP-tqt"/>
+                                <constraint firstAttribute="height" constant="54" id="Oce-VL-fyP"/>
+                            </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="27"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </imageView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="N0N-gQ-ZS6">
+                            <rect key="frame" x="64" y="2" width="320" height="50"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 Jan 2022" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ywt-03-g2Y">
+                                    <rect key="frame" x="0.0" y="0.0" width="92" height="13.666666666666666"/>
+                                    <fontDescription key="fontDescription" name="Prompt-Bold" family="Prompt" pointSize="18"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="SU3-el-GLu">
+                                    <rect key="frame" x="0.0" y="13.666666666666686" width="320" height="36.333333333333336"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="UC5-w1-OGL">
+                                            <rect key="frame" x="0.0" y="0.0" width="76.666666666666671" height="36.333333333333336"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="เวลา" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Ws-J3-saM">
+                                                    <rect key="frame" x="0.0" y="0.0" width="23" height="18.333333333333332"/>
+                                                    <fontDescription key="fontDescription" name="Prompt-Regular" family="Prompt" pointSize="12"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="MEC-An-xjU">
+                                                    <rect key="frame" x="0.0" y="18.333333333333314" width="76.666666666666671" height="18"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_time" translatesAutoresizingMaskIntoConstraints="NO" id="pMX-Yg-43g">
+                                                            <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="pMX-Yg-43g" secondAttribute="height" multiplier="1:1" id="nUN-cc-VmT"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qCQ-WM-dsg">
+                                                            <rect key="frame" x="22.999999999999996" y="0.0" width="53.666666666666657" height="18"/>
+                                                            <fontDescription key="fontDescription" name="Prompt-SemiBold" family="Prompt" pointSize="18"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="MkT-6e-0xh"/>
+                                                    </constraints>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="Aeg-Co-icT">
+                                            <rect key="frame" x="149" y="0.0" width="63.333333333333343" height="36.333333333333336"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ระยะทาง" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUj-qc-ftr">
+                                                    <rect key="frame" x="0.0" y="0.0" width="41.666666666666664" height="18.333333333333332"/>
+                                                    <fontDescription key="fontDescription" name="Prompt-Regular" family="Prompt" pointSize="12"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="tfy-jw-hQw">
+                                                    <rect key="frame" x="0.0" y="18.333333333333314" width="63.333333333333336" height="18"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A75-QK-V2b">
+                                                            <rect key="frame" x="0.0" y="0.0" width="40.666666666666664" height="18"/>
+                                                            <fontDescription key="fontDescription" name="Prompt-SemiBold" family="Prompt" pointSize="18"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="กม." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daS-bf-nH3">
+                                                            <rect key="frame" x="45.666666666666686" y="0.0" width="17.666666666666671" height="18"/>
+                                                            <fontDescription key="fontDescription" name="Prompt-Regular" family="Prompt" pointSize="12"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="WC5-0D-mRj"/>
+                                                    </constraints>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="zWK-Qm-PLj">
+                                            <rect key="frame" x="284.33333333333331" y="0.0" width="35.666666666666686" height="36.333333333333336"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="แคลอรี" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jHV-5v-sG7">
+                                                    <rect key="frame" x="0.0" y="0.0" width="35.333333333333336" height="18.333333333333332"/>
+                                                    <fontDescription key="fontDescription" name="Prompt-Regular" family="Prompt" pointSize="12"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="cOJ-BM-mmy">
+                                                    <rect key="frame" x="0.0" y="18.333333333333314" width="35.666666666666664" height="18"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_fire" translatesAutoresizingMaskIntoConstraints="NO" id="VQF-Xl-3cf">
+                                                            <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" secondItem="VQF-Xl-3cf" secondAttribute="height" multiplier="1:1" id="Ioa-B3-hAz"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F0e-ub-B4b">
+                                                            <rect key="frame" x="23" y="0.0" width="12.666666666666664" height="18"/>
+                                                            <fontDescription key="fontDescription" name="Prompt-SemiBold" family="Prompt" pointSize="18"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kCal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xbA-y8-faS">
+                                                            <rect key="frame" x="35.666666666666686" y="-0.33333333333331439" width="0.0" height="18.333333333333332"/>
+                                                            <fontDescription key="fontDescription" name="Prompt-Regular" family="Prompt" pointSize="12"/>
+                                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="18" id="1Z6-FN-SiF"/>
+                                                    </constraints>
+                                                </stackView>
+                                            </subviews>
+                                        </stackView>
+                                    </subviews>
+                                </stackView>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="SU3-el-GLu" firstAttribute="leading" secondItem="N0N-gQ-ZS6" secondAttribute="leading" id="51T-O0-1kY"/>
+                                <constraint firstAttribute="trailing" secondItem="SU3-el-GLu" secondAttribute="trailing" id="u4l-Qw-uPv"/>
+                                <constraint firstAttribute="height" constant="50" id="uMd-EC-n8Y"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="wI9-bg-GZQ"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="kdK-oj-TE3" firstAttribute="top" secondItem="ybz-MB-wma" secondAttribute="top" constant="20" id="2QO-0I-cJw"/>
+                <constraint firstItem="inK-gZ-qs3" firstAttribute="leading" secondItem="ybz-MB-wma" secondAttribute="leading" constant="15" id="Ds4-HF-MQg"/>
+                <constraint firstAttribute="trailing" secondItem="inK-gZ-qs3" secondAttribute="trailing" constant="15" id="N34-fa-Xhb"/>
+                <constraint firstAttribute="bottom" secondItem="inK-gZ-qs3" secondAttribute="bottom" constant="15" id="Sfw-YN-7iL"/>
+                <constraint firstItem="kdK-oj-TE3" firstAttribute="leading" secondItem="wI9-bg-GZQ" secondAttribute="leading" constant="20" id="h3w-5G-Lhw"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="142" y="62"/>
+        </view>
     </objects>
+    <designables>
+        <designable name="U2q-Ud-4k7">
+            <size key="intrinsicContentSize" width="315" height="315"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="icon_fire" width="66" height="88"/>
+        <image name="icon_profile" width="315" height="315"/>
+        <image name="icon_time" width="53" height="56"/>
+        <image name="share_logo2" width="333" height="156"/>
+    </resources>
 </document>

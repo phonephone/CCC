@@ -38,16 +38,18 @@ class ShareTemplate: UIView {
     func commonInit(withTemplate:Int, withTextColor:UIColor){
         var viewFromXib = UIView()
         
-        switch withTemplate {
-        case 1:
-            viewFromXib = Bundle.main.loadNibNamed("ShareTemplate", owner: self, options: nil)![0] as! UIView
-            
-        case 2:
-            viewFromXib = Bundle.main.loadNibNamed("ShareTemplate2", owner: self, options: nil)![0] as! UIView
-            
-        default:
-            viewFromXib = Bundle.main.loadNibNamed("ShareTemplate", owner: self, options: nil)![0] as! UIView
-        }
+        viewFromXib = Bundle.main.loadNibNamed("ShareTemplate\(withTemplate)", owner: self, options: nil)![0] as! UIView
+        
+//        switch withTemplate {
+//        case 1:
+//            viewFromXib = Bundle.main.loadNibNamed("ShareTemplate1", owner: self, options: nil)![0] as! UIView
+//            
+//        case 2:
+//            viewFromXib = Bundle.main.loadNibNamed("ShareTemplate2", owner: self, options: nil)![0] as! UIView
+//            
+//        default:
+//            viewFromXib = Bundle.main.loadNibNamed("ShareTemplate1", owner: self, options: nil)![0] as! UIView
+//        }
         
         dateLabel.textColor = withTextColor
         

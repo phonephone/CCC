@@ -1,6 +1,6 @@
 <img src="https://raw.githubusercontent.com/line/line-sdk-ios-swift/assets/assets/sdklogo.png" width="355" height="97">
 
-[![Build Status](https://travis-ci.org/line/line-sdk-ios-swift.svg?branch=master)](https://travis-ci.org/line/line-sdk-ios-swift)
+[![LINE SDK CI](https://github.com/line/line-sdk-ios-swift/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/line/line-sdk-ios-swift/actions/workflows/ci.yaml)
 [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/LineSDKSwift.svg)](https://cocoapods.org/pods/LineSDKSwift)
 [![Swift Package Manager Compatible](https://img.shields.io/badge/SPM-supported-DE5C43.svg?style=flat)](https://swift.org/package-manager/)
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
@@ -29,7 +29,7 @@ The LINE SDK supports the OpenID Connect 1.0 specification. You can get ID token
 
 ### Prerequisites
 
-* iOS 10.0 or later as the deployment target.
+* iOS 11.0 or later as the deployment target.
 * Xcode 10 or later.
 
 To use the LINE SDK with your iOS app, follow the steps below.

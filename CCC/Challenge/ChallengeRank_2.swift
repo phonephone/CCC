@@ -61,7 +61,7 @@ class ChallengeRank_2: UIViewController {
         //self.myTableView.tableFooterView = UIView(frame: .zero)
         self.myTableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: self.myTableView.frame.size.width, height: 1))
         
-        coverImageHeight.constant = newHeight ?? 192
+        coverImageHeight.constant = 150//newHeight ?? 192
         
         coverImage.sd_setImage(with: URL(string:challengeJSON!["cover_img"].stringValue), placeholderImage: UIImage(named: "icon_1024"), completed: { (image, error, cacheType, url) in
             guard image != nil else {

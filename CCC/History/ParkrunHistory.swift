@@ -53,7 +53,7 @@ class ParkrunHistory: UIViewController, UITextFieldDelegate {
         
         }
         else{
-            loadHistory(monthYear: mySelectedDate)
+            //loadHistory(monthYear: mySelectedDate)
         }
     }
     
@@ -315,8 +315,6 @@ extension ParkrunHistory: UITableViewDataSource {
             cell.cellName.text = "\(actName)"
         }
         
-        cell.cellName.text
-        
 //            let serverFormatter = DateFormatter()
 //            serverFormatter.locale = Locale(identifier: "en_US")
 //            serverFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -377,7 +375,42 @@ extension ParkrunHistory: UITableViewDataSource {
 
 extension ParkrunHistory: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = UIStoryboard.runStoryBoard.instantiateViewController(withIdentifier: "RunSummary") as! RunSummary
         
+        let cellArray = historyJSON![indexPath.item]
+        vc.summaryMode = .fromHistory
+        vc.totalDistance = cellArray["distance"].doubleValue/1000
+        vc.totalDuration = cellArray["activity_time"].doubleValue
+        vc.totalStep = cellArray["step"].intValue
+        vc.totalCalories = cellArray["summary_cal"].doubleValue
+        
+        if let startDate = serverwithTimeFormatter.date(from: cellArray["startdate"].stringValue) {
+            vc.startDate = startDate
+        }
+        else{
+            if let createDate = serverwithTimeFormatter.date(from: cellArray["cdate"].stringValue) {
+                vc.startDate = createDate
+            }
+            else{
+                vc.startDate = Date()
+            }
+        }
+        
+        if let endDate = serverwithTimeFormatter.date(from: cellArray["enddate"].stringValue) {
+            vc.endDate = endDate
+        }
+        else{
+            if let createDate = serverwithTimeFormatter.date(from: cellArray["cdate"].stringValue) {
+                vc.endDate = createDate
+            }
+            else{
+                vc.endDate = Date()
+            }
+        }
+        vc.lat = cellArray["latitude"].stringValue
+        vc.long = cellArray["longitude"].stringValue
+        
+        self.navigationController!.pushViewController(vc, animated: true)
     }
     
     @IBAction func shareClick(_ sender: UIButton) {
@@ -420,6 +453,8 @@ extension ParkrunHistory: UITableViewDelegate {
             }
         }
         //vc.endDate = endDate
+        vc.lat = cellArray["latitude"].stringValue
+        vc.long = cellArray["longitude"].stringValue
         
         self.navigationController!.pushViewController(vc, animated: true)
     }

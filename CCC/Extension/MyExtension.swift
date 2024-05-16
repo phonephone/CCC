@@ -41,6 +41,8 @@ extension UIColor {
     static let buttonGreen = UIColor(named: "Btn_Green")!
     static let buttonDisable = UIColor(named: "Btn_Disable")!
     static let tabSelected = UIColor(named: "Tab_Selected")!
+    static let stickerSelected = UIColor(named: "Sticker_Blue")!
+    
 }
 
 extension UIFont {
@@ -83,6 +85,7 @@ extension UIStoryboard  {
     static let historyStoryBoard = UIStoryboard(name: "History", bundle: nil)
     static let challengeStoryBoard = UIStoryboard(name: "Challenge", bundle: nil)
     static let creditStoryBoard = UIStoryboard(name: "Credit", bundle: nil)
+    static let settingStoryBoard = UIStoryboard(name: "Setting", bundle: nil)
 }
 
 
@@ -161,7 +164,7 @@ extension UIViewController {
         //let vc = UIStoryboard.init(name:"Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "TabBar")
         //self.navigationController!.setViewControllers([vc], animated: true)
         
-        let menuViewController = UIStoryboard.mainStoryBoard.instantiateViewController(withIdentifier: "SideMenu")
+        let menuViewController = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "SideMenu_2")
         let contentViewController = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "TabBar_2")
         
         let screenSize: CGRect = UIScreen.main.bounds
@@ -199,7 +202,7 @@ extension UIViewController {
     }
     
     func showComingSoon() {
-        ProgressHUD.imageError = UIImage(named:"coming_soon")!
+        //ProgressHUD.imageError = UIImage(named:"coming_soon")!
         ProgressHUD.showError("Coming Soon")
     }
     
@@ -397,6 +400,28 @@ extension UIViewController {
         }
     }
     
+    func colorFromHex (hexString:String) -> UIColor {
+        var cString:String = hexString.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+
+        if (cString.hasPrefix("#")) {
+            cString.remove(at: cString.startIndex)
+        }
+
+        if ((cString.count) != 6) {
+            return UIColor.gray
+        }
+
+        var rgbValue:UInt64 = 0
+        Scanner(string: cString).scanHexInt64(&rgbValue)
+
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
+    }
+    
     func dateFromServerString(dateStr:String) -> Date? {
         if let dtDate = DateFormatter.serverFormatter.date(from: dateStr){
             return dtDate as Date?
@@ -507,6 +532,22 @@ extension UIImage {
     
     func convertImageToBase64String () -> String {
         return self.jpegData(compressionQuality: 0.5)?.base64EncodedString() ?? ""
+    }
+    
+    func parseQR() -> [String] {
+        guard let image = CIImage(image: self) else {
+            return []
+        }
+
+        let detector = CIDetector(ofType: CIDetectorTypeQRCode,
+                                  context: nil,
+                                  options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
+
+        let features = detector?.features(in: image) ?? []
+
+        return features.compactMap { feature in
+            return (feature as? CIQRCodeFeature)?.messageString
+        }
     }
 }
 

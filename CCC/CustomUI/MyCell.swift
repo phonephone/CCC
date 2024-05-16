@@ -108,6 +108,7 @@ class ChallengeCell: UITableViewCell {
     @IBOutlet var cellDate: UILabel!
     @IBOutlet var cellType: UIStackView!
     @IBOutlet var cellCompetitor: UILabel!
+    @IBOutlet var cellGroup: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
