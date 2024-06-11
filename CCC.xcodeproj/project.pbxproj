@@ -34,6 +34,7 @@
 		1032B3502791738700E9F43D /* Knowledge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1032B34F2791738700E9F43D /* Knowledge.swift */; };
 		1032B352279173DE00E9F43D /* KnowledgeList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1032B351279173DE00E9F43D /* KnowledgeList.swift */; };
 		1032B35627917AFB00E9F43D /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1032B35527917AFB00E9F43D /* Web.swift */; };
+		103437AA2BFB7CA300E1A7A7 /* AttachmentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103437A92BFB7CA300E1A7A7 /* AttachmentHandler.swift */; };
 		103A30AB282900E0006D4496 /* StickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103A30AA282900E0006D4496 /* StickerView.swift */; };
 		103A30AF28290FD3006D4496 /* ShareTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103A30AE28290FD3006D4496 /* ShareTemplate.swift */; };
 		103B62DA2765EA8D0098CD57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 103B62D92765EA8D0098CD57 /* SceneDelegate.swift */; };
@@ -206,6 +207,7 @@
 		1032B34F2791738700E9F43D /* Knowledge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Knowledge.swift; sourceTree = "<group>"; };
 		1032B351279173DE00E9F43D /* KnowledgeList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KnowledgeList.swift; sourceTree = "<group>"; };
 		1032B35527917AFB00E9F43D /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
+		103437A92BFB7CA300E1A7A7 /* AttachmentHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttachmentHandler.swift; sourceTree = "<group>"; };
 		103A30AA282900E0006D4496 /* StickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerView.swift; sourceTree = "<group>"; };
 		103A30AE28290FD3006D4496 /* ShareTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareTemplate.swift; sourceTree = "<group>"; };
 		103B62D42765EA8D0098CD57 /* CCC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CCC.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -458,6 +460,7 @@
 				103B62FC2765EC880098CD57 /* MyExtension.swift */,
 				10B247E82B29C07100E6F2D8 /* PlistParser.swift */,
 				10FFFC2A280B0D710078E443 /* CheckUpdate.swift */,
+				103437A92BFB7CA300E1A7A7 /* AttachmentHandler.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -941,6 +944,7 @@
 				103B630D2765EF8E0098CD57 /* Login.swift in Sources */,
 				1032B352279173DE00E9F43D /* KnowledgeList.swift in Sources */,
 				103A30AF28290FD3006D4496 /* ShareTemplate.swift in Sources */,
+				103437AA2BFB7CA300E1A7A7 /* AttachmentHandler.swift in Sources */,
 				1003D98528D1B5B4004B262D /* ParkrunHistory.swift in Sources */,
 				107396642B2BF4BE0025B2CD /* CreditDetail.swift in Sources */,
 				10C75A5C2BE0A77800E03289 /* LocationRequest.swift in Sources */,
@@ -1175,7 +1179,7 @@
 					/usr/lib/swift,
 					"$(SDKROOT)/usr/lib/swift",
 				);
-				MARKETING_VERSION = 2.3.1;
+				MARKETING_VERSION = 2.3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = th.go.mots.ccc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1211,7 +1215,7 @@
 					/usr/lib/swift,
 					"$(SDKROOT)/usr/lib/swift",
 				);
-				MARKETING_VERSION = 2.3.1;
+				MARKETING_VERSION = 2.3.4;
 				PRODUCT_BUNDLE_IDENTIFIER = th.go.mots.ccc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

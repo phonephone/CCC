@@ -115,7 +115,6 @@ class Setting_Account: UIViewController {
         if sender.isOn{//เปิด
             sender.setOn(false, animated: true)
             
-            //let appOAuthUrlThaiIDScheme = URL(string: "https://ccc.mots.go.th/Thaiid/sqrcode")!
             let appOAuthUrlThaiIDScheme = URL(string: settingJSON!["url_connect_thaid"].stringValue)!
             
             if UIApplication.shared.canOpenURL(appOAuthUrlThaiIDScheme) {

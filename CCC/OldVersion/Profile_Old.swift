@@ -621,7 +621,7 @@
 ////            multipartFormData.append(data, withName: "pic", fileName: "profile_pic.jpg",mimeType: "image/jpeg")
 ////        },
 ////                  usingTreshold: UInt64.init(),
-////                  to: "https://caloriescredit.tmadigital.com/apiapp/update_profile",
+////                  to: "xxx",
 ////                  method: .post,
 ////                  encodingCompletion: { encodingResult in
 ////            switch encodingResult {

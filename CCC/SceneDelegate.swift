@@ -64,6 +64,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //userID = "999"//พี่เม 2024 parkrun
         //userID = "1000"//พี่เม 2024
         
+        
         if userID != nil {
             GlobalVariables.userID = userID!
             
@@ -196,10 +197,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             //let vc = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "Challenge_2") as! Challenge_2
             
 //            let vc = UIStoryboard.challengeStoryBoard.instantiateViewController(withIdentifier: "ChallengeDetail_2") as! ChallengeDetail_2
-//            vc.challengeID = "2798"//"2590"//"2581"//"2511"
+//            vc.challengeID = "2959"//2798"//"2590"//"2581"//"2511"
             
 //            let vc = UIStoryboard.challengeStoryBoard.instantiateViewController(withIdentifier: "ChallengeJoin_2") as! ChallengeJoin_2
-//            vc.challengeID = "2599"//"2581"//"2511"
+//            vc.challengeID = "12259"//"2599"//"2581"//"2511"
             
             //let vc = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "QRScanner") as! QRScanner
             
@@ -228,6 +229,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             //let vc = UIStoryboard.historyStoryBoard.instantiateViewController(withIdentifier: "Parkrun") as! Parkrun
             
             //let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "LocationRequest") as! LocationRequest
+            
+            
             
             //navigationController = UINavigationController.init(rootViewController: vc)
             //***อย่าลืม
@@ -311,6 +314,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     }
                 }
             }
+        }
+        if url.absoluteString.contains("verify") {
+            print("AAAAAAAAAAAA")
         }
     }
 

@@ -96,6 +96,8 @@
 	<string>อนุญาตให้แอพตรวจจับการเคลื่อนไหวของโทรศัพท์มือถือ เพื่อติดตามและเก็บข้อมูลการวิ่งของคุณ</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>อนุญาตให้แอพใช้รูปภาพใน Photos เพื่อใช้ในการอัพโหลดรูปภาพโปรไฟล์หรือ QR Code</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>อนุญาตให้แอพใช้รูปภาพใน Photos เพื่อใช้ในการบันทึกรูปภาพหรือแชร์ QR Code</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Prompt-Regular.ttf</string>

@@ -301,7 +301,7 @@ class Setting: UIViewController {
             
             //let appOAuthUrlStravaScheme = URL(string: "strava://oauth/mobile/authorize?client_id=\(stravaClientId)&redirect_uri=\(urlScheme)%3A%2F%2F\(stravaFallbackUrl)&response_type=code&approval_prompt=force&scope=activity:read_all")!
             
-            let appOAuthUrlStravaScheme = URL(string: "strava://oauth/mobile/authorize?client_id=\(stravaClientId)&redirect_uri=https://ccc.mots.go.th/connect-auth/strava/\(SceneDelegate.GlobalVariables.userID)&response_type=code&approval_prompt=auto&scope=read_all,activity:read,activity:read_all,activity:write,profile:read_all")!
+            let appOAuthUrlStravaScheme = URL(string: "strava://oauth/mobile/authorize?client_id=\(stravaClientId)&redirect_uri=\(HTTPHeaders.websiteURL)connect-auth/strava/\(SceneDelegate.GlobalVariables.userID)&response_type=code&approval_prompt=auto&scope=read_all,activity:read,activity:read_all,activity:write,profile:read_all")!
             
             if UIApplication.shared.canOpenURL(appOAuthUrlStravaScheme) {
                 UIApplication.shared.open(appOAuthUrlStravaScheme, options: [:])
@@ -321,7 +321,7 @@ class Setting: UIViewController {
     func authorizeStrava() {
         //let url: String = "https://www.strava.com/oauth/mobile/authorize?client_id=\(stravaClientId)&redirect_uri=\(urlScheme)%3A%2F%2F\(stravaFallbackUrl)&response_type=code&approval_prompt=force&scope=activity:read_all"
         
-        let url: String = "https://www.strava.com/oauth/mobile/authorize?client_id=\(stravaClientId)&redirect_uri=https://ccc.mots.go.th/connect-auth/strava/\(SceneDelegate.GlobalVariables.userID)&response_type=code&approval_prompt=auto&scope=read_all,activity:read,activity:read_all,activity:write,profile:read_all"
+        let url: String = "https://www.strava.com/oauth/mobile/authorize?client_id=\(stravaClientId)&redirect_uri=\(HTTPHeaders.websiteURL)connect-auth/strava/\(SceneDelegate.GlobalVariables.userID)&response_type=code&approval_prompt=auto&scope=read_all,activity:read,activity:read_all,activity:write,profile:read_all"
         
         guard let authenticationUrl = URL(string: url) else { return }
         
@@ -460,7 +460,7 @@ class Setting: UIViewController {
         if sender.isOn{//เปิด
             sender.setOn(false, animated: true)
             
-            let appOAuthUrlCorosScheme = URL(string: "http://open.coros.com/oauth2/authorize?client_id=\(corosClientId)&state=\(corosState)&response_type=code&redirect_uri=https://ccc.mots.go.th/connect-auth/coros/\(SceneDelegate.GlobalVariables.userID)")!
+            let appOAuthUrlCorosScheme = URL(string: "http://open.coros.com/oauth2/authorize?client_id=\(corosClientId)&state=\(corosState)&response_type=code&redirect_uri=\(HTTPHeaders.websiteURL)connect-auth/coros/\(SceneDelegate.GlobalVariables.userID)")!
             
             if UIApplication.shared.canOpenURL(appOAuthUrlCorosScheme) {
                 UIApplication.shared.open(appOAuthUrlCorosScheme, options: [:])

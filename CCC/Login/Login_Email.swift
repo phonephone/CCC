@@ -97,6 +97,17 @@ class Login_Email: UIViewController, UITextFieldDelegate {
                 submitBtn.disableBtn()
             }
             
+            if emailField.text == "888" {//Bypass Login
+                emailField.text = "jae4@edfthai.org"
+                passField.text = "1111"
+                submitBtn.enableBtn()
+            }
+            if emailField.text == "999" {//Bypass Login
+                emailField.text = "tninratana@gmail.com"
+                passField.text = "Ccc@2024"
+                submitBtn.enableBtn()
+            }
+            
         case .signup:
             if isValidEmail(emailField.text!) && passField.text!.count >= 1 && rePassField.text!.count >= 1 && passField.text! == rePassField.text! {
                 submitBtn.enableBtn()

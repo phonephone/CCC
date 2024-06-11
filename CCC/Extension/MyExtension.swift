@@ -13,9 +13,8 @@ import SideMenuSwift
 import SwiftyJSON
 
 extension HTTPHeaders {
-    //static let websiteURL = "https://softapi.tmadigital.com/"
-    //static let websiteURL = "https://caloriescredit.tmadigital.com/"
-    static let websiteURL = "https://ccc.mots.go.th/"
+    static let websiteURL = "https://ccc.mots.go.th/" //Domain หลัก
+    //static let websiteURL = "https://ccc-mssql.tmadigital.com/" //ทดสอบ mssql
     
     static let baseURL = "\(websiteURL)apiapp/"
     static let baseURL_V2 = "\(websiteURL)apiapp/v_2/"

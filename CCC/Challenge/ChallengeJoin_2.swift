@@ -157,7 +157,7 @@ class ChallengeJoin_2: UIViewController {
 
         if let filter = CIFilter(name: "CIQRCodeGenerator") {
             filter.setValue(data, forKey: "inputMessage")
-            let transform = CGAffineTransform(scaleX: 200, y: 200)
+            let transform = CGAffineTransform(scaleX: 10, y: 10)
 
             if let output = filter.outputImage?.transformed(by: transform) {
                 return UIImage(ciImage: output)
@@ -177,12 +177,10 @@ class ChallengeJoin_2: UIViewController {
     }
     
     @IBAction func QRShare(_ sender: UIButton) {
-        let image : UIImage = qrPic.image!
+        let qrImage = qrPic.image!.jpegData(compressionQuality: 1.0)
+        //let qrImage = UIImage(named: "demo_home_bg")
         let activityViewController : UIActivityViewController = UIActivityViewController(
-            activityItems: [image], applicationActivities: nil)
-        activityViewController.activityItemsConfiguration = [
-            UIActivity.ActivityType.message
-        ] as? UIActivityItemsConfigurationReading
+            activityItems: [qrImage!], applicationActivities: nil)
         
         // Anything you want to exclude
         activityViewController.excludedActivityTypes = [
@@ -197,7 +195,11 @@ class ChallengeJoin_2: UIViewController {
             //UIActivity.ActivityType.postToFacebook
         ]
         
-        activityViewController.isModalInPresentation = true
+        if let popoverController = activityViewController.popoverPresentationController {// iPad
+            popoverController.sourceView = self.view
+        }
+        
+        //activityViewController.isModalInPresentation = true
         self.present(activityViewController, animated: true, completion: nil)
     }
     

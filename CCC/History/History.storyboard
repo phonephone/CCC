@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -864,7 +864,7 @@
     </scenes>
     <designables>
         <designable name="0lO-Gq-agL">
-            <size key="intrinsicContentSize" width="97.5" height="24.5"/>
+            <size key="intrinsicContentSize" width="87.5" height="24.5"/>
         </designable>
         <designable name="AQ9-pY-lV2">
             <size key="intrinsicContentSize" width="58" height="31"/>
@@ -873,13 +873,13 @@
             <size key="intrinsicContentSize" width="58" height="31"/>
         </designable>
         <designable name="deA-bs-NIV">
-            <size key="intrinsicContentSize" width="88.5" height="24.5"/>
+            <size key="intrinsicContentSize" width="78.5" height="24.5"/>
         </designable>
         <designable name="i6C-i6-JUP">
-            <size key="intrinsicContentSize" width="97.5" height="24.5"/>
+            <size key="intrinsicContentSize" width="87.5" height="24.5"/>
         </designable>
         <designable name="tdb-36-ieM">
-            <size key="intrinsicContentSize" width="88.5" height="24.5"/>
+            <size key="intrinsicContentSize" width="78.5" height="24.5"/>
         </designable>
     </designables>
     <resources>

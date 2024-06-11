@@ -49,7 +49,10 @@ class Web: UIViewController, WKNavigationDelegate, WKUIDelegate {
         
         let url = URL(string: webUrlString!)!
         //let url = URL(string: "https://www.google.com")!
-        //let url = URL(string: "https://ccc.mots.go.th/challengeApp/leaderboard/12225/17556")!
+        
+        //let url = URL(string: "https://ccc.mots.go.th/ccc_reward/redeem/377388/de0741f771b475bf844d3768dfb544fe")!
+        //let url = URL(string: "https://ccc.mots.go.th/ccc_reward/thaiID/377388")!
+        
         myWebView.load(URLRequest(url: url))
         //myWebView.loadHTMLString("", baseURL: nil)
         
@@ -63,16 +66,37 @@ class Web: UIViewController, WKNavigationDelegate, WKUIDelegate {
         ProgressHUD.dismiss()
     }
     
-    //    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-    //        decisionHandler(.allow)
-    //        guard let urlAsString = navigationAction.request.url?.absoluteString.lowercased() else {
-    //            return
-    //        }
-    //
-    //        if urlAsString.range(of: "the url that the button redirects the webpage to") != nil {
-    //            // do something
-    //        }
-    //    }
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        decisionHandler(.allow)
+        
+//        guard let urlAsString = navigationAction.request.url?.absoluteString.lowercased() else {
+//            return
+//        }
+        
+        if let url = navigationAction.request.url, let scheme = url.scheme?.lowercased() {
+            print("url = \(url)")
+            
+            if scheme != "https" && scheme != "http" {//check deeplink?
+                if UIApplication.shared.canOpenURL(url){
+                    UIApplication.shared.open(url)
+                }
+            }
+            else{
+                if url.absoluteString.contains("Thaiid/sqrcode") {
+                    goBackToFirst()
+                    UIApplication.shared.open(url)
+                }
+            }
+        }
+    }
+    
+    func goBackToFirst() {
+        let historySize = myWebView.backForwardList.backList.count
+        print(historySize)
+        let firstItem = myWebView.backForwardList.item(at: -historySize)
+        
+        myWebView.go(to: firstItem!)
+    }
     
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         

@@ -208,7 +208,7 @@ class MyCalorie: UIViewController, ChartViewDelegate {
         //let firstActivityItem = "Test Share Button"
         
         // Setting url
-        //let secondActivityItem : NSURL = NSURL(string: "https://fw.f12key.xyz/")!
+        //let secondActivityItem : NSURL = NSURL(string: "xxx")!
         
         // If you want to use an image
         

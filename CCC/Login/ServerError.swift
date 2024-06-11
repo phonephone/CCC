@@ -8,6 +8,7 @@
 import UIKit
 import ProgressHUD
 import WebKit
+import Alamofire
 
 class ServerError: UIViewController, WKNavigationDelegate {
     
@@ -19,7 +20,8 @@ class ServerError: UIViewController, WKNavigationDelegate {
         print("SERVER ERROR")
         self.navigationController?.setStatusBar(backgroundColor: .themeColor)
         
-        let url = URL(string: "https://ccc.mots.go.th/home/content/12")!
+        let url = URL(string: "\(HTTPHeaders.websiteURL)home/content/12")!
+        print(url)
         myWebView.load(URLRequest(url: url))
         //myWebView.loadHTMLString("", baseURL: nil)
         myWebView.navigationDelegate = self
