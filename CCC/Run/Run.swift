@@ -493,6 +493,10 @@ class Run: UIViewController {
                 }
             }
         }
+        
+        SceneDelegate.GlobalVariables.reloadHome = true
+        SceneDelegate.GlobalVariables.reloadMyCalory = true
+        SceneDelegate.GlobalVariables.reloadCredit = true
     }
     
     func loadSubmit() {

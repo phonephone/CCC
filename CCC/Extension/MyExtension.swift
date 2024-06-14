@@ -19,11 +19,8 @@ extension HTTPHeaders {
     static let baseURL = "\(websiteURL)apiapp/"
     static let baseURL_V2 = "\(websiteURL)apiapp/v_2/"
     
-    static let headerWithAuthorize = ["Authorization": PlistParser.getKeysValue()!["apiBearer"]!, "Accept": "application/json"] as HTTPHeaders
-    
-    //static let headerWithAuthorize = ["Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.IlRNQV9jYWxvcmllc2NyZWRpdF9jY2Nfc2Vzc2lvbl8yMDIyIg.XgqYWQw8nIX0xKWgAamqJuUZ--Mibu8kyNgTJz7wHP0", "Accept": "application/json"] as HTTPHeaders
-    
     static let header = ["Accept": "application/json"] as HTTPHeaders
+    static let headerWithAuthorize = ["Authorization": PlistParser.getKeysValue()!["apiBearer"]!, "Accept": "application/json"] as HTTPHeaders
 }
 
 // MARK: - Color & Font & Value

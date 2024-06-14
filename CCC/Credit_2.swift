@@ -62,9 +62,11 @@ class Credit_2: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadCredit()
         
-        firstTime = false
+        if (creditJSON == nil) || SceneDelegate.GlobalVariables.reloadCredit {
+            loadCredit()
+            SceneDelegate.GlobalVariables.reloadCredit = false
+        }
     }
     
     override func viewDidLoad() {

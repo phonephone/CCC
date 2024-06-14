@@ -22,12 +22,10 @@ class SideMenu_2: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        loadSideMenu()
-        
-//        if SceneDelegate.GlobalVariables.reloadSideMenu {
-//            loadSideMenu()
-//            SceneDelegate.GlobalVariables.reloadSideMenu = false
-//        }
+        if (menuJSON == nil) || SceneDelegate.GlobalVariables.reloadSideMenu {
+            loadSideMenu()
+            SceneDelegate.GlobalVariables.reloadSideMenu = false
+        }
     }
     
     override func viewDidLoad() {

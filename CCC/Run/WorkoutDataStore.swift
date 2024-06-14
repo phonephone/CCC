@@ -183,6 +183,12 @@ class WorkoutDataStore {
                                 if json["message"] == "success" {
                                     print(json["data"][0]["message"].stringValue)
                                     //ProgressHUD.showSucceed(json["data"][0]["message"].stringValue)
+                                    
+                                    SceneDelegate.GlobalVariables.reSyncHealth = false
+                                    
+                                    SceneDelegate.GlobalVariables.reloadHome = true
+                                    SceneDelegate.GlobalVariables.reloadMyCalory = true
+                                    SceneDelegate.GlobalVariables.reloadCredit = true
                                 }
                                 else{
                                     print(json["message"].stringValue)

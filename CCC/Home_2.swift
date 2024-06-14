@@ -18,12 +18,10 @@ import Parchment
 
 class Home_2: UIViewController {
     
-    var profileJSON: JSON?
+    var homeJSON: JSON?
     var challengeJSON: JSON?
     
-    var popupJSON: JSON?
-    
-    var firstTime = true
+    var popupRead = false
     var notShowAgain = false
     
     var circularProgress: CircularProgressView!
@@ -65,9 +63,16 @@ class Home_2: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadHome()
-        
-        firstTime = false
+        //print("3")
+        if (homeJSON == nil) || SceneDelegate.GlobalVariables.reloadHome {
+            loadHome()
+            SceneDelegate.GlobalVariables.reloadHome = false
+        }
+        else {
+            if !popupRead {
+                checkConsent()
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -88,9 +93,9 @@ class Home_2: UIViewController {
         //circularProgress.progress = 0.6
         progressView.addSubview(circularProgress)
         progressView.backgroundColor = .clear
-
+        
         print(SceneDelegate.GlobalVariables.userID)
-
+        
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
@@ -112,118 +117,30 @@ class Home_2: UIViewController {
     }
     
     func loadHome() {
-        var parameters:Parameters = ["id":SceneDelegate.GlobalVariables.userID]
+        var parameters:Parameters = ["user_id":SceneDelegate.GlobalVariables.userID]
         let fcmToken = UserDefaults.standard.string(forKey:"fcm_token")
         if  fcmToken != nil {
             parameters.updateValue(fcmToken!, forKey: "token_notification")
         }
         //print(parameters)
         
-        loadRequest(method:.post, apiName:"get_profile", authorization:true, showLoadingHUD:firstTime, dismissHUD:true, parameters: parameters){ result in
+        loadRequest_V2(method:.post, apiName:"get_home", authorization:true, showLoadingHUD:true, dismissHUD:true, parameters: parameters){ result in
             switch result {
             case .failure(let error):
                 print(error)
                 ProgressHUD.dismiss()
-
+                
             case .success(let responseObject):
                 let json = JSON(responseObject)
                 //print("SUCCESS HOME\(json)")
                 
-                self.profileJSON = json["data"][0]
-                SceneDelegate.GlobalVariables.profileJSON = json["data"][0]
+                self.homeJSON = json["data"]
+                //SceneDelegate.GlobalVariables.profileJSON = json["data"][0]
                 
-                self.popupJSON = json["data"][0]["pop_ups"]
+                SceneDelegate.GlobalVariables.userPicURL = self.homeJSON!["pictureUrl"].stringValue
+                SceneDelegate.GlobalVariables.userHeight = self.homeJSON!["height"].floatValue
                 
-                if json["data"][0]["consent_status"] != "2" {
-                    SwiftAlertView.show(title: "มีการแก้ไขปรับปรุงเงื่อนไขการใช้งาน",
-                                        message: "ระบบจะทำการ Logout อัตโนมัติ\nกรุณาเข้าสู่ระบบใหม่อีกครั้ง",
-                                        buttonTitles: "กลับสู่หน้า Login") { alert in
-                        //alert.backgroundColor = .yellow
-                        alert.titleLabel.font = .Alert_Title
-                        alert.messageLabel.font = .Alert_Message
-                        alert.titleLabel.textColor = .themeColor
-                        
-                        alert.cancelButtonIndex = 0
-                        alert.button(at: 0)?.titleLabel?.font = .Alert_Button
-                        alert.button(at: 0)?.setTitleColor(.themeColor, for: .normal)
-                    }
-                                        .onButtonClicked { _, buttonIndex in
-                                            print("Button Clicked At Index \(buttonIndex)")
-                                            self.logOut()
-                                        }
-                }
-                else if json["data"][0]["privacy_status"] != "1" {
-                    let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "Consent") as! Consent
-                    vc.consentMode = .fromHome
-                    vc.consentType = .privacy
-                    self.navigationController!.pushViewController(vc, animated: true)
-                }
-                else if json["data"][0]["terms_status"] != "1" {
-                    let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "Consent") as! Consent
-                    vc.consentMode = .fromHome
-                    vc.consentType = .terms
-                    self.navigationController!.pushViewController(vc, animated: true)
-                }
-                else if self.popupJSON!.count != 0 {
-                    let popupArray = self.popupJSON![0]
-                    self.popupPic.sd_setImage(with: URL(string:popupArray["pop_ups_img_url"].stringValue), placeholderImage: nil)
-                    
-                    self.popupTitle.text = popupArray["pop_ups_name"].stringValue
-                    
-                    //self.popupDescription.text = popupArray[0]["pop_ups_content"].stringValue.html2String
-                    self.popupDescription.attributedText = popupArray["pop_ups_content"].stringValue.convertToAttributedFromHTML()
-                    self.popupDescription.textColor = .textGray1
-                    self.popupDescription.font = .Prompt_Regular(ofSize: 14)
-                    self.popupDescription.textContainerInset = .zero
-                    
-                    self.popIn(popupView: self.blurView)
-                    self.popIn(popupView: self.popupView)
-                    
-                    self.popupPic.addTapGesture {
-                        switch popupArray["pop_ups_type"].stringValue {
-                        case "web":
-                            let urlStr = popupArray["pop_ups_link"].stringValue
-                            if urlStr.contains("http") {
-                                let vc = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "Web") as! Web
-                                vc.titleString = ""
-                                vc.webUrlString = urlStr
-                                self.navigationController!.pushViewController(vc, animated: true)
-                            }
-                            else {
-                                if let url = URL(string: urlStr) {
-                                    if UIApplication.shared.canOpenURL(url) {
-                                        UIApplication.shared.open(url)
-                                    }
-                                    else {
-                                        self.showErrorNoData()
-                                    }
-                                }
-                            }
-                            
-                        case "challenge":
-                            self.checkJoinStatus(challengeID: popupArray["pop_ups_link"].stringValue)
-                            
-                        case "challenge_my":
-                            let vc = self.tabBarController!.viewControllers![3] as! Challenge_2
-                            vc.myMode = .official
-                            self.tabBarController?.selectedIndex = 3
-                            
-                        default:
-                            break
-                        }
-                        
-                        if self.notShowAgain {
-                            self.savePopupRead()
-                        }
-                        self.popOut(popupView: self.popupView)
-                        self.popOut(popupView: self.blurView)
-                    }
-                }
-                SceneDelegate.GlobalVariables.userPicURL = self.profileJSON!["pictureUrl"].stringValue
-                
-                SceneDelegate.GlobalVariables.userHeight = self.profileJSON!["height"].floatValue
-                
-                let weight = self.profileJSON!["weight"].floatValue
+                let weight = self.homeJSON!["weight"].floatValue
                 if weight == 0 {
                     //SceneDelegate.GlobalVariables.userWeight = 75
                 }
@@ -231,36 +148,132 @@ class Home_2: UIViewController {
                     SceneDelegate.GlobalVariables.userWeight = weight
                 }
                 
-                SceneDelegate.GlobalVariables.userLastSynced = self.profileJSON!["last_sync"].stringValue
+                SceneDelegate.GlobalVariables.userLastSynced = self.homeJSON!["last_sync"].stringValue
                 
-                self.syncHealth(startDateStr: SceneDelegate.GlobalVariables.userLastSynced)
-                self.syncSteps(startDateStr: SceneDelegate.GlobalVariables.userLastSynced)
+                if SceneDelegate.GlobalVariables.reSyncHealth {
+                    self.syncHealth(startDateStr: SceneDelegate.GlobalVariables.userLastSynced)
+                    self.syncSteps(startDateStr: SceneDelegate.GlobalVariables.userLastSynced)
+                }
                 
-                self.updateDisplay()
+                self.popupRead = false
+                self.checkConsent()
             }
         }
     }
     
+    func checkConsent() {
+        if homeJSON!["consent_status"] != "2" {
+            SwiftAlertView.show(title: "มีการแก้ไขปรับปรุงเงื่อนไขการใช้งาน",
+                                message: "ระบบจะทำการ Logout อัตโนมัติ\nกรุณาเข้าสู่ระบบใหม่อีกครั้ง",
+                                buttonTitles: "กลับสู่หน้า Login") { alert in
+                //alert.backgroundColor = .yellow
+                alert.titleLabel.font = .Alert_Title
+                alert.messageLabel.font = .Alert_Message
+                alert.titleLabel.textColor = .themeColor
+                
+                alert.cancelButtonIndex = 0
+                alert.button(at: 0)?.titleLabel?.font = .Alert_Button
+                alert.button(at: 0)?.setTitleColor(.themeColor, for: .normal)
+            }
+                                .onButtonClicked { _, buttonIndex in
+                                    print("Button Clicked At Index \(buttonIndex)")
+                                    self.logOut()
+                                }
+        }
+        else if homeJSON!["privacy_status"] != "1" {
+            let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "Consent") as! Consent
+            vc.consentMode = .fromHome
+            vc.consentType = .privacy
+            self.navigationController!.pushViewController(vc, animated: true)
+        }
+        else if homeJSON!["terms_status"] != "1" {
+            let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "Consent") as! Consent
+            vc.consentMode = .fromHome
+            vc.consentType = .terms
+            self.navigationController!.pushViewController(vc, animated: true)
+        }
+        else if homeJSON!["id_pop_ups"] != "" {
+            self.showPopup()
+        }
+        self.updateDisplay()
+    }
+    
     func updateDisplay() {
-        welcomeLabel.text = profileJSON!["welcome_message"].stringValue
-        nameLabel.text = profileJSON!["first_name"].stringValue
-        dateLabel.text = profileJSON!["date_text"].stringValue
+        welcomeLabel.text = homeJSON!["welcome_message"].stringValue
+        nameLabel.text = homeJSON!["first_name"].stringValue
+        dateLabel.text = homeJSON!["date_text"].stringValue
         
-        circularProgress.progress = profileJSON!["my_credit"].floatValue/profileJSON!["credit_next_level"].floatValue
+        circularProgress.progress = homeJSON!["my_credit"].floatValue/homeJSON!["credit_next_level"].floatValue
         
-        creditLabel.text = profileJSON!["my_credit"].stringValue
-
-        medalTitle.text = profileJSON!["level_health_text"].stringValue
-        medalImage.sd_setImage(with: URL(string:profileJSON!["credit_level_url_image"].stringValue), placeholderImage: nil)
-        medalLabelTH.text = profileJSON!["credit_level_text_th"].stringValue
-        medalLabelEN.text = profileJSON!["credit_level_text"].stringValue
-        remainLabel.text = profileJSON!["credit_next_level_text"].stringValue
-
-        homeBg.sd_setImage(with: URL(string:profileJSON!["image_home"].stringValue), placeholderImage: nil)
-        calorieLabel.text = profileJSON!["kcal"].stringValue
+        creditLabel.text = homeJSON!["my_credit"].stringValue
+        
+        medalTitle.text = homeJSON!["level_health_text"].stringValue
+        medalImage.sd_setImage(with: URL(string:homeJSON!["credit_level_url_image"].stringValue), placeholderImage: nil)
+        medalLabelTH.text = homeJSON!["credit_level_text_th"].stringValue
+        medalLabelEN.text = homeJSON!["credit_level_text"].stringValue
+        remainLabel.text = homeJSON!["credit_next_level_text"].stringValue
+        
+        homeBg.sd_setImage(with: URL(string:homeJSON!["image_home"].stringValue), placeholderImage: nil)
+        calorieLabel.text = homeJSON!["kcal"].stringValue
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.00) {
             self.view.hideSkeleton()
+        }
+    }
+    
+    func showPopup() {
+        self.popupPic.sd_setImage(with: URL(string:homeJSON!["pop_ups_img_url"].stringValue), placeholderImage: nil)
+        
+        self.popupTitle.text = homeJSON!["pop_ups_name"].stringValue
+        
+        //self.popupDescription.text = popupArray[0]["pop_ups_content"].stringValue.html2String
+        self.popupDescription.attributedText = homeJSON!["pop_ups_content"].stringValue.convertToAttributedFromHTML()
+        self.popupDescription.textColor = .textGray1
+        self.popupDescription.font = .Prompt_Regular(ofSize: 14)
+        self.popupDescription.textContainerInset = .zero
+        
+        self.popIn(popupView: self.blurView)
+        self.popIn(popupView: self.popupView)
+        
+        self.popupPic.addTapGesture {
+            switch self.homeJSON!["pop_ups_type"].stringValue {
+            case "web":
+                let urlStr = self.homeJSON!["pop_ups_link"].stringValue
+                if urlStr.contains("http") {
+                    let vc = UIStoryboard.mainStoryBoard_2.instantiateViewController(withIdentifier: "Web") as! Web
+                    vc.titleString = ""
+                    vc.webUrlString = urlStr
+                    self.navigationController!.pushViewController(vc, animated: true)
+                }
+                else {
+                    if let url = URL(string: urlStr) {
+                        if UIApplication.shared.canOpenURL(url) {
+                            UIApplication.shared.open(url)
+                        }
+                        else {
+                            print("Can't open popup link")
+                            //self.showErrorNoData()
+                        }
+                    }
+                }
+                
+            case "challenge":
+                self.checkJoinStatus(challengeID: self.homeJSON!["pop_ups_link"].stringValue)
+                
+            case "challenge_my":
+                let vc = self.tabBarController!.viewControllers![3] as! Challenge_2
+                vc.myMode = .official
+                self.tabBarController?.selectedIndex = 3
+                
+            default:
+                break
+            }
+            
+            if self.notShowAgain {
+                self.savePopupRead()
+            }
+            self.popOut(popupView: self.popupView)
+            self.popOut(popupView: self.blurView)
         }
     }
     
@@ -301,8 +314,8 @@ class Home_2: UIViewController {
     }
     
     @IBAction func leftMenuShow(_ sender: UIButton) {
-//        let sideMenu = self.sideMenuController?.menuViewController as! SideMenu_2
-//        sideMenu.loadSideMenu()
+        //        let sideMenu = self.sideMenuController?.menuViewController as! SideMenu_2
+        //        sideMenu.loadSideMenu()
         
         self.sideMenuController!.revealMenu()
     }
@@ -337,7 +350,7 @@ class Home_2: UIViewController {
     
     func savePopupRead() {
         let parameters:Parameters = ["user_id":SceneDelegate.GlobalVariables.userID,
-                                     "popups_id":popupJSON![0]["id_pop_ups"].stringValue
+                                     "popups_id":homeJSON!["id_pop_ups"].stringValue
         ]
         //print(parameters)
         loadRequest_V2(method:.post, apiName:"popups/read", authorization:true, showLoadingHUD:false, dismissHUD:true, parameters: parameters){ result in
@@ -345,10 +358,12 @@ class Home_2: UIViewController {
             case .failure(let error):
                 print(error)
                 ProgressHUD.dismiss()
-
+                
             case .success(let responseObject):
                 let json = JSON(responseObject)
                 print("POPUP READ\(json)")
+                
+                self.popupRead = true
             }
         }
     }

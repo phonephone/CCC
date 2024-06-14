@@ -387,6 +387,10 @@ class ManualForm: UIViewController, UITextFieldDelegate {
                 let json = JSON(responseObject)
                 print("SUCCESS MANUAL SUBMIT\(json)")
                 
+                SceneDelegate.GlobalVariables.reloadHome = true
+                SceneDelegate.GlobalVariables.reloadMyCalory = true
+                SceneDelegate.GlobalVariables.reloadCredit = true
+                
                 let vc = UIStoryboard.manualStoryBoard.instantiateViewController(withIdentifier: "ManualComplete") as! ManualComplete
                 self.navigationController!.pushViewController(vc, animated: true)
             }

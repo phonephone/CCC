@@ -54,7 +54,11 @@ class ChallengeDetail_2: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        loadChallengeDetail(showLoadingHUD: true)
+        
+        if (challengeJSON == nil) || SceneDelegate.GlobalVariables.reloadChallengeDetail {
+            loadChallengeDetail(showLoadingHUD: true)
+            SceneDelegate.GlobalVariables.reloadChallengeDetail = false
+        }
     }
     
     override func viewDidLoad() {
@@ -287,6 +291,7 @@ class ChallengeDetail_2: UIViewController {
                 
                 SceneDelegate.GlobalVariables.reloadChallengeAll = true
                 SceneDelegate.GlobalVariables.reloadChallengeJoin = true
+                SceneDelegate.GlobalVariables.reloadChallengeDetail = true
                 
                 if join{
                     ProgressHUD.showSucceed("เข้าร่วมการแข่งขันแล้ว")

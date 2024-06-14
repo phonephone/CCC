@@ -67,19 +67,19 @@ class ChallengeList_2: UIViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         
         if challengeMode == .all {
-            if SceneDelegate.GlobalVariables.reloadChallengeAll {
+            if (allJSON == nil) || SceneDelegate.GlobalVariables.reloadChallengeAll {
                 loadChallenge(showLoadingHUD: true)
                 SceneDelegate.GlobalVariables.reloadChallengeAll = false
+                searchField.text = ""
             }
         }
         else if challengeMode == .joined {
-            if SceneDelegate.GlobalVariables.reloadChallengeJoin {
+            if (allJSON == nil) || SceneDelegate.GlobalVariables.reloadChallengeJoin {
                 loadChallenge(showLoadingHUD: true)
                 SceneDelegate.GlobalVariables.reloadChallengeJoin = false
+                searchField.text = ""
             }
         }
-        
-        searchField.text = ""
     }
     
     override func viewDidLoad() {

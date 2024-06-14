@@ -21,8 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     struct GlobalVariables {
         static var userID = ""
         static var userLastSynced = "2024-01-01"
-        static var userHeight:Float = 170
-        static var userWeight:Float = 75
+        static var userHeight:Float = 165
+        static var userWeight:Float = 60
         static var userLat = ""
         static var userLong = ""
         static var userPicURL = ""
@@ -34,9 +34,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        static var garminAccessToken = ""
 //        static var garminAccessTokenSecret = ""
         
-        static var reloadSideMenu = true
-        static var reloadChallengeAll = true
-        static var reloadChallengeJoin = true
+        static var reloadSideMenu = false
+        static var reloadHome = false
+        static var reloadMyCalory = false
+        static var reloadCredit = false
+        static var reloadChallengeAll = false
+        static var reloadChallengeJoin = false
+        static var reloadChallengeDetail = false
+        
+        static var reSyncHealth = false
     }
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
@@ -63,7 +69,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //userID = "19413"//ป้อม 2023
         //userID = "999"//พี่เม 2024 parkrun
         //userID = "1000"//พี่เม 2024
-        
+        //userID = "449022"
         
         if userID != nil {
             GlobalVariables.userID = userID!
@@ -84,14 +90,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if userID != nil {
             GlobalVariables.userID = userID!
             
-            let fullURL = HTTPHeaders.baseURL+"get_profile"
+            let fullURL = HTTPHeaders.baseURL_V2+"consent/status"
             let headers = HTTPHeaders.headerWithAuthorize
-            let parameters:Parameters = ["id":userID!]
+            let parameters:Parameters = ["user_id":userID!]
             //AF.sessionConfiguration.timeoutIntervalForRequest = 60
             AF.request(fullURL,
-                       method: .post,
+                       method: .get,
                        parameters: parameters,
-                       encoding: JSONEncoding.default,
+                       encoding: URLEncoding.default,
                        headers: headers,
                        requestModifier: { $0.timeoutInterval = 60 }
             ).responseJSON { response in
@@ -102,10 +108,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     let json = JSON(data)
                     //print("SUCCESS DELEGATE \(json)")
                     
-                    SceneDelegate.GlobalVariables.profileJSON = json["data"][0]
+                    //SceneDelegate.GlobalVariables.profileJSON = json["data"][0]
                     
                     if json["message"] == "success" {
-                        self.setFirstPage(consentStatus: json["data"][0]["consent_status"].stringValue, scene:scene, isApple: json["data"][0]["is_apple_chanel"].boolValue)
+                        self.setFirstPage(consentStatus: json["data"]["consent_status"].stringValue, scene:scene)
                     }
                     else{
                         self.setFirstPage(consentStatus: "0", scene:scene)
@@ -126,17 +132,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         }
     }
     
-    func setFirstPage(consentStatus:String, scene:UIScene, isApple:Bool? = false) {
+    func setFirstPage(consentStatus:String, scene:UIScene) {
         var navigationController : UINavigationController
         switch consentStatus {
         case "1":
             let vc = UIStoryboard.loginStoryBoard.instantiateViewController(withIdentifier: "Consent") as! Consent
-            switch isApple {
-            case true:
-                vc.consentMode = .apple
-            default:
-                vc.consentMode = .normal
-            }
+            vc.consentMode = .normal
             vc.consentType = .privacy
             navigationController = UINavigationController.init(rootViewController: vc)
             
@@ -330,16 +331,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
+        //print("2")
+        
+        SceneDelegate.GlobalVariables.reloadHome = true
+        SceneDelegate.GlobalVariables.reSyncHealth = true
     }
 
     func sceneWillResignActive(_ scene: UIScene) {
         // Called when the scene will move from an active state to an inactive state.
         // This may occur due to temporary interruptions (ex. an incoming phone call).
+        
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+        //print("1")
     }
 
     func sceneDidEnterBackground(_ scene: UIScene) {

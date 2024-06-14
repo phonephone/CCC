@@ -42,9 +42,10 @@ class MyCalorie_2: UIViewController, ChartViewDelegate {
         super.viewWillAppear(animated)
         dateLabel.text = appStringFromDate(date: Date(), format: "d MMMM yyyy")
         
-        loadMyCalories()
-        
-        firstTime = false
+        if (myJSON == nil) || SceneDelegate.GlobalVariables.reloadMyCalory {
+            loadMyCalories()
+            SceneDelegate.GlobalVariables.reloadMyCalory = false
+        }
     }
     
     override func viewDidLoad() {
@@ -106,7 +107,7 @@ class MyCalorie_2: UIViewController, ChartViewDelegate {
     
     func loadMyCalories() {
         let parameters:Parameters = ["id":SceneDelegate.GlobalVariables.userID]
-        loadRequest(method:.post, apiName:"my_kcal", authorization:true, showLoadingHUD:firstTime, dismissHUD:true, parameters: parameters){ result in
+        loadRequest(method:.post, apiName:"my_kcal", authorization:true, showLoadingHUD:true, dismissHUD:true, parameters: parameters){ result in
             switch result {
             case .failure(let error):
                 print(error)
@@ -114,7 +115,7 @@ class MyCalorie_2: UIViewController, ChartViewDelegate {
 
             case .success(let responseObject):
                 let json = JSON(responseObject)
-                print("SUCCESS MY CAL\(json)")
+                //print("SUCCESS MY CAL\(json)")
                 
                 self.myJSON = json["data"][0]
                 

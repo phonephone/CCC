@@ -390,7 +390,7 @@ extension Login {
 
                 let userID = json["data"][0]["id"].stringValue
                 let status = json["data"][0]["status"].stringValue
-                self.saveAndPush(userID: userID, status: status, mode: .apple)
+                self.saveAndPush(userID: userID, status: status, mode: .normal)
             }
         }
     }

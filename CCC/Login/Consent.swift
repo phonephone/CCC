@@ -13,7 +13,6 @@ import SwiftAlertView
 
 enum ConsentMode {
     case normal
-    case apple
     case fromHome
 }
 

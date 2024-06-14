@@ -665,7 +665,7 @@ class Profile_2: UIViewController, UITextFieldDelegate {
         if //isValidEmail(emailField.text!) &&
             //telField.text!.count >= 9 &&
             fullNameField.text!.count >= 1 &&
-            idNoField.text!.count == 13 &&
+            //idNoField.text!.count == 13 &&
             //occupationField.text!.count >= 1 &&
             birthDayField.text!.count >= 1 &&
             genderField.text!.count >= 1 &&
@@ -778,6 +778,7 @@ class Profile_2: UIViewController, UITextFieldDelegate {
 //        else{
 //            loadSubmit()
 //        }
+        view.endEditing(true)
         
         if locationChange {
             alertLocation()
@@ -825,6 +826,9 @@ class Profile_2: UIViewController, UITextFieldDelegate {
                 self.locationChange = false
                 self.submitSuccess()
 
+                SceneDelegate.GlobalVariables.reloadHome = true
+                SceneDelegate.GlobalVariables.reloadMyCalory = true
+                
                 if self.profileMode == .register {
                     self.switchToHome()
                 }
