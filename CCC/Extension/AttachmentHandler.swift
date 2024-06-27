@@ -274,10 +274,12 @@ extension AttachmentHandler: UIImagePickerControllerDelegate, UINavigationContro
     
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let image = info[UIImagePickerController.InfoKey.editedImage.rawValue] as? UIImage {
-            self.imagePickedBlock?(image)
+            let fixedPickedImage = image.fixOrientation()
+            self.imagePickedBlock?(fixedPickedImage)
         }
         else if let image = info[UIImagePickerController.InfoKey.originalImage.rawValue] as? UIImage {
-            self.imagePickedBlock?(image)
+            let fixedPickedImage = image.fixOrientation()
+            self.imagePickedBlock?(fixedPickedImage)
         }
         else{
             print("Something went wrong in  image")

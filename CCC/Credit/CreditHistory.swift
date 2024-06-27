@@ -57,10 +57,10 @@ class CreditHistory: UIViewController, UITextFieldDelegate {
         myDatePicker.dataSource = myDatePicker
         myDatePicker.delegate = myDatePicker
         myDatePicker.backgroundColor = .white
-        myDatePicker.pickerMode = .month
+        myDatePicker.pickerMode = .month2
         myDatePicker.buildMonthCollection(previous: maxPreviousMonth, next: 0)
         myDatePicker.selectRow(maxPreviousMonth, inComponent: 0, animated: false)
-        NotificationCenter.default.addObserver(self, selector: #selector(myMonthChanged(notification:)), name:.monthChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(myMonthChanged(notification:)), name:.monthChanged2, object: nil)
         
         monthYearField.delegate = self
         monthYearField.inputView = myDatePicker

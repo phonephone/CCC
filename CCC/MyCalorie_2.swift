@@ -279,5 +279,16 @@ extension UIStackView {
             return UIImage(cgImage: image!.cgImage!)
         }
     }
+    
+    func removeSingle(view: UIView) {
+        removeArrangedSubview(view)
+        view.removeFromSuperview()
+    }
+    
+    func removeAllArrangedSubviews() {
+        arrangedSubviews.forEach { (view) in
+            removeSingle(view: view)
+        }
+    }
 }
 

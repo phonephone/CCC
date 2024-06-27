@@ -12,6 +12,7 @@ import ProgressHUD
 
 class ChallengeRank_2: UIViewController {
     
+    var challengeID : String?
     var challengeJSON : JSON?
     var rankingJSON : JSON?
     
@@ -85,9 +86,31 @@ class ChallengeRank_2: UIViewController {
         userCalLabel.text = challengeJSON!["my_cal"].stringValue
         //userCalLabel.text = challengeJSON!["my_cal"].stringValue.replacingOccurrences(of: " kcal", with: "", options: NSString.CompareOptions.literal, range: nil)
         
+        //loadRanking()
         rankingJSON = challengeJSON!["participant_rank"]
         myTableView.reloadData()
     }
+    
+//    func loadRanking() {
+//        let parameters:Parameters = ["user_id":SceneDelegate.GlobalVariables.userID,
+//                                     "challenge_id":challengeID!
+//        ]
+//        
+//        loadRequest_V2(method:.post, apiName:"challenges/xxx", authorization:true, showLoadingHUD:true, dismissHUD:true, parameters: parameters){ result in
+//            switch result {
+//            case .failure(let error):
+//                print(error)
+//                ProgressHUD.dismiss()
+//                
+//            case .success(let responseObject):
+//                let json = JSON(responseObject)
+//                print("SUCCESS CHALLENGE RANKING\(json)")
+//                
+//                self.rankingJSON = json["xxx"]
+//                self.myTableView.reloadData()
+//            }
+//        }
+//    }
     
     @IBAction func back(_ sender: UIButton) {
         self.navigationController!.popViewController(animated: true)

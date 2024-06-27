@@ -205,6 +205,7 @@ class ChallengeJoin_2: UIViewController {
     
     @IBAction func rankingClick(_ sender: UIButton) {
         let vc = UIStoryboard.challengeStoryBoard.instantiateViewController(withIdentifier: "ChallengeRank_2") as! ChallengeRank_2
+        vc.challengeID = challengeID
         vc.challengeJSON = challengeJSON
         vc.newHeight = newHeight
         self.navigationController!.pushViewController(vc, animated: true)
@@ -214,6 +215,7 @@ class ChallengeJoin_2: UIViewController {
         let vc = UIStoryboard.challengeStoryBoard.instantiateViewController(withIdentifier: "ChallengeDetail_2") as! ChallengeDetail_2
         vc.challengeMode = challengeMode
         vc.challengeID = challengeID
+        vc.challengeJSON = challengeJSON
         self.navigationController!.pushViewController(vc, animated: true)
     }
     

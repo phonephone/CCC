@@ -143,7 +143,7 @@ class Share: UIViewController, UIGestureRecognizerDelegate {
 
             case .success(let responseObject):
                 let json = JSON(responseObject)
-                //print("SUCCESS STICKER TYPE\(json)")
+                print("SUCCESS STICKER TYPE\(json)")
                 
                 self.typeJSON = json["data"]
                 self.typePicker.reloadAllComponents()

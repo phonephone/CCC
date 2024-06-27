@@ -19,8 +19,7 @@ pod 'Localize-Swift', '~> 3.2'
 pod 'LineSDKSwift'
 pod 'OAuthSwift', '~> 2.2.0'
 pod 'SwiftAlertView', '~> 2.2.1'
-#pod 'Firebase/Analytics'
-#pod 'Firebase/Crashlytics'
+#pod "ESPullToRefresh"
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|

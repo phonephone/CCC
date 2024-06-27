@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -78,7 +78,7 @@
                                         <rect key="frame" x="20" y="0.0" width="353" height="736"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="IRZ-O6-KcO">
-                                                <rect key="frame" x="0.0" y="0.0" width="353" height="703.33333333333337"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="353" height="763.33333333333337"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="HYX-hP-8FT" userLabel="Apple_Health_Stack">
                                                         <rect key="frame" x="0.0" y="0.0" width="353" height="253.33333333333334"/>
@@ -118,7 +118,7 @@
                                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="dnN-iJ-g8n">
                                                                         <rect key="frame" x="299" y="2" width="51" height="31"/>
                                                                         <connections>
-                                                                            <action selector="appleHealth_Click:" destination="1Wh-4S-Wxx" eventType="touchUpInside" id="3oi-TB-pX5"/>
+                                                                            <action selector="appleHealth_Click:" destination="1Wh-4S-Wxx" eventType="touchUpInside" id="CDK-O9-Waf"/>
                                                                         </connections>
                                                                     </switch>
                                                                 </subviews>
@@ -147,7 +147,7 @@
                                                         </constraints>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="jPf-HD-a4g" userLabel="Garmin_Strava_Stack">
-                                                        <rect key="frame" x="0.0" y="305.33333333333331" width="353" height="262.99999999999994"/>
+                                                        <rect key="frame" x="0.0" y="305.33333333333331" width="353" height="322.99999999999994"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="เชื่อมต่อแอปพลิเคชั่น" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nEU-m6-wGZ">
                                                                 <rect key="frame" x="111.00000000000001" y="0.0" width="131.33333333333337" height="23"/>
@@ -174,7 +174,7 @@
                                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="WU3-IZ-KFu">
                                                                         <rect key="frame" x="299" y="2" width="51" height="31"/>
                                                                         <connections>
-                                                                            <action selector="garmin_Click:" destination="1Wh-4S-Wxx" eventType="valueChanged" id="lLg-kf-tfB"/>
+                                                                            <action selector="garmin_Click:" destination="1Wh-4S-Wxx" eventType="touchUpInside" id="7FI-QZ-VSy"/>
                                                                         </connections>
                                                                     </switch>
                                                                 </subviews>
@@ -208,7 +208,7 @@
                                                                     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YaM-Mq-dzh">
                                                                         <rect key="frame" x="299" y="2" width="51" height="31"/>
                                                                         <connections>
-                                                                            <action selector="strava_Click:" destination="1Wh-4S-Wxx" eventType="valueChanged" id="N75-qA-sad"/>
+                                                                            <action selector="strava_Click:" destination="1Wh-4S-Wxx" eventType="touchUpInside" id="1Sp-Zl-5vs"/>
                                                                         </connections>
                                                                     </switch>
                                                                 </subviews>
@@ -291,11 +291,47 @@
                                                                     <constraint firstItem="aT0-gA-e80" firstAttribute="leading" secondItem="LJp-LI-mtj" secondAttribute="leading" id="tMn-d9-k7T"/>
                                                                 </constraints>
                                                             </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h58-h7-Xkc" userLabel="Suunto">
+                                                                <rect key="frame" x="0.0" y="288.00000000000006" width="353" height="35"/>
+                                                                <subviews>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="setting_suunto" translatesAutoresizingMaskIntoConstraints="NO" id="73u-xr-gPA">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" secondItem="73u-xr-gPA" secondAttribute="height" multiplier="1:1" id="OK6-pS-qap"/>
+                                                                            <constraint firstAttribute="height" constant="35" id="vyO-3q-8XR"/>
+                                                                        </constraints>
+                                                                    </imageView>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Suunto" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbJ-gz-Nix">
+                                                                        <rect key="frame" x="45" y="6" width="50.333333333333343" height="23"/>
+                                                                        <fontDescription key="fontDescription" name="Prompt-Regular" family="Prompt" pointSize="15"/>
+                                                                        <color key="textColor" name="Text_Dark_Gray"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cqc-Nu-xCo">
+                                                                        <rect key="frame" x="299" y="2" width="51" height="31"/>
+                                                                        <connections>
+                                                                            <action selector="suunto_Click:" destination="1Wh-4S-Wxx" eventType="touchUpInside" id="3fq-gp-z4I"/>
+                                                                        </connections>
+                                                                    </switch>
+                                                                </subviews>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="cqc-Nu-xCo" firstAttribute="centerY" secondItem="h58-h7-Xkc" secondAttribute="centerY" id="Bhk-66-M4z"/>
+                                                                    <constraint firstItem="fbJ-gz-Nix" firstAttribute="centerY" secondItem="h58-h7-Xkc" secondAttribute="centerY" id="DjS-EX-rlq"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="cqc-Nu-xCo" secondAttribute="trailing" constant="5" id="N6j-cj-FrO"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="73u-xr-gPA" secondAttribute="bottom" id="l76-mX-j79"/>
+                                                                    <constraint firstItem="73u-xr-gPA" firstAttribute="top" secondItem="h58-h7-Xkc" secondAttribute="top" id="rdw-qU-NWf"/>
+                                                                    <constraint firstItem="fbJ-gz-Nix" firstAttribute="leading" secondItem="73u-xr-gPA" secondAttribute="trailing" constant="10" id="rjB-Ml-43J"/>
+                                                                    <constraint firstItem="73u-xr-gPA" firstAttribute="leading" secondItem="h58-h7-Xkc" secondAttribute="leading" id="tPI-i5-XMv"/>
+                                                                </constraints>
+                                                            </view>
                                                         </subviews>
                                                         <constraints>
                                                             <constraint firstItem="AKa-gG-pDE" firstAttribute="leading" secondItem="jPf-HD-a4g" secondAttribute="leading" id="2DX-MR-p36"/>
                                                             <constraint firstItem="85B-0a-pfu" firstAttribute="leading" secondItem="jPf-HD-a4g" secondAttribute="leading" id="6Ae-dX-hGP"/>
+                                                            <constraint firstItem="h58-h7-Xkc" firstAttribute="leading" secondItem="jPf-HD-a4g" secondAttribute="leading" id="BYJ-MA-KJX"/>
                                                             <constraint firstAttribute="trailing" secondItem="AKa-gG-pDE" secondAttribute="trailing" id="IDk-0x-ARr"/>
+                                                            <constraint firstAttribute="trailing" secondItem="h58-h7-Xkc" secondAttribute="trailing" id="PgX-dB-BHA"/>
                                                             <constraint firstItem="LJp-LI-mtj" firstAttribute="leading" secondItem="jPf-HD-a4g" secondAttribute="leading" id="Wo3-5q-JC0"/>
                                                             <constraint firstAttribute="trailing" secondItem="RJ9-Ex-j9N" secondAttribute="trailing" id="WsT-d7-532"/>
                                                             <constraint firstAttribute="trailing" secondItem="LJp-LI-mtj" secondAttribute="trailing" id="jY3-Ax-jVZ"/>
@@ -304,14 +340,14 @@
                                                         </constraints>
                                                     </stackView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UaO-6g-nJh">
-                                                        <rect key="frame" x="0.0" y="593.33333333333337" width="353" height="2"/>
+                                                        <rect key="frame" x="0.0" y="653.33333333333337" width="353" height="2"/>
                                                         <color key="backgroundColor" name="Btn_Disable"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="2" id="Cnn-ye-BKd"/>
                                                         </constraints>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="CE1-Ie-rKg" userLabel="Parkrun_Stack">
-                                                        <rect key="frame" x="0.0" y="620.33333333333337" width="353" height="83"/>
+                                                        <rect key="frame" x="0.0" y="680.33333333333337" width="353" height="83"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="เชื่อมต่อ พันธมิตร" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BoN-ex-bYG">
                                                                 <rect key="frame" x="120" y="0.0" width="113.33333333333331" height="23"/>
@@ -435,6 +471,7 @@
                         <outlet property="myScrollView" destination="HAz-RO-6dQ" id="Aac-gE-bdM"/>
                         <outlet property="parkrunSwitch" destination="CGw-fS-ZPi" id="sKa-t0-npg"/>
                         <outlet property="stravaSwitch" destination="YaM-Mq-dzh" id="Ztn-V7-kYu"/>
+                        <outlet property="suuntoSwitch" destination="cqc-Nu-xCo" id="e8l-T7-iUc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Rx-ft-x2Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -514,7 +551,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ลงทะเบียนเพื่อใช้บริการ ยืนยันตัวตนรูปแบบดิจิทัล" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tXv-4Q-cJN">
-                                                                <rect key="frame" x="22" y="125" width="309.33333333333326" height="23"/>
+                                                                <rect key="frame" x="22" y="125" width="309.33333333333331" height="23"/>
                                                                 <fontDescription key="fontDescription" name="Prompt-Regular" family="Prompt" pointSize="15"/>
                                                                 <color key="textColor" name="Text_Dark_Gray"/>
                                                                 <nil key="highlightedColor"/>
@@ -705,6 +742,7 @@
         <image name="setting_garmin" width="216" height="216"/>
         <image name="setting_parkrun" width="46" height="75"/>
         <image name="setting_strava" width="216" height="216"/>
+        <image name="setting_suunto" width="512" height="512"/>
         <image name="setting_thaiid" width="288" height="288"/>
         <image name="tab4" width="40" height="40"/>
         <namedColor name="Btn_Disable">

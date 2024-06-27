@@ -55,6 +55,10 @@ class ChallengeDetail_2: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        if (challengeJSON != nil) {
+            self.updateBtn()
+        }
+        
         if (challengeJSON == nil) || SceneDelegate.GlobalVariables.reloadChallengeDetail {
             loadChallengeDetail(showLoadingHUD: true)
             SceneDelegate.GlobalVariables.reloadChallengeDetail = false
@@ -135,6 +139,7 @@ class ChallengeDetail_2: UIViewController {
         descriptionView.isHidden = false
         
         //RULE VIEW
+        typeStack.removeAllArrangedSubviews()
         let typeArray = challengeJSON!["type_activity"]
         for i in 0...typeArray.count {
             if typeArray[i]["act_type"] == "text" {
@@ -165,6 +170,7 @@ class ChallengeDetail_2: UIViewController {
         ruleView.isHidden = false
         
         //METHOD VIEW
+        methodStack.removeAllArrangedSubviews()
         let methodArray = challengeJSON!["send_method"]
         for i in 0...methodArray.count {
             let imageView = UIImageView()

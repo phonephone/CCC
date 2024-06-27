@@ -56,6 +56,7 @@ class Setting: UIViewController {
     @IBOutlet weak var stravaSwitch: UISwitch!
     @IBOutlet weak var corosSwitch: UISwitch!
     @IBOutlet weak var fitbitSwitch: UISwitch!
+    @IBOutlet weak var suuntoSwitch: UISwitch!
     @IBOutlet weak var parkrunSwitch: UISwitch!
     
     override func viewWillAppear(_ animated: Bool) {
@@ -120,6 +121,8 @@ class Setting: UIViewController {
             stravaSwitch.isOn = settingJSON!["stravastatus"].boolValue
             corosSwitch.isOn = settingJSON!["corosstatus"].boolValue
             fitbitSwitch.isOn = settingJSON!["fitbitstatus"].boolValue
+            suuntoSwitch.isOn = settingJSON!["suuntostatus"].boolValue
+            
             parkrunSwitch.isOn = settingJSON!["parkrunstatus"].boolValue
         }
         //stravaSwitch.isOn = settingJSON!["stravastatus"].boolValue
@@ -552,24 +555,41 @@ class Setting: UIViewController {
     
     // MARK: - SUUNTO
     @IBAction func suunto_Click(_ sender: UISwitch) {
-        // create an instance of oAuth and retain it
-        suuntoOauthSwift = OAuth2Swift(
-            consumerKey:    "********",
-            consumerSecret: "",
-            authorizeUrl:   "https://cloudapi-oauth.suunto.com/oauth/authorize",
-            responseType:   "code"//"token"
-        )
-        let handle = suuntoOauthSwift!.authorize(
-            withCallbackURL: "ccc://oauth-callback/instagram",
-            scope: "likes+comments", state:"INSTAGRAM") { result in
-                switch result {
-                case .success(let (credential, response, parameters)):
-                    print(credential.oauthToken)
-                    // Do your request
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
+        if sender.isOn{//เปิด
+            sender.setOn(false, animated: true)
+            
+            let appOAuthUrlSuuntoScheme = URL(string:settingJSON!["suuntoLinkOuth"].stringValue)!
+            
+            if UIApplication.shared.canOpenURL(appOAuthUrlSuuntoScheme) {
+                UIApplication.shared.open(appOAuthUrlSuuntoScheme, options: [:])
             }
+            else {
+                //authorizeSuunto()
+            }
+        }
+        else{//ปิด
+            sender.setOn(true, animated: true)
+            deAuthorizeSuuntoFromCCC()
+        }
+        
+//        // create an instance of oAuth and retain it
+//        suuntoOauthSwift = OAuth2Swift(
+//            consumerKey:    "********",
+//            consumerSecret: "",
+//            authorizeUrl:   "https://cloudapi-oauth.suunto.com/oauth/authorize",
+//            responseType:   "code"//"token"
+//        )
+//        let handle = suuntoOauthSwift!.authorize(
+//            withCallbackURL: "ccc://oauth-callback/instagram",
+//            scope: "likes+comments", state:"INSTAGRAM") { result in
+//                switch result {
+//                case .success(let (credential, response, parameters)):
+//                    print(credential.oauthToken)
+//                    // Do your request
+//                case .failure(let error):
+//                    print(error.localizedDescription)
+//                }
+//            }
         
         //        if let oauth = suuntoOauthSwift {
         //            // add safari as authorized URL Handler
@@ -602,6 +622,24 @@ class Setting: UIViewController {
         //                }
         //            }
         //        }
+    }
+    
+    func deAuthorizeSuuntoFromCCC() {
+        let parameters:Parameters = ["user_id":SceneDelegate.GlobalVariables.userID]
+        
+        loadRequest(method:.post, apiName:"connect/suunto/user/disconnect", authorization:true, showLoadingHUD:true, dismissHUD:true, parameters: parameters){ result in
+            switch result {
+            case .failure(let error):
+                print(error)
+                ProgressHUD.dismiss()
+                
+            case .success(let responseObject):
+                let json = JSON(responseObject)
+                print("SUCCESS SUUNTO DELETE\(json)")
+                
+                self.loadPartnerStatus()
+            }
+        }
     }
     
     // MARK: - PARKRUN
@@ -639,6 +677,7 @@ class Setting: UIViewController {
     }
     
     @IBAction func back(_ sender: UIButton) {
+        SceneDelegate.GlobalVariables.reloadSideMenu = true
         self.navigationController!.popViewController(animated: true)
     }
 }

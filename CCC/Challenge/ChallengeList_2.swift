@@ -28,6 +28,10 @@ class ChallengeList_2: UIViewController, UITextFieldDelegate {
     var challengeJSON : JSON?
     var allJSON : JSON?
     
+    var officialJSON : JSON?
+    var myJSON : JSON?
+    var myAllJSON : JSON?
+    
     var provinceJSON:JSON?
     var amphurJSON:JSON?
     var tumbonJSON:JSON?
@@ -167,6 +171,20 @@ class ChallengeList_2: UIViewController, UITextFieldDelegate {
                 
                 self.allJSON = json["data"]
                 self.challengeJSON = self.allJSON
+                
+                if self.challengeMode == .joined {
+                    if self.myMode == .official {
+                        self.officialJSON = self.allJSON
+                    }
+                    else if self.myMode == .general {
+                        if self.searchField.text == "" {
+                            self.myAllJSON = self.allJSON
+                        }
+                        else {
+                            self.myJSON = self.allJSON
+                        }
+                    }
+                }
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.00) {
                     self.myTableView.reloadData()
@@ -332,17 +350,35 @@ class ChallengeList_2: UIViewController, UITextFieldDelegate {
         officialBtn.setTitleColor(.textGray2, for: .normal)
         generalBtn.setTitleColor(.textGray2, for: .normal)
         
+        searchField.text = ""
+        
         if sender.tag == 1 {//official
             officialBtn.titleLabel?.font = .Prompt_SemiBold(ofSize: 16)
             officialBtn.setTitleColor(.themeColor, for: .normal)
             myMode = .official
+            
+            if (officialJSON == nil) {
+                loadChallenge(showLoadingHUD: true)
+            }
+            else {
+                challengeJSON = officialJSON
+                myTableView.reloadData()
+            }
         }
         else if sender.tag == 2 {//general
             generalBtn.titleLabel?.font = .Prompt_SemiBold(ofSize: 16)
             generalBtn.setTitleColor(.themeColor, for: .normal)
             myMode = .general
+            
+            if (myJSON == nil) || SceneDelegate.GlobalVariables.reloadChallengeJoin {
+                loadChallenge(showLoadingHUD: true)
+                SceneDelegate.GlobalVariables.reloadChallengeJoin = false
+            }
+            else {
+                challengeJSON = myAllJSON
+                myTableView.reloadData()
+            }
         }
-        loadChallenge(showLoadingHUD: true)
     }
 }
 

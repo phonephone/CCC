@@ -97,16 +97,14 @@ class WorkoutDataStore {
                         workOutArray["mac_address"] = UIDevice.current.identifierForVendor?.uuidString
                         
                         let meta:[String:Any]? = cellArray.metadata
-                        let channel = meta?["channel"]
-                        if channel != nil {
-                            workOutArray["channel"] = String(describing: channel!)
+                        if let channel = meta?["channel"] {
+                            workOutArray["channel"] = String(describing: channel)
                         } else {
                             workOutArray["channel"] = "CCC Sync"
                         }
                         
-                        let step = meta?["step"]
-                        if step != nil {
-                            workOutArray["step"] = String(describing: step!)
+                        if let step = meta?["step"] {
+                            workOutArray["step"] = String(describing: step)
                         } else {
                             workOutArray["step"] = ""
                         }
@@ -141,10 +139,9 @@ class WorkoutDataStore {
                         let query = HKStatisticsQuery.init(quantityType: hrType,
                                                            quantitySamplePredicate: predicate,
                                                            options: HKStatisticsOptions.discreteAverage) { (query, results, error) in
-                            let beats = results?.averageQuantity()?.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute()))
                             
-                            if beats != nil {
-                                workOutArray["heart_rate"] = String(Int(beats!))
+                            if let beats = results?.averageQuantity()?.doubleValue(for: HKUnit.count().unitDivided(by: HKUnit.minute())) {
+                                workOutArray["heart_rate"] = String(Int(beats))
                             }
                             else{
                                 workOutArray["heart_rate"] = ""

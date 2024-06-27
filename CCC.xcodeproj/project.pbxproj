@@ -1179,7 +1179,7 @@
 					/usr/lib/swift,
 					"$(SDKROOT)/usr/lib/swift",
 				);
-				MARKETING_VERSION = 2.3.5;
+				MARKETING_VERSION = 2.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = th.go.mots.ccc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1215,7 +1215,7 @@
 					/usr/lib/swift,
 					"$(SDKROOT)/usr/lib/swift",
 				);
-				MARKETING_VERSION = 2.3.5;
+				MARKETING_VERSION = 2.3.7;
 				PRODUCT_BUNDLE_IDENTIFIER = th.go.mots.ccc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
