@@ -63,7 +63,8 @@ class CreditDetail: UIViewController {
     }
     
     func loadDetail() {
-        let parameters:Parameters = ["id":creditID!]
+        let parameters:Parameters = ["id":creditID!,
+                                     "user_id":SceneDelegate.GlobalVariables.userID]
         loadRequest_V2(method:.post, apiName:"credit/activity_info", authorization:true, showLoadingHUD:true, dismissHUD:true, parameters: parameters){ result in
             switch result {
             case .failure(let error):

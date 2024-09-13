@@ -140,6 +140,7 @@
 		10B247E92B29C07100E6F2D8 /* PlistParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B247E82B29C07100E6F2D8 /* PlistParser.swift */; };
 		10B4791927FEB85F00F1C1C6 /* Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10B4791827FEB85F00F1C1C6 /* Share.swift */; };
 		10C75A5C2BE0A77800E03289 /* LocationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C75A5B2BE0A77800E03289 /* LocationRequest.swift */; };
+		10C97C192C35492C00AD0B99 /* ProfileWeb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10C97C182C35492C00AD0B99 /* ProfileWeb.swift */; };
 		10DDA9122982F5F100C89772 /* Prompt-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 103B631B2765F56C0098CD57 /* Prompt-ExtraBold.ttf */; };
 		10DDA9132982F5F100C89772 /* Prompt-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 103B63242765F56C0098CD57 /* Prompt-ExtraBoldItalic.ttf */; };
 		10DDA9142982F5F100C89772 /* Prompt-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 103B63252765F56C0098CD57 /* Prompt-Italic.ttf */; };
@@ -316,6 +317,7 @@
 		10B247E82B29C07100E6F2D8 /* PlistParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistParser.swift; sourceTree = "<group>"; };
 		10B4791827FEB85F00F1C1C6 /* Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Share.swift; sourceTree = "<group>"; };
 		10C75A5B2BE0A77800E03289 /* LocationRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRequest.swift; sourceTree = "<group>"; };
+		10C97C182C35492C00AD0B99 /* ProfileWeb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileWeb.swift; sourceTree = "<group>"; };
 		10E475782BC8EEF4008B3E15 /* ShareTemplate1.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareTemplate1.xib; sourceTree = "<group>"; };
 		10FC6E3428DD5DCB0010526E /* ServerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerError.swift; sourceTree = "<group>"; };
 		10FFFC2A280B0D710078E443 /* CheckUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckUpdate.swift; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 				10A807AD2B2B3472001A4305 /* Credit_2.swift */,
 				1073965D2B2B84C30025B2CD /* Challenge_2.swift */,
 				1073965F2B2B86970025B2CD /* Profile_2.swift */,
+				10C97C182C35492C00AD0B99 /* ProfileWeb.swift */,
 				101F9FFE27C8D1D50008BDF7 /* Login */,
 				1073CBA4278D5075000E4364 /* Run */,
 				1003D97D28D1AAEB004B262D /* History */,
@@ -949,6 +952,7 @@
 				107396642B2BF4BE0025B2CD /* CreditDetail.swift in Sources */,
 				10C75A5C2BE0A77800E03289 /* LocationRequest.swift in Sources */,
 				1073CBAA278DA037000E4364 /* Challenge.swift in Sources */,
+				10C97C192C35492C00AD0B99 /* ProfileWeb.swift in Sources */,
 				103B63102765EFF30098CD57 /* SideMenu.swift in Sources */,
 				101F60DE279EB7FD006B88D8 /* ChallengeCreate.swift in Sources */,
 				105F8F1B27706E7500B6AB11 /* WorkoutDataStore.swift in Sources */,
@@ -1168,6 +1172,7 @@
 				DEVELOPMENT_TEAM = VBBZXC58JM;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = CCC/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1179,7 +1184,7 @@
 					/usr/lib/swift,
 					"$(SDKROOT)/usr/lib/swift",
 				);
-				MARKETING_VERSION = 2.3.7;
+				MARKETING_VERSION = 2.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = th.go.mots.ccc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1204,6 +1209,7 @@
 				DEVELOPMENT_TEAM = VBBZXC58JM;
 				EXCLUDED_ARCHS = "";
 				INFOPLIST_FILE = CCC/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1215,7 +1221,7 @@
 					/usr/lib/swift,
 					"$(SDKROOT)/usr/lib/swift",
 				);
-				MARKETING_VERSION = 2.3.7;
+				MARKETING_VERSION = 2.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = th.go.mots.ccc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

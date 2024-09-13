@@ -3,7 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22685"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -138,7 +138,7 @@
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x22-cg-R0o">
-                                                                                <rect key="frame" x="0.0" y="13.333333333333341" width="6.6666666666666679" height="24.333333333333329"/>
+                                                                                <rect key="frame" x="0.0" y="13.333333333333341" width="6.666666666666667" height="24.333333333333329"/>
                                                                                 <fontDescription key="fontDescription" name="Prompt-Medium" family="Prompt" pointSize="16"/>
                                                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <nil key="highlightedColor"/>
@@ -868,7 +868,7 @@
             </objects>
             <point key="canvasLocation" x="2203.8167938931297" y="1564.7887323943662"/>
         </scene>
-        <!--เครดิต-->
+        <!--Credit Detail-->
         <scene sceneID="xvJ-BL-bad">
             <objects>
                 <viewController storyboardIdentifier="CreditDetail" id="ev9-oW-OBK" customClass="CreditDetail" customModule="CCC" customModuleProvider="target" sceneMemberID="viewController">
@@ -1293,7 +1293,6 @@
                             <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                         </userDefinedRuntimeAttributes>
                     </view>
-                    <tabBarItem key="tabBarItem" title="เครดิต" image="tabbar_3" id="JCm-Ga-uaC"/>
                     <size key="freeformSize" width="393" height="1200"/>
                     <connections>
                         <outlet property="acceptBtn" destination="nxR-Ma-TxS" id="8AM-R2-NyK"/>
@@ -1325,13 +1324,13 @@
     </scenes>
     <designables>
         <designable name="nnH-Fg-f7S">
-            <size key="intrinsicContentSize" width="87.666666666666671" height="24.666666666666668"/>
+            <size key="intrinsicContentSize" width="97.666666666666671" height="24.666666666666668"/>
         </designable>
         <designable name="nxR-Ma-TxS">
             <size key="intrinsicContentSize" width="42" height="37"/>
         </designable>
         <designable name="sfb-JS-Kip">
-            <size key="intrinsicContentSize" width="78.333333333333329" height="24.666666666666668"/>
+            <size key="intrinsicContentSize" width="88.333333333333329" height="24.666666666666668"/>
         </designable>
     </designables>
     <resources>
@@ -1346,7 +1345,6 @@
         <image name="credit_history3" width="72" height="72"/>
         <image name="credit_location" width="72" height="73"/>
         <image name="demo_home_bg" width="1290" height="1410"/>
-        <image name="tabbar_3" width="32" height="32"/>
         <namedColor name="Bg_Light_Gray">
             <color red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

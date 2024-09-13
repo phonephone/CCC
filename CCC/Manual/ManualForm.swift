@@ -33,6 +33,8 @@ class ManualForm: UIViewController, UITextFieldDelegate {
     var calPerMinute:Float = 0
     var summaryCal:Float = 0
     
+    var minuteArray:[Int] = []
+    
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var manualPic: UIImageView!
     @IBOutlet weak var manualName: UILabel!
@@ -57,6 +59,8 @@ class ManualForm: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var submitBtn: UIButton!
     
+    var minutePicker: UIPickerView! = UIPickerView()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -68,13 +72,17 @@ class ManualForm: UIViewController, UITextFieldDelegate {
         manualPic.sd_setImage(with: URL(string:manualJSON!["icon"].stringValue), placeholderImage: UIImage(named: "icon_1024"))
         manualName.text = manualJSON!["act_name_th"].stringValue
         
-        timeField.delegate = self
-        timeField.addTarget(self, action: #selector(self.textFieldDidChange(_:)),
-                            for: .editingChanged)
+        for i in 1...60{
+            minuteArray.append(i)
+        }
         
-        distancefield.delegate = self
-        distancefield.addTarget(self, action: #selector(self.textFieldDidChange(_:)),
-                                for: .editingChanged)
+        timeField.delegate = self
+        pickerSetup(picker: minutePicker)
+        timeField.inputView = minutePicker
+//        timeField.addTarget(self, action: #selector(self.textFieldDidChange(_:)),for: .editingChanged)
+//        
+//        distancefield.delegate = self
+//        distancefield.addTarget(self, action: #selector(self.textFieldDidChange(_:)),for: .editingChanged)
         
         tiredLabel.isHidden = true
         
@@ -104,7 +112,18 @@ class ManualForm: UIViewController, UITextFieldDelegate {
         clearBtn()
     }
     
+    func pickerSetup(picker:UIPickerView) {
+        picker.delegate = self
+        picker.dataSource = self
+        picker.backgroundColor = .white
+        picker.setValue(UIColor.textDarkGray, forKeyPath: "textColor")
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == timeField && timeField.text == "" {
+            selectPicker(minutePicker, didSelectRow: 0)
+        }
+        
         if textField == timeField {
             //timeField.text = String(format: "%.0f", durationMinute)
         }
@@ -402,6 +421,40 @@ class ManualForm: UIViewController, UITextFieldDelegate {
     }
 }
 
+// MARK: - Picker Datasource
+extension ManualForm: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return minuteArray.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return String(minuteArray[row])
+    }
+}
+
+// MARK: - Picker Delegate
+extension ManualForm: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    {
+        print("Select \(row)")
+        selectPicker(pickerView, didSelectRow: row)
+    }
+
+    func selectPicker(_ pickerView: UIPickerView, didSelectRow row: Int) {
+        if pickerView == minutePicker {
+            timeField.text = String(minuteArray[row])
+            
+            durationMinute = Float(minuteArray[row])
+            calculateSummaryCal()
+            updateBtn()
+        }
+    }
+}
+
 // MARK: - UIImagePickerControllerDelegate
 
 extension ManualForm: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -469,7 +522,6 @@ extension ManualForm: UIImagePickerControllerDelegate, UINavigationControllerDel
                 
             default:
                 fatalError("received non-dictionary JSON response")
-                ProgressHUD.dismiss()
             }
         }
     }

@@ -1,8 +1,8 @@
 //
-//  Web.swift
+//  ProfileWeb.swift
 //  CCC
 //
-//  Created by Truk Karawawattana on 14/1/2565 BE.
+//  Created by Truk Karawawattana on 3/7/2567 BE.
 //
 
 import UIKit
@@ -10,10 +10,7 @@ import ProgressHUD
 import WebKit
 import SwiftAlertView
 
-class Web: UIViewController, WKNavigationDelegate, WKUIDelegate {
-    
-    var titleString:String?
-    var webUrlString:String?
+class ProfileWeb: UIViewController, WKNavigationDelegate, WKUIDelegate {
     
     var myWebView: WKWebView!
     
@@ -23,11 +20,9 @@ class Web: UIViewController, WKNavigationDelegate, WKUIDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("WEB = \(webUrlString)")
-        //webUrlString = ""
-        self.navigationController?.setStatusBar(backgroundColor: .themeColor)
+        print("PROFILE WEB")
         
-        headerTitle.text = titleString
+        self.navigationController?.setStatusBar(backgroundColor: .themeColor)
         
         let configuration = WKWebViewConfiguration()
         configuration.preferences.javaScriptEnabled = true
@@ -47,15 +42,11 @@ class Web: UIViewController, WKNavigationDelegate, WKUIDelegate {
             myWebView.bottomAnchor.constraint(equalTo: bottomView.bottomAnchor)
         ])
         
-        let url = URL(string: webUrlString!)!
-        //let url = URL(string: "https://www.google.com")!
-        
-        //let url = URL(string: "https://ccc.mots.go.th/ccc_reward/redeem/377388/de0741f771b475bf844d3768dfb544fe")!
-        //let url = URL(string: "https://ccc.mots.go.th/ccc_reward/thaiID/377388")!
-        
+        let url = URL(string: SceneDelegate.GlobalVariables.profileURL)!
         myWebView.load(URLRequest(url: url))
-        //myWebView.loadHTMLString("", baseURL: nil)
         
+        SceneDelegate.GlobalVariables.reloadHome = true
+        SceneDelegate.GlobalVariables.reloadMyCalory = true
     }
     
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
@@ -72,30 +63,6 @@ class Web: UIViewController, WKNavigationDelegate, WKUIDelegate {
 //        guard let urlAsString = navigationAction.request.url?.absoluteString.lowercased() else {
 //            return
 //        }
-        
-        if let url = navigationAction.request.url, let scheme = url.scheme?.lowercased() {
-            print("url = \(url)")
-            
-            if scheme != "https" && scheme != "http" {//check deeplink?
-                if UIApplication.shared.canOpenURL(url){
-                    UIApplication.shared.open(url)
-                }
-            }
-            else{
-                if url.absoluteString.contains("Thaiid/sqrcode") {
-                    goBackToFirst()
-                    UIApplication.shared.open(url)
-                }
-            }
-        }
-    }
-    
-    func goBackToFirst() {
-        let historySize = myWebView.backForwardList.backList.count
-        print(historySize)
-        let firstItem = myWebView.backForwardList.item(at: -historySize)
-        
-        myWebView.go(to: firstItem!)
     }
     
     func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
@@ -191,7 +158,8 @@ class Web: UIViewController, WKNavigationDelegate, WKUIDelegate {
 //        }
     }
     
-    @IBAction func back(_ sender: UIButton) {
-        self.navigationController!.popViewController(animated: true)
+    @IBAction func leftMenuShow(_ sender: UIButton) {
+        self.sideMenuController!.revealMenu()
     }
 }
+

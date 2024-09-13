@@ -27,6 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         static var userLong = ""
         static var userPicURL = ""
         
+        static var profileURL = ""
         static var profileJSON:JSON? = nil
         
         static var stravaAccessToken = ""
@@ -70,6 +71,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //userID = "999"//พี่เม 2024 parkrun
         //userID = "1000"//พี่เม 2024
         //userID = "449022"
+        //userID = "82589"
         
         if userID != nil {
             GlobalVariables.userID = userID!

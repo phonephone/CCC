@@ -217,6 +217,8 @@ class ChallengeJoin_2: UIViewController {
         vc.challengeID = challengeID
         vc.challengeJSON = challengeJSON
         self.navigationController!.pushViewController(vc, animated: true)
+        
+        print("XXX")
     }
     
     @IBAction func back(_ sender: UIButton) {

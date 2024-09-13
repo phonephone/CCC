@@ -99,7 +99,7 @@ class ChallengeDetail_2: UIViewController {
                 
             case .success(let responseObject):
                 let json = JSON(responseObject)
-                //print("SUCCESS CHALLENGE DETAIL 2\(json)")
+                print("SUCCESS CHALLENGE DETAIL 2\(json)")
                 
                 self.challengeJSON = json["data"][0]
                 self.updateBtn()
@@ -159,12 +159,11 @@ class ChallengeDetail_2: UIViewController {
                 typeStack.addArrangedSubview(imageView)
             }
         }
-        
         dailyCalLabel.text = challengeJSON!["cal_per_day"].stringValue
         dailyDurationLabel.text = challengeJSON!["time_limit"].stringValue
         dailyTimeLabel.text = challengeJSON!["times_per_day"].stringValue
         //ruleTextView.text = challengeJSON!["other_text"].stringValue.html2String
-        ruleTextView.attributedText = challengeJSON!["other_text"].stringValue.convertToAttributedFromHTML()
+        ruleTextView.attributedText = challengeJSON!["other_text"].stringValue.convertToAttributedFromHTML()//ช้าาาา
         ruleTextView.textColor = .textGray1
         ruleTextView.font = .Prompt_Regular(ofSize: 14)
         ruleView.isHidden = false
@@ -276,7 +275,8 @@ class ChallengeDetail_2: UIViewController {
         var url:String = ""
         if join {
             url = "challenges/join"
-            parameters.updateValue(inviteCodeField.text ?? "", forKey: "invite_code")
+            //parameters.updateValue(inviteCodeField.text ?? "", forKey: "invite_code")
+            parameters.updateValue(inviteCodeField.text ?? "", forKey: "invite_code_bib")
         }
         else{
             url = "challenges/unjoin"

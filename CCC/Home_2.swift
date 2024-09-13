@@ -148,6 +148,8 @@ class Home_2: UIViewController {
                     SceneDelegate.GlobalVariables.userWeight = weight
                 }
                 
+                SceneDelegate.GlobalVariables.profileURL = self.homeJSON!["profile_url"].stringValue
+                
                 SceneDelegate.GlobalVariables.userLastSynced = self.homeJSON!["last_sync"].stringValue
                 
                 if SceneDelegate.GlobalVariables.reSyncHealth {
