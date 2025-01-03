@@ -2906,7 +2906,7 @@
                                         <rect key="frame" x="0.0" y="75" width="325" height="65"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pNc-f6-fAl">
-                                                <rect key="frame" x="0.0" y="0.0" width="62" height="25"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="64" height="25"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="25" id="fPb-De-vsQ"/>
                                                 </constraints>
@@ -3084,10 +3084,10 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="od1-PQ-nY7">
-                                <rect key="frame" x="94.5" y="627" width="186" height="30"/>
+                                <rect key="frame" x="91.5" y="627" width="192" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ein-aT-GO7">
-                                        <rect key="frame" x="0.0" y="0.0" width="74" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="75" height="30"/>
                                         <fontDescription key="fontDescription" name="Prompt-Regular" family="Prompt" pointSize="14"/>
                                         <state key="normal" title="สมัครสมาชิก">
                                             <color key="titleColor" name="Text_Gray_2"/>
@@ -3097,7 +3097,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O1w-Em-dmc">
-                                        <rect key="frame" x="79" y="0.0" width="51" height="30"/>
+                                        <rect key="frame" x="80" y="0.0" width="54" height="30"/>
                                         <fontDescription key="fontDescription" name="Prompt-SemiBold" family="Prompt" pointSize="14"/>
                                         <state key="normal" title="Sign Up">
                                             <color key="titleColor" name="Main_Theme_2"/>
@@ -3107,7 +3107,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WkC-f1-Cho">
-                                        <rect key="frame" x="135" y="0.0" width="51" height="30"/>
+                                        <rect key="frame" x="139" y="0.0" width="53" height="30"/>
                                         <fontDescription key="fontDescription" name="Prompt-Regular" family="Prompt" pointSize="14"/>
                                         <state key="normal" title="ย้อนกลับ">
                                             <color key="titleColor" name="Text_Gray_2"/>
@@ -4378,7 +4378,7 @@
             <size key="intrinsicContentSize" width="46" height="45"/>
         </designable>
         <designable name="6tP-X2-vgE">
-            <size key="intrinsicContentSize" width="71" height="19"/>
+            <size key="intrinsicContentSize" width="71.5" height="25"/>
         </designable>
         <designable name="7D7-CT-VbS">
             <size key="intrinsicContentSize" width="6" height="23"/>
@@ -4486,10 +4486,10 @@
             <size key="intrinsicContentSize" width="39" height="35"/>
         </designable>
         <designable name="Wpb-R0-mHS">
-            <size key="intrinsicContentSize" width="237" height="108"/>
+            <size key="intrinsicContentSize" width="255" height="108"/>
         </designable>
         <designable name="bQe-z1-oCl">
-            <size key="intrinsicContentSize" width="217" height="108"/>
+            <size key="intrinsicContentSize" width="230" height="108"/>
         </designable>
         <designable name="dTc-QO-lN7">
             <size key="intrinsicContentSize" width="55" height="32"/>
@@ -4531,7 +4531,7 @@
             <size key="intrinsicContentSize" width="6" height="23"/>
         </designable>
         <designable name="nA5-i9-a0A">
-            <size key="intrinsicContentSize" width="45" height="33"/>
+            <size key="intrinsicContentSize" width="50" height="40"/>
         </designable>
         <designable name="o73-0n-jFY">
             <size key="intrinsicContentSize" width="6" height="23"/>
@@ -4561,7 +4561,7 @@
             <size key="intrinsicContentSize" width="230" height="108"/>
         </designable>
         <designable name="v9f-rr-FzO">
-            <size key="intrinsicContentSize" width="39.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="39.5" height="26"/>
         </designable>
         <designable name="vOl-0n-kdv">
             <size key="intrinsicContentSize" width="147" height="34"/>
